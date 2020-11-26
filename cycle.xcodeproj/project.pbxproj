@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,7 +13,6 @@
 		481F0499256B889200EF8000 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 481F0497256B889200EF8000 /* Main.storyboard */; };
 		481F049B256B889300EF8000 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 481F049A256B889300EF8000 /* Assets.xcassets */; };
 		481F049E256B889300EF8000 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 481F049C256B889300EF8000 /* LaunchScreen.storyboard */; };
-		D8660AA86C1E86343AE500B3 /* Pods_cycle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD93B7089648CBFC9A79B9BA /* Pods_cycle.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +34,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8660AA86C1E86343AE500B3 /* Pods_cycle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,7 +46,6 @@
 				AAF8A9DBBA5F86BD4889F21F /* Pods-cycle.debug.xcconfig */,
 				6A6DBCA2A901E77A07A1ADB1 /* Pods-cycle.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
