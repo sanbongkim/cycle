@@ -28,7 +28,7 @@ class ViewController: UIViewController {
        presentationStyle.onTopShadowOpacity = 0.5
        presentationStyle.onTopShadowRadius = 5
        presentationStyle.onTopShadowColor = .black
-       presentationStyle.presentingEndAlpha = 0.8
+       presentationStyle.presentingEndAlpha = 0.6
        var settings = SideMenuSettings()
        settings.presentationStyle = presentationStyle
        settings.menuWidth = view.bounds.width - 100

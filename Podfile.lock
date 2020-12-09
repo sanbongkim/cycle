@@ -1,16 +1,53 @@
 PODS:
+  - Alamofire (4.9.1)
+  - Alamofire-SwiftyJSON (3.0.0):
+    - Alamofire (~> 4.5)
+    - SwiftyJSON (~> 4.0.0)
+  - Charts (3.6.0):
+    - Charts/Core (= 3.6.0)
+  - Charts/Core (3.6.0)
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - GradientCircularProgress (3.13.0)
   - SideMenu (6.5.0)
+  - SwiftyJSON (4.0.0)
 
 DEPENDENCIES:
+  - Alamofire (~> 4.7)
+  - Alamofire-SwiftyJSON
+  - Charts
+  - FMDB
+  - GradientCircularProgress (from `https://github.com/keygx/GradientCircularProgress`)
   - SideMenu
 
 SPEC REPOS:
   trunk:
+    - Alamofire
+    - Alamofire-SwiftyJSON
+    - Charts
+    - FMDB
     - SideMenu
+    - SwiftyJSON
+
+EXTERNAL SOURCES:
+  GradientCircularProgress:
+    :git: https://github.com/keygx/GradientCircularProgress
+
+CHECKOUT OPTIONS:
+  GradientCircularProgress:
+    :commit: 9e2dc60d335ee6eb3677bfd9f965f0ade3607f4c
+    :git: https://github.com/keygx/GradientCircularProgress
 
 SPEC CHECKSUMS:
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  Alamofire-SwiftyJSON: 2b3649d57dc7bb2880fb8b86f8bb969397666916
+  Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  GradientCircularProgress: f5a04b862adc1fbafbd21c0ff450ed7d74d1926e
   SideMenu: f583187d21c5b1dd04c72002be544b555a2627a2
+  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: 53f9410829c799af964a5dfd92a1855342e79e41
+PODFILE CHECKSUM: 8e4230b5bfef1bd49f531cd61120d3eeb8d7549b
 
 COCOAPODS: 1.10.0
