@@ -14,6 +14,17 @@
 		481F049B256B889300EF8000 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 481F049A256B889300EF8000 /* Assets.xcassets */; };
 		481F049E256B889300EF8000 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 481F049C256B889300EF8000 /* LaunchScreen.storyboard */; };
 		486A956F256F45090094B2FB /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486A956E256F45090094B2FB /* LeftViewController.swift */; };
+		48B14AF32581E50C005606C4 /* LiveInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48B14AF12581E50C005606C4 /* LiveInfoCell.xib */; };
+		48B14AF42581E50C005606C4 /* LiveInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B14AF22581E50C005606C4 /* LiveInfoCell.swift */; };
+		48B14AF92581E570005606C4 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B14AF62581E56F005606C4 /* SignUpViewController.swift */; };
+		48B14AFA2581E570005606C4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B14AF72581E56F005606C4 /* LoginViewController.swift */; };
+		48B14AFB2581E570005606C4 /* MusicListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B14AF82581E56F005606C4 /* MusicListController.swift */; };
+		48B14B012581E6B8005606C4 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B14AFF2581E6B8005606C4 /* Protocol.swift */; };
+		48B14B022581E6B8005606C4 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B14B002581E6B8005606C4 /* Util.swift */; };
+		48B14B052581E6E7005606C4 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B14B042581E6E7005606C4 /* Constant.swift */; };
+		48B14B092581FC03005606C4 /* MusicInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B14B082581FC03005606C4 /* MusicInfo.swift */; };
+		48B14B0D2581FC2C005606C4 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B14B0B2581FC2C005606C4 /* DatabaseManager.swift */; };
+		48B14B0E2581FC2C005606C4 /* MyStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B14B0C2581FC2C005606C4 /* MyStyle.swift */; };
 		61B73A6105FD72356115E73F /* Pods_cycle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD93B7089648CBFC9A79B9BA /* Pods_cycle.framework */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +38,17 @@
 		481F049D256B889300EF8000 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		481F049F256B889300EF8000 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		486A956E256F45090094B2FB /* LeftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftViewController.swift; sourceTree = "<group>"; };
+		48B14AF12581E50C005606C4 /* LiveInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiveInfoCell.xib; sourceTree = "<group>"; };
+		48B14AF22581E50C005606C4 /* LiveInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveInfoCell.swift; sourceTree = "<group>"; };
+		48B14AF62581E56F005606C4 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		48B14AF72581E56F005606C4 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		48B14AF82581E56F005606C4 /* MusicListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicListController.swift; sourceTree = "<group>"; };
+		48B14AFF2581E6B8005606C4 /* Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
+		48B14B002581E6B8005606C4 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		48B14B042581E6E7005606C4 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		48B14B082581FC03005606C4 /* MusicInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicInfo.swift; sourceTree = "<group>"; };
+		48B14B0B2581FC2C005606C4 /* DatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		48B14B0C2581FC2C005606C4 /* MyStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyStyle.swift; sourceTree = "<group>"; };
 		6A6DBCA2A901E77A07A1ADB1 /* Pods-cycle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cycle.release.xcconfig"; path = "Target Support Files/Pods-cycle/Pods-cycle.release.xcconfig"; sourceTree = "<group>"; };
 		AAF8A9DBBA5F86BD4889F21F /* Pods-cycle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cycle.debug.xcconfig"; path = "Target Support Files/Pods-cycle/Pods-cycle.debug.xcconfig"; sourceTree = "<group>"; };
 		AD93B7089648CBFC9A79B9BA /* Pods_cycle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cycle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,6 +96,8 @@
 		481F0490256B889200EF8000 /* cycle */ = {
 			isa = PBXGroup;
 			children = (
+				48B14AFE2581E647005606C4 /* Constant */,
+				48B14AFD2581E636005606C4 /* Util */,
 				48B5DBDE25709219002C931D /* Protocol */,
 				48B5DBDD25709205002C931D /* View */,
 				48B5DBDC257091FE002C931D /* Model */,
@@ -88,9 +112,30 @@
 			path = cycle;
 			sourceTree = "<group>";
 		};
+		48B14AFD2581E636005606C4 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				48B14B0B2581FC2C005606C4 /* DatabaseManager.swift */,
+				48B14B0C2581FC2C005606C4 /* MyStyle.swift */,
+				48B14B002581E6B8005606C4 /* Util.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		48B14AFE2581E647005606C4 /* Constant */ = {
+			isa = PBXGroup;
+			children = (
+				48B14B042581E6E7005606C4 /* Constant.swift */,
+			);
+			path = Constant;
+			sourceTree = "<group>";
+		};
 		48B5DBDB257091DE002C931D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				48B14AF72581E56F005606C4 /* LoginViewController.swift */,
+				48B14AF82581E56F005606C4 /* MusicListController.swift */,
+				48B14AF62581E56F005606C4 /* SignUpViewController.swift */,
 				486A956E256F45090094B2FB /* LeftViewController.swift */,
 				481F0495256B889200EF8000 /* ViewController.swift */,
 			);
@@ -100,6 +145,7 @@
 		48B5DBDC257091FE002C931D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				48B14B082581FC03005606C4 /* MusicInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -107,6 +153,8 @@
 		48B5DBDD25709205002C931D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				48B14AF22581E50C005606C4 /* LiveInfoCell.swift */,
+				48B14AF12581E50C005606C4 /* LiveInfoCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -114,6 +162,7 @@
 		48B5DBDE25709219002C931D /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
+				48B14AFF2581E6B8005606C4 /* Protocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -186,6 +235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				481F049E256B889300EF8000 /* LaunchScreen.storyboard in Resources */,
+				48B14AF32581E50C005606C4 /* LiveInfoCell.xib in Resources */,
 				481F049B256B889300EF8000 /* Assets.xcassets in Resources */,
 				481F0499256B889200EF8000 /* Main.storyboard in Resources */,
 			);
@@ -240,9 +290,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48B14AFA2581E570005606C4 /* LoginViewController.swift in Sources */,
+				48B14AF92581E570005606C4 /* SignUpViewController.swift in Sources */,
+				48B14B0D2581FC2C005606C4 /* DatabaseManager.swift in Sources */,
 				481F0496256B889200EF8000 /* ViewController.swift in Sources */,
 				486A956F256F45090094B2FB /* LeftViewController.swift in Sources */,
 				481F0492256B889200EF8000 /* AppDelegate.swift in Sources */,
+				48B14B012581E6B8005606C4 /* Protocol.swift in Sources */,
+				48B14B0E2581FC2C005606C4 /* MyStyle.swift in Sources */,
+				48B14AFB2581E570005606C4 /* MusicListController.swift in Sources */,
+				48B14B092581FC03005606C4 /* MusicInfo.swift in Sources */,
+				48B14B022581E6B8005606C4 /* Util.swift in Sources */,
+				48B14B052581E6E7005606C4 /* Constant.swift in Sources */,
+				48B14AF42581E50C005606C4 /* LiveInfoCell.swift in Sources */,
 				481F0494256B889200EF8000 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

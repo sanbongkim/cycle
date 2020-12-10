@@ -9,6 +9,7 @@ import UIKit
 import SideMenu
 class ViewController: UIViewController {
     var menu:SideMenuNavigationController?
+    var loginViewConroller : LoginViewController!
     override func viewDidLoad() {
        super.viewDidLoad()
        // Do any additional setup after loading the view.
@@ -20,6 +21,14 @@ class ViewController: UIViewController {
        menu?.settings = makeSettings()
        SideMenuManager.default.leftMenuNavigationController = menu
        SideMenuManager.default.addPanGestureToPresent(toView: self.view)
+        
+        
+        
+        loginViewConroller =  (UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController)
+        //loginViewConroller.delegate = self
+        view.addSubview(loginViewConroller.view)
+        addChild(loginViewConroller)
+        loginViewConroller.didMove(toParent: self)
    }
    private func makeSettings() -> SideMenuSettings{
        var presentationStyle = SideMenuPresentationStyle()

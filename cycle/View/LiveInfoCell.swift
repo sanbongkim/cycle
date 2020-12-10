@@ -1,0 +1,26 @@
+//
+//  LiveInfoCell.swift
+//  daview
+//
+//  Created by ksb on 10/07/2019.
+//  Copyright © 2019 ksb. All rights reserved.
+//
+
+import UIKit
+
+class LiveInfoCell: UITableViewCell {
+
+    
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var note: UILabel!
+    @IBOutlet weak var bit: UILabel!
+    @IBOutlet weak var play: UIImageView!
+    @IBOutlet weak var removeAnddownload: UIImageView!
+    @IBOutlet weak var time: UILabel!
+    var isPlaying:Bool?
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        isPlaying=false
+        // Initialization code
+    }
+}
