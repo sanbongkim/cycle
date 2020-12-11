@@ -269,7 +269,7 @@ class MusicListController : UIViewController{
                 task.cancel()
             }
         }
-    }
+      }
     }
     func downloadUsingAlamofire(url: URL, fileName: String,index : Int) {
         let manager = Alamofire.SessionManager.default
@@ -389,7 +389,6 @@ extension MusicListController:UITableViewDelegate,UITableViewDataSource{
                 }
             })
             let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
-                
             })
             alert.addAction(ok)
             alert.addAction(cancel)
@@ -433,7 +432,6 @@ extension MusicListController:UITableViewDelegate,UITableViewDataSource{
         }
     }
     @objc func playerDidFinishPlaying(note: NSNotification) {
-             
         if currentPlay != 10000{
             let mInfo:MusicInfo = musicSort[currentPlay]
              mInfo.isPlaying = false

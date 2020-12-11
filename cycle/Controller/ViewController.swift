@@ -13,22 +13,20 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
        super.viewDidLoad()
        // Do any additional setup after loading the view.
-       let board = UIStoryboard(name: "Main", bundle: nil)
-       let vc = board.instantiateViewController(withIdentifier: "leftViewController")
-       menu = SideMenuNavigationController(rootViewController:vc)
-       menu?.leftSide = true
-       menu?.setNavigationBarHidden(true, animated: false)
-       menu?.settings = makeSettings()
-       SideMenuManager.default.leftMenuNavigationController = menu
-       SideMenuManager.default.addPanGestureToPresent(toView: self.view)
+        let board = UIStoryboard(name: "Main", bundle: nil)
+        let vc = board.instantiateViewController(withIdentifier: "leftViewController")
+        menu = SideMenuNavigationController(rootViewController:vc)
+        menu?.leftSide = true
+        menu?.setNavigationBarHidden(true, animated: false)
+        menu?.settings = makeSettings()
+        SideMenuManager.default.leftMenuNavigationController = menu
+        SideMenuManager.default.addPanGestureToPresent(toView: self.view)
         
-        
-        
-        loginViewConroller =  (UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController)
-        //loginViewConroller.delegate = self
-        view.addSubview(loginViewConroller.view)
-        addChild(loginViewConroller)
-        loginViewConroller.didMove(toParent: self)
+       loginViewConroller =  (UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController)
+       //loginViewConroller.delegate = self
+       view.addSubview(loginViewConroller.view)
+       addChild(loginViewConroller)
+       loginViewConroller.didMove(toParent: self)
    }
    private func makeSettings() -> SideMenuSettings{
        var presentationStyle = SideMenuPresentationStyle()

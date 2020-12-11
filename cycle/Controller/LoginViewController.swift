@@ -23,27 +23,19 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var notMemberLabel: UILabel!
     
     override func viewDidLoad(){
+        
         super.viewDidLoad()
         self.userid.tag = 100
         self.pwd.tag = 101
-       
         self.userid.placeholder = Util.localString(st: "ph_user_id")
-       
-        
         self.pwd.placeholder = Util.localString(st: "ph_user_pwd")
         self.notMemberLabel.text = Util.localString(st: "ph_not_member")
         self.signup.setTitle(Util.localString(st:"ph_join_now"), for:.normal)
         // call the 'keyboardWillShow' function when the view controller receive the notification that a keyboard is going to be shown
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-       
-       
         //self.pwd.addBottomBorder()
-        
-        
-       
-        
-            // call the 'keyboardWillHide' function when the view controlelr receive notification that keyboard is going to be hidden
+        // call the 'keyboardWillHide' function when the view controlelr receive notification that keyboard is going to be hidden
         // Do any additional setup after loading the view.
     }
     /*
@@ -54,7 +46,6 @@ class LoginViewController: UIViewController {
         //self.userid.addBottomBorder()
      
     }
-
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(true)

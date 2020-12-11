@@ -9,7 +9,8 @@ import UIKit
 import GradientCircularProgress
 
 public struct MyStyle: StyleProperty {
-      /*** style properties **********************************************************************************/
+    
+    /*** style properties **********************************************************************************/
       
       // Progress Size
       public var progressSize: CGFloat = 150
@@ -30,13 +31,13 @@ public struct MyStyle: StyleProperty {
       // Message
       public var messageLabelFont: UIFont? = UIFont.systemFont(ofSize: 16.0)
       public var messageLabelFontColor: UIColor? = UIColor.white
-      
+    
       // Background
     public var backgroundStyle: BackgroundStyles = .dark
       
       // Dismiss
       public var dismissTimeInterval: Double? = nil // 'nil' for default setting.
-      
+    
       /*** style properties **********************************************************************************/
       
     public init() {}
