@@ -559,13 +559,76 @@
                     <view key="view" contentMode="scaleToFill" id="Y04-Zv-5vK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cycle_sub_background" translatesAutoresizingMaskIntoConstraints="NO" id="EHc-Uu-Ypt">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="I1U-lW-KsD">
+                                <rect key="frame" x="0.0" y="65" width="320" height="300"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lHp-bM-xFd">
+                                        <rect key="frame" x="10" y="8" width="280" height="32"/>
+                                        <state key="normal" image="ibtn_ham_record_btn"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2fz-2N-Acb">
+                                        <rect key="frame" x="10" y="44" width="280" height="32"/>
+                                        <state key="normal" image="ibtn_ham_rank_btn"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AqT-Dh-Eb5">
+                                        <rect key="frame" x="10" y="80" width="280" height="32"/>
+                                        <state key="normal" image="ibtn_ham_movie_down_btn"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hjh-Et-Dxz">
+                                        <rect key="frame" x="10" y="116" width="280" height="32"/>
+                                        <state key="normal" image="ibtn_ham_vr_setting_btn"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPv-0e-mUz">
+                                        <rect key="frame" x="10" y="152" width="280" height="32"/>
+                                        <state key="normal" image="ibtn_ham_music_btn"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Ps-zU-XNT">
+                                        <rect key="frame" x="10" y="188" width="280" height="32"/>
+                                        <state key="normal" image="ibtn_ham_tutorial_btn"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AMZ-Ag-rvB">
+                                        <rect key="frame" x="10" y="224" width="280" height="32"/>
+                                        <state key="normal" image="ibtn_ham_version_btn"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nFw-ex-22T">
+                                        <rect key="frame" x="10" y="260" width="280" height="32"/>
+                                        <state key="normal" image="ibtn_ham_buy_btn"/>
+                                    </button>
+                                </subviews>
+                                <edgeInsets key="layoutMargins" top="8" left="10" bottom="8" right="30"/>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ihZ-T3-SQY">
+                                <rect key="frame" x="5" y="10" width="31" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="ihZ-T3-SQY" secondAttribute="height" multiplier="1:1" id="Wi8-zH-lmc"/>
+                                </constraints>
+                                <state key="normal" image="back_arrow_btn"/>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="oO7-9l-vxn"/>
-                        <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="I1U-lW-KsD" firstAttribute="centerX" secondItem="Y04-Zv-5vK" secondAttribute="centerX" id="3Wq-fP-leF"/>
+                            <constraint firstItem="ihZ-T3-SQY" firstAttribute="width" secondItem="EHc-Uu-Ypt" secondAttribute="width" multiplier="0.0966184" id="8MW-JK-4tG"/>
+                            <constraint firstItem="ihZ-T3-SQY" firstAttribute="leading" secondItem="oO7-9l-vxn" secondAttribute="leading" constant="5" id="9eO-sW-Rdz"/>
+                            <constraint firstAttribute="trailing" secondItem="I1U-lW-KsD" secondAttribute="trailing" id="HR6-yz-vmq"/>
+                            <constraint firstItem="EHc-Uu-Ypt" firstAttribute="leading" secondItem="oO7-9l-vxn" secondAttribute="leading" id="Le3-bL-F1y"/>
+                            <constraint firstItem="ihZ-T3-SQY" firstAttribute="top" secondItem="oO7-9l-vxn" secondAttribute="top" constant="10" id="Ucm-3g-bpK"/>
+                            <constraint firstItem="lHp-bM-xFd" firstAttribute="height" secondItem="EHc-Uu-Ypt" secondAttribute="height" multiplier="40/600" id="jUx-9I-V7L"/>
+                            <constraint firstItem="EHc-Uu-Ypt" firstAttribute="top" secondItem="oO7-9l-vxn" secondAttribute="top" id="lf9-fC-4ab"/>
+                            <constraint firstItem="EHc-Uu-Ypt" firstAttribute="bottom" secondItem="oO7-9l-vxn" secondAttribute="bottom" id="o0v-NX-82q"/>
+                            <constraint firstItem="oO7-9l-vxn" firstAttribute="trailing" secondItem="EHc-Uu-Ypt" secondAttribute="trailing" id="vX0-3c-nur"/>
+                            <constraint firstItem="I1U-lW-KsD" firstAttribute="top" secondItem="oO7-9l-vxn" secondAttribute="bottom" multiplier="100:736" id="z6Z-kn-HoW"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aMP-xW-YkR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="77" y="-604"/>
+            <point key="canvasLocation" x="76.811594202898561" y="-605.70652173913049"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="h0w-IY-Yxk">
@@ -1066,6 +1129,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="back_arrow_btn" width="80" height="80"/>
         <image name="background_days_to_achived" width="180" height="200"/>
         <image name="background_exer_level" width="140" height="200"/>
         <image name="background_point" width="220" height="200"/>
@@ -1073,11 +1137,20 @@
         <image name="btn_back" width="70" height="70"/>
         <image name="btn_help" width="80" height="80"/>
         <image name="cycle_background" width="1080" height="1920"/>
+        <image name="cycle_sub_background" width="1080" height="1920"/>
         <image name="drawer_btn" width="90" height="90"/>
         <image name="exercise_bi" width="580" height="130"/>
         <image name="gmae_sensor_back" width="955" height="184"/>
         <image name="gocenser" width="413" height="142"/>
         <image name="ibtn_exer_start" width="446" height="167"/>
+        <image name="ibtn_ham_buy_btn" width="600" height="126"/>
+        <image name="ibtn_ham_movie_down_btn" width="600" height="126"/>
+        <image name="ibtn_ham_music_btn" width="600" height="126"/>
+        <image name="ibtn_ham_rank_btn" width="600" height="126"/>
+        <image name="ibtn_ham_record_btn" width="600" height="126"/>
+        <image name="ibtn_ham_tutorial_btn" width="600" height="126"/>
+        <image name="ibtn_ham_version_btn" width="600" height="126"/>
+        <image name="ibtn_ham_vr_setting_btn" width="600" height="126"/>
         <image name="main_bi" width="1032" height="338"/>
         <image name="music_down_n" width="605" height="133"/>
         <image name="music_list_icon" width="169" height="33"/>
@@ -1088,9 +1161,6 @@
         <image name="user_pw_icon" width="90" height="90"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemIndigoColor">
-            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

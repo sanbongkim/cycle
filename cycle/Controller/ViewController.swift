@@ -3,8 +3,6 @@
 //  cycle
 //
 //  Created by SSG on 2020/11/23.
-//
-
 import UIKit
 import SideMenu
 class ViewController: UIViewController {
@@ -20,13 +18,12 @@ class ViewController: UIViewController {
         menu?.setNavigationBarHidden(true, animated: false)
         menu?.settings = makeSettings()
         SideMenuManager.default.leftMenuNavigationController = menu
-        SideMenuManager.default.addPanGestureToPresent(toView: self.view)
-        
-       loginViewConroller =  (UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController)
-       //loginViewConroller.delegate = self
-       view.addSubview(loginViewConroller.view)
-       addChild(loginViewConroller)
-       loginViewConroller.didMove(toParent: self)
+        SideMenuManager.default.addPanGestureToPresent(toView: self.view)        
+//       loginViewConroller =  (UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController)
+//       //loginViewConroller.delegate = self
+//       view.addSubview(loginViewConroller.view)
+//       addChild(loginViewConroller)
+//       loginViewConroller.didMove(toParent: self)
    }
    private func makeSettings() -> SideMenuSettings{
        var presentationStyle = SideMenuPresentationStyle()

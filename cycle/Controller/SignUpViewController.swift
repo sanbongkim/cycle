@@ -59,7 +59,6 @@ class SignUpViewController: UIViewController {
              shouldMoveViewUp = true
            }
          }
-
          if(shouldMoveViewUp) {
            self.view.frame.origin.y = 0 - keyboardSize.height
          }
@@ -73,7 +72,6 @@ class SignUpViewController: UIViewController {
     @IBAction func backButtonAction(_ sender: Any) {
         self.dismiss(animated: true, completion:nil)
     }
-    
     @IBAction func signAction(_ sender: Any) {
         if checkEmailid() == false{
             let alert = UIAlertController(title: Util.localString(st: "alert"), message:Util.localString(st: "signup_email_input"), preferredStyle: .alert)
@@ -81,7 +79,6 @@ class SignUpViewController: UIViewController {
             }
             alert.addAction(OKAction)
             self.present(alert, animated: true, completion: nil)
-            
         }
         else{
             if checkPassword() == -100{
