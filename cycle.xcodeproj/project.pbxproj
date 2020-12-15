@@ -13,6 +13,10 @@
 		481F049B256B889300EF8000 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 481F049A256B889300EF8000 /* Assets.xcassets */; };
 		481F049E256B889300EF8000 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 481F049C256B889300EF8000 /* LaunchScreen.storyboard */; };
 		486A956F256F45090094B2FB /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486A956E256F45090094B2FB /* LeftViewController.swift */; };
+		48A9B0AD258855EC00862D13 /* AlertMusicNotSet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48A9B0AC258855EC00862D13 /* AlertMusicNotSet.xib */; };
+		48A9B0B02588561000862D13 /* AlertMusicNotSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A9B0AF2588561000862D13 /* AlertMusicNotSet.swift */; };
+		48A9B0BE25887B4E00862D13 /* AlertViewNotSetMusicVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A9B0BD25887B4E00862D13 /* AlertViewNotSetMusicVC.swift */; };
+		48A9B0C22588930900862D13 /* AlertVodDownVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A9B0C12588930900862D13 /* AlertVodDownVC.swift */; };
 		48B14AF32581E50C005606C4 /* LiveInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48B14AF12581E50C005606C4 /* LiveInfoCell.xib */; };
 		48B14AF42581E50C005606C4 /* LiveInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B14AF22581E50C005606C4 /* LiveInfoCell.swift */; };
 		48B14AF92581E570005606C4 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B14AF62581E56F005606C4 /* SignUpViewController.swift */; };
@@ -36,6 +40,10 @@
 		481F049D256B889300EF8000 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		481F049F256B889300EF8000 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		486A956E256F45090094B2FB /* LeftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftViewController.swift; sourceTree = "<group>"; };
+		48A9B0AC258855EC00862D13 /* AlertMusicNotSet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlertMusicNotSet.xib; sourceTree = "<group>"; };
+		48A9B0AF2588561000862D13 /* AlertMusicNotSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertMusicNotSet.swift; sourceTree = "<group>"; };
+		48A9B0BD25887B4E00862D13 /* AlertViewNotSetMusicVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewNotSetMusicVC.swift; sourceTree = "<group>"; };
+		48A9B0C12588930900862D13 /* AlertVodDownVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertVodDownVC.swift; sourceTree = "<group>"; };
 		48B14AF12581E50C005606C4 /* LiveInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiveInfoCell.xib; sourceTree = "<group>"; };
 		48B14AF22581E50C005606C4 /* LiveInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveInfoCell.swift; sourceTree = "<group>"; };
 		48B14AF62581E56F005606C4 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +117,15 @@
 			path = cycle;
 			sourceTree = "<group>";
 		};
+		48A9B0C0258892D600862D13 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				48A9B0BD25887B4E00862D13 /* AlertViewNotSetMusicVC.swift */,
+				48A9B0C12588930900862D13 /* AlertVodDownVC.swift */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
 		48B14AFD2581E636005606C4 /* Util */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +147,7 @@
 		48B5DBDB257091DE002C931D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				48A9B0C0258892D600862D13 /* Alert */,
 				48B14AF72581E56F005606C4 /* LoginViewController.swift */,
 				48B14AF82581E56F005606C4 /* MusicListController.swift */,
 				48B14AF62581E56F005606C4 /* SignUpViewController.swift */,
@@ -152,6 +170,8 @@
 			children = (
 				48B14AF22581E50C005606C4 /* LiveInfoCell.swift */,
 				48B14AF12581E50C005606C4 /* LiveInfoCell.xib */,
+				48A9B0AF2588561000862D13 /* AlertMusicNotSet.swift */,
+				48A9B0AC258855EC00862D13 /* AlertMusicNotSet.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -234,6 +254,7 @@
 				481F049E256B889300EF8000 /* LaunchScreen.storyboard in Resources */,
 				48B14AF32581E50C005606C4 /* LiveInfoCell.xib in Resources */,
 				481F049B256B889300EF8000 /* Assets.xcassets in Resources */,
+				48A9B0AD258855EC00862D13 /* AlertMusicNotSet.xib in Resources */,
 				481F0499256B889200EF8000 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -288,6 +309,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				48B14AFA2581E570005606C4 /* LoginViewController.swift in Sources */,
+				48A9B0C22588930900862D13 /* AlertVodDownVC.swift in Sources */,
+				48A9B0B02588561000862D13 /* AlertMusicNotSet.swift in Sources */,
 				48B14AF92581E570005606C4 /* SignUpViewController.swift in Sources */,
 				48B14B0D2581FC2C005606C4 /* DatabaseManager.swift in Sources */,
 				481F0496256B889200EF8000 /* ViewController.swift in Sources */,
@@ -300,6 +323,7 @@
 				48B14B022581E6B8005606C4 /* Util.swift in Sources */,
 				48B14B052581E6E7005606C4 /* Constant.swift in Sources */,
 				48B14AF42581E50C005606C4 /* LiveInfoCell.swift in Sources */,
+				48A9B0BE25887B4E00862D13 /* AlertViewNotSetMusicVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

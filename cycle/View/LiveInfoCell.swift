@@ -10,7 +10,6 @@ import UIKit
 
 class LiveInfoCell: UITableViewCell {
 
-    
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var note: UILabel!
     @IBOutlet weak var bit: UILabel!

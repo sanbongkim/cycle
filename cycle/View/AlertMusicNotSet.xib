@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jLu-le-GjG">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aSI-Kc-mal">
+                            <rect key="frame" x="62" y="227.66666666666663" width="290" height="281"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GlO-Z2-EJf">
+                                    <rect key="frame" x="129" y="5" width="32" height="32"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="GlO-Z2-EJf" secondAttribute="height" multiplier="1:1" id="uNk-nP-Tcj"/>
+                                    </constraints>
+                                    <state key="normal" title="Button" image="basic_dialog_top_check"/>
+                                </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="동해물과 백두산이 마르고 닳도록 하느님이 보우하수 우리나라만세 무궁화 삼천리 화려강산대할사람대한으로 길힝 보전하세 병우리때 쫑쫑쫑 봄나들이 갑니다.화려강산대할사람대한으로 길힝 보전하세 병우리때 쫑쫑쫑 봄나들이 갑니다" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="cFK-uw-xs5">
+                                    <rect key="frame" x="18" y="45" width="255" height="92"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pVF-D6-8eI">
+                                    <rect key="frame" x="69" y="145" width="153" height="35"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Button" image="btn_empty_warring_1"/>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kr1-J6-t1v">
+                                    <rect key="frame" x="69" y="188" width="153" height="35"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Button" image="btn_empty_warring_1"/>
+                                </button>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="checkbox_normal" translatesAutoresizingMaskIntoConstraints="NO" id="nvM-uX-dKV">
+                                    <rect key="frame" x="8" y="241" width="25" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstItem="GlO-Z2-EJf" firstAttribute="top" secondItem="aSI-Kc-mal" secondAttribute="top" constant="5" id="QA3-uS-gwD"/>
+                                <constraint firstItem="GlO-Z2-EJf" firstAttribute="centerX" secondItem="aSI-Kc-mal" secondAttribute="centerX" id="VDB-u0-zly"/>
+                                <constraint firstItem="GlO-Z2-EJf" firstAttribute="width" secondItem="aSI-Kc-mal" secondAttribute="width" multiplier="0.110345" id="suT-Ie-Zus"/>
+                            </constraints>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HPe-7x-mXw">
+                            <rect key="frame" x="97" y="470" width="255" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.70012922476459027" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="aSI-Kc-mal" firstAttribute="width" secondItem="jLu-le-GjG" secondAttribute="width" multiplier="0.700483" id="61i-so-khS"/>
+                        <constraint firstItem="aSI-Kc-mal" firstAttribute="centerX" secondItem="jLu-le-GjG" secondAttribute="centerX" id="HK4-Vy-gCj"/>
+                        <constraint firstItem="aSI-Kc-mal" firstAttribute="height" secondItem="jLu-le-GjG" secondAttribute="height" multiplier="0.381793" id="ci0-gh-KW1"/>
+                        <constraint firstItem="aSI-Kc-mal" firstAttribute="centerY" secondItem="jLu-le-GjG" secondAttribute="centerY" id="sYh-Gy-rjy"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="jLu-le-GjG" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="IRr-gA-LoE"/>
+                <constraint firstItem="jLu-le-GjG" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="MGa-4S-GOV"/>
+                <constraint firstItem="jLu-le-GjG" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Mnz-T8-MA7"/>
+                <constraint firstItem="jLu-le-GjG" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="Zgu-FN-oux"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-10.144927536231885" y="120.65217391304348"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="basic_dialog_top_check" width="150" height="150"/>
+        <image name="btn_empty_warring_1" width="500" height="100"/>
+        <image name="checkbox_normal" width="75" height="75"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
