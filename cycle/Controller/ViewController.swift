@@ -21,11 +21,11 @@ class ViewController: UIViewController {
        menu?.settings = makeSettings()
        SideMenuManager.default.leftMenuNavigationController = menu
        SideMenuManager.default.addPanGestureToPresent(toView: self.view)
-//     alertVodDownvc =  (UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AlertVodDownVC") as! AlertVodDownVC)
-//     //loginViewConroller.delegate = self
-//     view.addSubview(alertVodDownvc.view)
-//     addChild(alertVodDownvc)
-//     alertVodDownvc.didMove(toParent: self)
+     alertVodDownvc =  (UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AlertVodDownVC") as! AlertVodDownVC)
+     //loginViewConroller.delegate = self
+     view.addSubview(alertVodDownvc.view)
+     addChild(alertVodDownvc)
+     alertVodDownvc.didMove(toParent: self)
    }
     override func viewWillAppear(_ animated: Bool) {
        super.viewWillAppear(true)
