@@ -38,22 +38,15 @@ class SignUpViewController: UIViewController {
          self.view.frame.origin.y = 0
        }
        @objc func keyboardWillShow(notification: NSNotification) {
-
          guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
-
            // if keyboard size is not available for some reason, dont do anything
            return
          }
-
          var shouldMoveViewUp = false
-
          // if active text field is not nil
          if let activeTextField = activeTextField {
-
-           let bottomOfTextField = activeTextField.convert(activeTextField.bounds, to: self.view).maxY;
-           
+           let bottomOfTextField = activeTextField.convert(activeTextField.bounds, to: self.view).maxY
            let topOfKeyboard = self.view.frame.height - keyboardSize.height
-
            // if the bottom of Textfield is below the top of keyboard, move up
            if bottomOfTextField > topOfKeyboard {
              shouldMoveViewUp = true
@@ -117,7 +110,7 @@ class SignUpViewController: UIViewController {
 }
 extension SignUpViewController:UITextFieldDelegate{
     func textFieldDidBeginEditing(_ textField: UITextField) {
-         self.activeTextField = textField
+        self.activeTextField = textField
         if textField == userId{
             
         }
@@ -137,7 +130,6 @@ extension SignUpViewController:UITextFieldDelegate{
          self.activeTextField = nil
     }
     private func textFieldShouldReturn(_ textField: UITextField){
-        
         if checkPassword() == -100{
             
             let alert = UIAlertController(title: Util.localString(st: "alert"), message:Util.localString(st: "signup_pwc_input"), preferredStyle: .alert)

@@ -41,7 +41,7 @@ open class SessionManager {
         case failure(Error)
     }
 
-    // MARK: - Properties
+    // MARK: - Propertiesㅈ
 
     /// A default instance of `SessionManager`, used by top-level Alamofire request methods, and suitable for use
     /// directly for any ad hoc requests.
@@ -62,16 +62,14 @@ open class SessionManager {
             let quality = 1.0 - (Double(index) * 0.1)
             return "\(languageCode);q=\(quality)"
         }.joined(separator: ", ")
-
         // User-Agent Header; see https://tools.ietf.org/html/rfc7231#section-5.5.3
         // Example: `iOS Example/1.0 (org.alamofire.iOS-Example; build:1; iOS 10.0.0) Alamofire/4.0.0`
         let userAgent: String = {
-            if let info = Bundle.main.infoDictionary {
+            if let info = Bundle.main.infoDictionary{
                 let executable = info[kCFBundleExecutableKey as String] as? String ?? "Unknown"
                 let bundle = info[kCFBundleIdentifierKey as String] as? String ?? "Unknown"
                 let appVersion = info["CFBundleShortVersionString"] as? String ?? "Unknown"
                 let appBuild = info[kCFBundleVersionKey as String] as? String ?? "Unknown"
-
                 let osNameVersion: String = {
                     let version = ProcessInfo.processInfo.operatingSystemVersion
                     let versionString = "\(version.majorVersion).\(version.minorVersion).\(version.patchVersion)"
@@ -103,20 +101,16 @@ open class SessionManager {
 
                     return "Alamofire/\(build)"
                 }()
-
                 return "\(executable)/\(appVersion) (\(bundle); build:\(appBuild); \(osNameVersion)) \(alamofireVersion)"
             }
-
             return "Alamofire"
         }()
-
         return [
             "Accept-Encoding": acceptEncoding,
             "Accept-Language": acceptLanguage,
             "User-Agent": userAgent
         ]
     }()
-
     /// Default memory threshold used when encoding `MultipartFormData` in bytes.
     public static let multipartFormDataEncodingMemoryThreshold: UInt64 = 10_000_000
 
@@ -232,7 +226,6 @@ open class SessionManager {
         -> DataRequest
     {
         var originalRequest: URLRequest?
-
         do {
             originalRequest = try URLRequest(url: url, method: method, headers: headers)
             let encodedURLRequest = try encoding.encode(originalRequest!, with: parameters)

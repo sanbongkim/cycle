@@ -23,10 +23,9 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var notMemberLabel: UILabel!
     
     override func viewDidLoad(){
-        
         super.viewDidLoad()
-//        self.userid.tag = 100
-//        self.pwd.tag = 101
+        self.userid.tag = 100
+        self.pwd.tag = 101
 //        self.userid.placeholder = Util.localString(st: "ph_user_id")
 //        self.pwd.placeholder = Util.localString(st: "ph_user_pwd")
 //        self.signup.setTitle(Util.localString(st:"ph_join_now"), for:.normal)
@@ -53,157 +52,160 @@ class LoginViewController: UIViewController {
            view.endEditing(true)
     }
     @IBAction func goLogin(_ sender: Any) {
-        guard let _ = userid.text, userid.text?.count != 0 else{
-            let alert = UIAlertController(title:Util.localString(st: "alert") , message: Util.localString(st: "id_not_input"), preferredStyle: .alert)
-            let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
+        
+        
+     
+        
+        
+        let button = sender as! UIButton
+        if ((button.currentImage?.isEqual(UIImage(named: "login_btn"))) != nil){
+            guard let _ = userid.text, userid.text?.count != 0 else{
+                let alert = UIAlertController(title:Util.localString(st: "alert") , message: Util.localString(st: "id_not_input"), preferredStyle: .alert)
+                let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
+                }
+                alert.addAction(OKAction)
+                self.present(alert, animated: true, completion: nil)
+                return
             }
-            alert.addAction(OKAction)
-            self.present(alert, animated: true, completion: nil)
-            return
-        }
-        guard let _ = pwd.text, pwd.text?.count != 0 else{
-            let alert = UIAlertController(title: Util.localString(st: "alert"), message: Util.localString(st: "pwd_not_input"), preferredStyle: .alert)
-            let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
+            guard let _ = pwd.text, pwd.text?.count != 0 else{
+                let alert = UIAlertController(title: Util.localString(st: "alert"), message: Util.localString(st: "pwd_not_input"), preferredStyle: .alert)
+                let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
+                }
+                alert.addAction(OKAction)
+                self.present(alert, animated: true, completion: nil)
+                return
             }
-            alert.addAction(OKAction)
-            self.present(alert, animated: true, completion: nil)
-            return
-        }
-            var parameters: [String: Any] = [:]
-                 parameters["id"]    = userid.text
-                 parameters["pw"] = pwd.text
-                parameters["timezone"] = Util.timeZoneOffsetInHours()
-                 print(parameters)
-                 activityindi = ActivityIndicator(view: self.view,navigationController: self.navigationController,tabBarController: nil)
-                 activityindi.showActivityIndicator(text:"")
-                 Alamofire.request(Constant.VRFIT_MEMBER_LOGIN_ADDRESS, method: .post, parameters:parameters, encoding:URLEncoding.httpBody)
-                     .responseJSON { response in
-                        self.activityindi.stopActivityIndicator()
-                         switch(response.result) {
-                         case.success:
-                             if let data = response.data, let utf8Text = String(data: data, encoding: .utf8){
-                                 print("Data: \(utf8Text)") // original server data as UTF8 stringㅇ
-                                 do{
-                                     // Get json data
-                                     let json = try JSON(data: data)
-                                     if let reqcode = json["result"].string{
-                                         if(reqcode == "SUCCESS"){
-                                            let uid = self.userid.text!
-                                            let pwd = self.pwd.text!
-                                             UserDefaults.standard.set(uid, forKey: "userid")
-                                             UserDefaults.standard.synchronize()
-                                             UserDefaults.standard.set(pwd, forKey: "userpw")
-                                             UserDefaults.standard.synchronize()
-                                             self.delegate?.signIn()
-                                             if let value = json["data"].dictionary{
-                                                if (value["weight"]?.int) == 0{
-                                                    self.delegate?.alertWeight()
-                                                }else{
-                                                    self.delegate?.saveWeight(weight:(value["weight"]?.int)!)
-                                                }
+                var parameters: [String: Any] = [:]
+                     parameters["id"]    = userid.text
+                     parameters["pw"] = pwd.text
+                    parameters["timezone"] = Util.timeZoneOffsetInHours()
+                     print(parameters)
+                     activityindi = ActivityIndicator(view: self.view,navigationController: self.navigationController,tabBarController: nil)
+                     activityindi.showActivityIndicator(text:"")
+                     Alamofire.request(Constant.VRFIT_MEMBER_LOGIN_ADDRESS, method: .post, parameters:parameters, encoding:URLEncoding.httpBody)
+                         .responseJSON { response in
+                            self.activityindi.stopActivityIndicator()
+                             switch(response.result) {
+                             case.success:
+                                 if let data = response.data, let utf8Text = String(data: data, encoding: .utf8){
+                                     print("Data: \(utf8Text)") // original server data as UTF8 stringㅇ
+                                     do{
+                                         // Get json data
+                                         let json = try JSON(data: data)
+                                         if let reqcode = json["result"].string{
+                                             if(reqcode == "SUCCESS"){
+                                                let uid = self.userid.text!
+                                                let pwd = self.pwd.text!
+                                                 UserDefaults.standard.set(uid, forKey: "userid")
+                                                 UserDefaults.standard.synchronize()
+                                                 UserDefaults.standard.set(pwd, forKey: "userpw")
+                                                 UserDefaults.standard.synchronize()
+                                                 self.delegate?.signIn()
+                                                
+                                             }
+                                             else{
+                                                 if let reqcode = json["reason"].string{
+                                                     if(reqcode == "Service_err_000"){
+                                                        let alert = UIAlertController(title: Util.localString(st: "alert"), message:Util.localString(st: "version_check_error"), preferredStyle: .alert)
+                                                         let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
+                                                          }
+                                                         alert.addAction(OKAction)
+                                                         self.present(alert, animated: true, completion: nil)
+                                                     }
+                                                     else if(reqcode == "service_err_001"){
+                                                        let alert = UIAlertController(title: Util.localString(st: "alert"), message:Util.localString(st: "login_id_fail"), preferredStyle: .alert)
+                                                         let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
+                                                         }
+                                                         alert.addAction(OKAction)
+                                                         self.present(alert, animated: true, completion: nil)
+                                                     }
+                                                     else if(reqcode == "service_err_002"){
+                                                         let alert = UIAlertController(title: Util.localString(st: "alert"), message: Util.localString(st: "login_pw_fail"), preferredStyle: .alert)
+                                                         let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
+                                                         }
+                                                         alert.addAction(OKAction)
+                                                         self.present(alert, animated: true, completion: nil)
+                                                     }
+                                                     else if(reqcode == "service_err_003"){
+                                                         let alert = UIAlertController(title: Util.localString(st: "alert"), message: Util.localString(st: "login_email_check_fail"), preferredStyle: .alert)
+                                                         let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
+                                                         }
+                                                         alert.addAction(OKAction)
+                                                         self.present(alert, animated: true, completion: nil)
+                                                     }
+                                                     else if(reqcode == "service_err_005"){
+                                                         let alert = UIAlertController(title: Util.localString(st: "alert"), message: Util.localString(st: "version_not_match"), preferredStyle: .alert)
+                                                         let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
+                                                         }
+                                                         alert.addAction(OKAction)
+                                                         self.present(alert, animated: true, completion: nil)
+                                                     }
+                                                     else if(reqcode == "service_err_007"){
+                                                        let alert = UIAlertController(title: Util.localString(st: "alert"), message: Util.localString(st: "signup_id_duplication"), preferredStyle: .alert)
+                                                         let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
+                                                         }
+                                                         alert.addAction(OKAction)
+                                                         self.present(alert, animated: true, completion: nil)
+                                                     }
+                                                     else if(reqcode == "service_err_015"){
+                                                         let alert = UIAlertController(title: Util.localString(st: "alert"), message:Util.localString(st: "input_weight_range"), preferredStyle: .alert)
+                                                         let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
+                                                         }
+                                                         alert.addAction(OKAction)
+                                                         self.present(alert, animated: true, completion: nil)
+                                                     }
+                                                 }
                                              }
                                          }
-                                         else{
-                                             if let reqcode = json["reason"].string{
-                                                 if(reqcode == "Service_err_000"){
-                                                    let alert = UIAlertController(title: Util.localString(st: "alert"), message:Util.localString(st: "version_check_error"), preferredStyle: .alert)
-                                                     let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
-                                                      }
-                                                     alert.addAction(OKAction)
-                                                     self.present(alert, animated: true, completion: nil)
-                                                 }
-                                                 else if(reqcode == "service_err_001"){
-                                                    let alert = UIAlertController(title: Util.localString(st: "alert"), message:Util.localString(st: "login_id_fail"), preferredStyle: .alert)
-                                                     let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
-                                                     }
-                                                     alert.addAction(OKAction)
-                                                     self.present(alert, animated: true, completion: nil)
-                                                 }
-                                                 else if(reqcode == "service_err_002"){
-                                                     let alert = UIAlertController(title: Util.localString(st: "alert"), message: Util.localString(st: "login_pw_fail"), preferredStyle: .alert)
-                                                     let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
-                                                     }
-                                                     alert.addAction(OKAction)
-                                                     self.present(alert, animated: true, completion: nil)
-                                                 }
-                                                 else if(reqcode == "service_err_003"){
-                                                     let alert = UIAlertController(title: Util.localString(st: "alert"), message: Util.localString(st: "login_email_check_fail"), preferredStyle: .alert)
-                                                     let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
-                                                     }
-                                                     alert.addAction(OKAction)
-                                                     self.present(alert, animated: true, completion: nil)
-                                                 }
-                                                 else if(reqcode == "service_err_005"){
-                                                     let alert = UIAlertController(title: Util.localString(st: "alert"), message: Util.localString(st: "version_not_match"), preferredStyle: .alert)
-                                                     let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
-                                                     }
-                                                     alert.addAction(OKAction)
-                                                     self.present(alert, animated: true, completion: nil)
-                                                 }
-                                                 else if(reqcode == "service_err_007"){
-                                                    let alert = UIAlertController(title: Util.localString(st: "alert"), message: Util.localString(st: "signup_id_duplication"), preferredStyle: .alert)
-                                                     let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
-                                                     }
-                                                     alert.addAction(OKAction)
-                                                     self.present(alert, animated: true, completion: nil)
-                                                 }
-                                                 else if(reqcode == "service_err_015"){
-                                                     let alert = UIAlertController(title: Util.localString(st: "alert"), message:Util.localString(st: "input_weight_range"), preferredStyle: .alert)
-                                                     let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
-                                                     }
-                                                     alert.addAction(OKAction)
-                                                     self.present(alert, animated: true, completion: nil)
-                                                 }
-                                             }
+                                     }catch{
+                                         print("Unexpected error: \(error).")
+                                     }
+                                 }
+                             case.failure(let error):
+                                 if let error = error as? AFError {
+                                    let alert = UIAlertController(title: Util.localString(st: "alert"), message: Util.localString(st: "wifi_fail"), preferredStyle: .alert)
+                                    let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
+                                }
+                                    alert.addAction(OKAction)
+                                    self.present(alert, animated: true, completion: nil)
+                                     switch error {
+                                     case .invalidURL(let url):
+                                         print("Invalid URL: \(url) - \(error.localizedDescription)")
+                                     case .parameterEncodingFailed(let reason):
+                                         print("Parameter encoding failed: \(error.localizedDescription)")
+                                         print("Failure Reason: \(reason)")
+                                     case .multipartEncodingFailed(let reason):
+                                         print("Multipart encoding failed: \(error.localizedDescription)")
+                                         print("Failure Reason: \(reason)")
+                                     case .responseValidationFailed(let reason):
+                                         print("Response validation failed: \(error.localizedDescription)")
+                                         print("Failure Reason: \(reason)")
+                                         switch reason {
+                                         case .dataFileNil, .dataFileReadFailed:
+                                             print("Downloaded file could not be read")
+                                         case .missingContentType(let acceptableContentTypes):
+                                             print("Content Type Missing: \(acceptableContentTypes)")
+                                         case .unacceptableContentType(let acceptableContentTypes, let responseContentType):
+                                             print("Response content type: \(responseContentType) was unacceptable: \(acceptableContentTypes)")
+                                         case .unacceptableStatusCode(let code):
+                                             print("Response status code was unacceptable: \(code)")
                                          }
+                                     case .responseSerializationFailed(let reason):
+                                         print("Response serialization failed: \(error.localizedDescription)")
+                                         print("Failure Reason: \(reason)")
                                      }
-                                 }catch{
-                                     print("Unexpected error: \(error).")
+                                 } else if let error = error as? URLError {
+                                     print("URLError occurred: \(error)")
+                                 } else {
+                                     print("Unknown error: \(error)")
                                  }
+                                
                              }
-                         case.failure(let error):
-                             if let error = error as? AFError {
-                                let alert = UIAlertController(title: Util.localString(st: "alert"), message: Util.localString(st: "wifi_fail"), preferredStyle: .alert)
-                                let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
-                            }
-                                alert.addAction(OKAction)
-                                self.present(alert, animated: true, completion: nil)
-                                 switch error {
-                                 case .invalidURL(let url):
-                                     print("Invalid URL: \(url) - \(error.localizedDescription)")
-                                 case .parameterEncodingFailed(let reason):
-                                     print("Parameter encoding failed: \(error.localizedDescription)")
-                                     print("Failure Reason: \(reason)")
-                                 case .multipartEncodingFailed(let reason):
-                                     print("Multipart encoding failed: \(error.localizedDescription)")
-                                     print("Failure Reason: \(reason)")
-                                 case .responseValidationFailed(let reason):
-                                     print("Response validation failed: \(error.localizedDescription)")
-                                     print("Failure Reason: \(reason)")
-                                     switch reason {
-                                     case .dataFileNil, .dataFileReadFailed:
-                                         print("Downloaded file could not be read")
-                                     case .missingContentType(let acceptableContentTypes):
-                                         print("Content Type Missing: \(acceptableContentTypes)")
-                                     case .unacceptableContentType(let acceptableContentTypes, let responseContentType):
-                                         print("Response content type: \(responseContentType) was unacceptable: \(acceptableContentTypes)")
-                                     case .unacceptableStatusCode(let code):
-                                         print("Response status code was unacceptable: \(code)")
-                                     }
-                                 case .responseSerializationFailed(let reason):
-                                     print("Response serialization failed: \(error.localizedDescription)")
-                                     print("Failure Reason: \(reason)")
-                                 }
-                             } else if let error = error as? URLError {
-                                 print("URLError occurred: \(error)")
-                             } else {
-                                 print("Unknown error: \(error)")
-                             }
-                            
-                         }
-                 }
-    }
-
+                     }
+        }
+        else{
+            
+        }
 //    @objc func keyboardWillShow(notification: NSNotification) {
 //
 //        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
@@ -217,6 +219,7 @@ class LoginViewController: UIViewController {
 //      self.view.frame.origin.y = 0 - keyboardSize.height
 //    }
 //
+    }
     @objc func keyboardWillHide(notification: NSNotification) {
       // move back the root view origin to zero
       self.view.frame.origin.y = 0
@@ -471,6 +474,7 @@ extension LoginViewController: UITextFieldDelegate{
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.tag == 100{
+           
         }
         else if textField.tag == 101{
             
@@ -489,6 +493,16 @@ extension LoginViewController: UITextFieldDelegate{
     }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField.tag == 100{
+            print(range.length - range.location)
+            if (range.length - range.location) <= 0{
+
+                loginButton.isHidden = false
+                signup.isHidden = true
+            }else{
+                
+                loginButton.isHidden = true
+                signup.isHidden = false
+            }
             
         }
         else if textField.tag == 101{

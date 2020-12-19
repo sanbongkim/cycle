@@ -30,6 +30,8 @@
 		48B14B0E2581FC2C005606C4 /* MyStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B14B0C2581FC2C005606C4 /* MyStyle.swift */; };
 		48D793462589BC0400AA45F5 /* AlertSencerCheckVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D793452589BC0400AA45F5 /* AlertSencerCheckVC.swift */; };
 		48D793492589C99400AA45F5 /* AlertResolutionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D793482589C99400AA45F5 /* AlertResolutionVC.swift */; };
+		48F0B36A258DCAB700C08B69 /* logoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48F0B369258DCAB700C08B69 /* logoView.xib */; };
+		48F0B36D258DCAFF00C08B69 /* logoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F0B36C258DCAFF00C08B69 /* logoView.swift */; };
 		61B73A6105FD72356115E73F /* Pods_cycle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD93B7089648CBFC9A79B9BA /* Pods_cycle.framework */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +61,8 @@
 		48B14B0C2581FC2C005606C4 /* MyStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyStyle.swift; sourceTree = "<group>"; };
 		48D793452589BC0400AA45F5 /* AlertSencerCheckVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertSencerCheckVC.swift; sourceTree = "<group>"; };
 		48D793482589C99400AA45F5 /* AlertResolutionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertResolutionVC.swift; sourceTree = "<group>"; };
+		48F0B369258DCAB700C08B69 /* logoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = logoView.xib; sourceTree = "<group>"; };
+		48F0B36C258DCAFF00C08B69 /* logoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = logoView.swift; sourceTree = "<group>"; };
 		6A6DBCA2A901E77A07A1ADB1 /* Pods-cycle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cycle.release.xcconfig"; path = "Target Support Files/Pods-cycle/Pods-cycle.release.xcconfig"; sourceTree = "<group>"; };
 		AAF8A9DBBA5F86BD4889F21F /* Pods-cycle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cycle.debug.xcconfig"; path = "Target Support Files/Pods-cycle/Pods-cycle.debug.xcconfig"; sourceTree = "<group>"; };
 		AD93B7089648CBFC9A79B9BA /* Pods_cycle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cycle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -178,6 +182,8 @@
 				48B14AF12581E50C005606C4 /* LiveInfoCell.xib */,
 				48A9B0AF2588561000862D13 /* AlertMusicNotSet.swift */,
 				48A9B0AC258855EC00862D13 /* AlertMusicNotSet.xib */,
+				48F0B369258DCAB700C08B69 /* logoView.xib */,
+				48F0B36C258DCAFF00C08B69 /* logoView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -260,6 +266,7 @@
 				481F049E256B889300EF8000 /* LaunchScreen.storyboard in Resources */,
 				48B14AF32581E50C005606C4 /* LiveInfoCell.xib in Resources */,
 				481F049B256B889300EF8000 /* Assets.xcassets in Resources */,
+				48F0B36A258DCAB700C08B69 /* logoView.xib in Resources */,
 				48A9B0AD258855EC00862D13 /* AlertMusicNotSet.xib in Resources */,
 				481F0499256B889200EF8000 /* Main.storyboard in Resources */,
 			);
@@ -320,6 +327,7 @@
 				48B14AF92581E570005606C4 /* SignUpViewController.swift in Sources */,
 				48B14B0D2581FC2C005606C4 /* DatabaseManager.swift in Sources */,
 				481F0496256B889200EF8000 /* ViewController.swift in Sources */,
+				48F0B36D258DCAFF00C08B69 /* logoView.swift in Sources */,
 				486A956F256F45090094B2FB /* LeftViewController.swift in Sources */,
 				481F0492256B889200EF8000 /* AppDelegate.swift in Sources */,
 				48B14B012581E6B8005606C4 /* Protocol.swift in Sources */,
@@ -486,6 +494,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mtome.cycle.cycle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -506,6 +515,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mtome.cycle.cycle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
