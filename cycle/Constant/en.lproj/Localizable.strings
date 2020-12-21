@@ -1,0 +1,167 @@
+"ham_music" = "en_ibtn_ham_music_btn";
+"ham_buy"   = "en_ibtn_ham_buy_btn";
+"ham_rank"  = "en_ibtn_ham_rank_btn";
+"ham_record"    = "en_ibtn_ham_record_btn";
+"ham_tutorial"  = "en_ibtn_ham_tutorial_btn";
+"ham_version"   = "en_ibtn_ham_version_btn";
+"ham_setting"   = "en_ibtn_ham_vr_setting_btn";
+"ham_moviedn"   = "en_ibtn_ham_movie_down_btn";
+
+
+"close_button" = "close";
+
+//이미지뷰어
+"turorial_image_view" = "vr_boxing_instruction_main_en";
+"music_info" = "vr_boxing_instruction_music_en";
+
+//달성일수
+
+"cmpday" = "info_complete_en";
+"level"  = "info_level_en";
+"point"  = "info_point_en";
+"id"    = "info_id_en";
+
+//사용방법 도움말
+"avoid" = "box_ins_avoid_en";
+"hook"  = "box_ins_hook_en";
+"jab"   = "box_ins_jab_en";
+"upper" = "box_ins_upper_en";
+
+
+//회원가입 로그인 PlaceHold
+"ph_not_member" = "Not a member yet?";
+"ph_join_now" = "Join Now";
+"ph_user_id"  = "ID";
+"ph_user_pwd" = "Password";
+"ph_user_pwd_comp" = "Confirm password";
+"ph_user_pwd_email" = "Email";
+
+"ble_turn_off" = "Bluetooth is off.\nPlease turn on Bluetooth.";
+"loding"= "Loding...";
+"ok" = "OK";
+"alert" = "Alert";
+"cancel" = "Cancel";
+
+//회원가입
+"id_not_input"    = "Please enter your ID";
+"pwd_not_input"   ="Please enter your password";
+"id_pw_not_input" = "Please enter your ID or password";
+"signup_success" = "You have become a member.\nWe have sent an verification mail to the e-mail address you entered, please log in after e-mail verification.";
+"signup_id_duplication" = "A duplicate ID.\nPlease try again after changing.";
+"signup_id_input" = "ID is 4~15 letters.";
+"server_fail" = "There was a problem with the server.\nPlease try again later.";
+"signup_pw_input" = "Password must be at least 4 characters.";
+"signup_pwc_input" = "Please check your password.";
+"signup_pwc_null" = "Please check your password.";
+"signup_email_null" = "Please enter your e-mail.";
+"signup_email_input" = "Please check your email format.";
+
+// 로그인 String --="
+"login_pw_fail"="The password is incorrect.";
+"login_email_check_fail"="Email is not authenticated.\nThe verification email was sent to the email address you entered when you signed up, please check your email to complete the verification process.";
+"login_id_fail"="ID does not exist.";
+"find_id_success"="E-mail has been sent.\nPlease log in after checking.";
+"id_include_special"="ID contains special characters.";
+"goal1"="Target count : ";
+"goal2"="";
+
+ "user_lvl1"="Lv 1";
+ "user_lvl2"="Lv 2";
+ "user_lvl3"="Lv 3";
+ "user_lvl4"="Lv 4";
+ "user_lvl5"="Lv 5";
+
+ "today_goal"="Daily Achievement";
+
+ "data_null"="No exercise data available.";
+
+ "app_menu_1"="View VRFit record";
+ "app_menu_2"="Music settings";
+ "app_menu_3"="Tutorial";
+ "app_menu_4"="Version info";
+
+ "never_grip_info"="Don\'t show again.";
+
+// 공용 메세지 --="
+ "server_fail_error"="There was a problem with the server.\nPlease try again later.";
+
+// 백버튼 클릭 시 메세지 --="
+ "back_press_push_message"="Press again to quit the app.";
+
+// server error --="
+ "server_error"="There was a problem with the server.\nPlease try again later.";
+
+// 모듈 삭제 --="
+ "right_module_clear"="Want to delete the right IoT sensor?";
+ "left_module_clear"="Want to delete the left IoT sensor?";
+
+// not yet saved Ex data to server --="
+ "game_data_save_error"="Failed to save the game record.\nDo you want to resend?";
+
+// 모듈 --="
+ "undefine_module"="This IoT sensor is an unregistered IoT sensor.\nPlease contact M2Me Inc. for registration of this IoT sensor.\nEmail : dodo@mtome.co.kr";
+ "connect_with_sensor_failed"="There is no response from the sensor.\nPlease try again. If the same problem persists,\nTurn off the IoT sensor\'s power switch and turn it on again.\nErrorCode 001";
+ "services_discovered_failed"="The sensor\'s service is not discovered. Please try again.\nIf the same problem persists,\nPlease contact M2Me Inc.\nContact email : dodo@mtome.co.kr";
+ "sensor_error_3"="There is no response from the sensor.\nPlease try again. If the same problem persists,\nTurn off the IoT sensor\'s power switch and turn it on again.\nErrorCode 003";
+ "sensor_error_4"="There is no response from the sensor.\nPlease try again. If the same problem persists,\nTurn off the IoT sensor\'s power switch and turn it on again.\nErrorCode 004";
+ "sensor_error_5"="There is no response from the sensor.\nPlease try again. If the same problem persists,\nTurn off the IoT sensor\'s power switch and turn it on again.\nErrorCode 005";
+ "sensor_not_found"="Check the power of the IoT sensor.";
+
+ "success_module_regi"="Sensor registration complete";
+ "sensor_remove"="Sensor removal complete.";
+
+ "on_module"="Please turn on IoT sensor.";
+
+ "music_down"="Would you like to download? title : ";
+ "music_remove"="Are you sure you want to delete the selected music? title :";
+// 이메일 인증 확인하기 알림 --="
+ "email_check_info"="A verification email has been sent.\nYou must click \'link\' in the verification email to complete authentication.\nemail address : ";
+ "email_checkbox_warring"="Please check the box after checking the contents.";
+
+// 파워 세이빙 모드 경고 --="
+ "power_saving_mode_warning"="The battery power saving mode of the smartphone is on.\nIn the battery power saving mode, the app may not work properly.";
+
+// 배터리 경고 --="
+ "low_battery_warning"="If the battery is low, the app may not work properly.";
+
+// 음악 없음 경고 --="
+ "empty_music_warning"="No song downloaded, please download music\nfrom the “Music Setting” menu first.";
+
+ "empty_sensor"="First, connect the IoT sensor.";
+
+// 유저 운동레벨 변경 --="
+ "user_ex_level_1"="Exercise level has been changed to 1.";
+ "user_ex_level_2"="Exercise level has been changed to 2.";
+ "user_ex_level_3"="Exercise level has been changed to 3.";
+ "user_ex_level_4"="Exercise level has been changed to 4.";
+ "user_ex_level_5"="Exercise level has been changed to 5.";
+
+// 이미 추가되어있는 모듈--="
+ "already_module"="This sensor is already registered.";
+
+// Gyro Calibration 진행 질문 --="
+ "gyro_calibration"="This is a procedure for accurate measurement of IoT sensors.\n1. Attach the sensor to a large movement area.\n2.Calibration proceeds for 1 second, there should be no movement during measurement.\n\nDo you want to proceed with calibration?";
+
+// 음악 제거 및 삭제 --="
+ "remove_music_success"="Removal complete.";
+ "remove_music_failed"="Removal failed.";
+
+ "graph_recent_warning"="This graph is up to date.";
+
+ "down_cancel_content"="Downloading music\nAre you sure you want to cancel?";
+
+// Need Input Weight --="
+ "input_weight"="For more accurate calculation of calories burned,\nPlease enter your weight(kg).";
+ "input_weight_fail"="Failed to save weight data.\nPlease try again later.";
+ "input_weight_range"="The weight range is 20kg~180kg.";
+
+// 권한 --="
+ "wifi_fail"="Please check the network status.";
+
+ // 업데이트 필요 --="
+  "version_not_match"="Need to update to the latest version.\nAre you going to update now?";
+  "version_check_error"="No response from server.\nPlease check your network connection and try again.\nIf you still have problems, please contact M2Me Inc.\n\nContact : dodo@mtome.co.kr";
+
+ // Facebook String Value --="
+  "facebook_app_id"="1321965764594711";
+  "fb_login_protocol_scheme"="fb1321965764594711";

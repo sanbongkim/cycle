@@ -1,0 +1,114 @@
+
+/* Class = "UILabel"; text = "14%"; ObjectID = "09i-mW-mWF"; */
+"09i-mW-mWF.text" = "14%";
+
+/* Class = "UIButton"; normalTitle = "다운받은 VR영상으로 설정하러 가기"; ObjectID = "1AX-Rv-jbR"; */
+"1AX-Rv-jbR.normalTitle" = "다운받은 VR영상으로 설정하러 가기";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "1aI-cq-Jhn"; */
+"1aI-cq-Jhn.text" = "Label";
+
+/* Class = "UILabel"; text = "달성일수"; ObjectID = "2Qn-oq-N4D"; */
+"2Qn-oq-N4D.text" = "달성일수";
+
+/* Class = "UILabel"; text = "Distance"; ObjectID = "4sg-c6-6SZ"; */
+"4sg-c6-6SZ.text" = "Distance";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "5Gb-fP-J6x"; */
+"5Gb-fP-J6x.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "중화질 742MB"; ObjectID = "5ig-ZO-2Ol"; */
+"5ig-ZO-2Ol.text" = "중화질 742MB";
+
+/* Class = "UILabel"; text = "TODAY"; ObjectID = "6T9-3u-xOJ"; */
+"6T9-3u-xOJ.text" = "TODAY";
+
+/* Class = "UILabel"; text = "아이디"; ObjectID = "6vl-WO-REU"; */
+"6vl-WO-REU.text" = "아이디";
+
+/* Class = "UIButton"; normalTitle = "DOWN"; ObjectID = "9wB-xd-Avp"; */
+"9wB-xd-Avp.normalTitle" = "DOWN";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "ANS-Ld-pgu"; */
+"ANS-Ld-pgu.normalTitle" = "Button";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "CM8-X2-mOm"; */
+"CM8-X2-mOm.normalTitle" = "Button";
+
+/* Class = "UIButton"; normalTitle = "CANCEL"; ObjectID = "DaF-H6-WFE"; */
+"DaF-H6-WFE.normalTitle" = "CANCEL";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "FhQ-nv-2Zv"; */
+"FhQ-nv-2Zv.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "LiX-OI-sgV"; */
+"LiX-OI-sgV.normalTitle" = "Button";
+
+/* Class = "UIButton"; normalTitle = "센서 구매페이지"; ObjectID = "OAV-vR-cax"; */
+"OAV-vR-cax.normalTitle" = "센서 구매페이지";
+
+/* Class = "UILabel"; text = "고화질 1455MB"; ObjectID = "PYa-ik-bzB"; */
+"PYa-ik-bzB.text" = "고화질 1455MB";
+
+/* Class = "UIButton"; normalTitle = "YES"; ObjectID = "QdM-0e-C0G"; */
+"QdM-0e-C0G.normalTitle" = "YES";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Rab-4Z-kD3"; */
+"Rab-4Z-kD3.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Rax-5D-hjX"; */
+"Rax-5D-hjX.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "동영상다운로드 하러가기"; ObjectID = "ZKR-lX-7ym"; */
+"ZKR-lX-7ym.normalTitle" = "동영상다운로드 하러가기";
+
+/* Class = "UILabel"; text = "ejoejoejoejeojeojeo\\ejfoejfo"; ObjectID = "aKe-6T-62S"; */
+"aKe-6T-62S.text" = "ejoejoejoejeojeojeo\\ejfoejfo";
+
+/* Class = "UILabel"; text = "오늘 운동한 시간"; ObjectID = "cP2-KO-HsF"; */
+"cP2-KO-HsF.text" = "오늘 운동한 시간";
+
+/* Class = "UILabel"; text = "운동영상 설정 방법"; ObjectID = "dov-Ri-SqB"; */
+"dov-Ri-SqB.text" = "운동영상 설정 방법";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "eXp-r1-0LZ"; */
+"eXp-r1-0LZ.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "CANCEL"; ObjectID = "fv2-bL-k2U"; */
+"fv2-bL-k2U.normalTitle" = "CANCEL";
+
+/* Class = "UILabel"; text = "저화질 242MB"; ObjectID = "gPI-zm-T0I"; */
+"gPI-zm-T0I.text" = "저화질 242MB";
+
+/* Class = "UIButton"; normalTitle = "CANCEL"; ObjectID = "hZw-8F-E4D"; */
+"hZw-8F-E4D.normalTitle" = "CANCEL";
+
+/* Class = "UILabel"; text = "영상을 받는중입니다 취소하시겠습니까?"; ObjectID = "hbz-Jj-Ccg"; */
+"hbz-Jj-Ccg.text" = "영상을 받는중입니다 취소하시겠습니까?";
+
+/* Class = "UILabel"; text = "다시보이지않기"; ObjectID = "l4j-dd-LQm"; */
+"l4j-dd-LQm.text" = "다시보이지않기";
+
+/* Class = "UILabel"; text = "운동레벨"; ObjectID = "lQr-Qe-wuR"; */
+"lQr-Qe-wuR.text" = "운동레벨";
+
+/* Class = "UILabel"; text = "운동을 하기 위해서는 영상을 설정해야합니다"; ObjectID = "qDF-Zd-ZZa"; */
+"qDF-Zd-ZZa.text" = "운동을 하기 위해서는 영상을 설정해야합니다";
+
+/* Class = "UILabel"; text = "Calories"; ObjectID = "qVX-lp-sbN"; */
+"qVX-lp-sbN.text" = "Calories";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "t3z-Mg-CBF"; */
+"t3z-Mg-CBF.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "위쪽 다운로드 영상 리스느튼매ㅗ래ㅗ대뢔ㅑ모대ㅑㅗㄹ매ㅑ돼ㅑㄹㅁ도재ㅑ로매ㅑㅈ도래ㅑ몾ㄷ랴ㅐㅗㅁㅈ대ㅑ롬재ㅑㄷ뢔ㅑㅁ졷랴ㅐㅁ졷래ㅑㅗㅁㅈ대ㅑ롬재ㅑ뢔ㅑㅁ졷랴ㅐ좀대ㅑ롲매ㅑ롬ㅈ댜ㅐ"; ObjectID = "wQd-8k-M1Y"; */
+"wQd-8k-M1Y.text" = "위쪽 다운로드 영상 리스느튼매ㅗ래ㅗ대뢔ㅑ모대ㅑㅗㄹ매ㅑ돼ㅑㄹㅁ도재ㅑ로매ㅑㅈ도래ㅑ몾ㄷ랴ㅐㅗㅁㅈ대ㅑ롬재ㅑㄷ뢔ㅑㅁ졷랴ㅐㅁ졷래ㅑㅗㅁㅈ대ㅑ롬재ㅑ뢔ㅑㅁ졷랴ㅐ좀대ㅑ롲매ㅑ롬ㅈ댜ㅐ";
+
+/* Class = "UILabel"; text = "보유 포인트"; ObjectID = "wYP-mC-f3z"; */
+"wYP-mC-f3z.text" = "보유 포인트";
+
+/* Class = "UILabel"; text = "#센서를 구매하시려면 아래의 버튼을 눌러 주세요#"; ObjectID = "xKC-3F-MXo"; */
+"xKC-3F-MXo.text" = "#센서를 구매하시려면 아래의 버튼을 눌러 주세요#";
+
+/* Class = "UILabel"; text = "회원가입"; ObjectID = "zvj-ly-5FF"; */
+"zvj-ly-5FF.text" = "회원가입";

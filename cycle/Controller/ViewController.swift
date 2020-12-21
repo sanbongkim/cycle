@@ -12,19 +12,22 @@ class ViewController: UIViewController {
     var menu:SideMenuNavigationController?
     var loginViewConroller : LoginViewController!
     var alertVodDownvc : AlertVodDownVC!
+    
+    @IBOutlet weak var goLeftMenu: UIButton!
+    
+    
     override func viewDidLoad() {
        super.viewDidLoad()
        // Do any additional setup after loading the view.
        let board = UIStoryboard(name: "Main", bundle: nil)
        let vc = board.instantiateViewController(withIdentifier: "leftViewController")
        menu = SideMenuNavigationController(rootViewController:vc)
-       menu?.leftSide = false
+       menu?.leftSide = true
        menu?.setNavigationBarHidden(true, animated: false)
        menu?.settings = makeSettings()
        SideMenuManager.default.leftMenuNavigationController = menu
-       SideMenuManager.default.addPanGestureToPresent(toView: self.view)
        logo = (Bundle.main.loadNibNamed("logoView", owner: self, options: nil)![0] as! UIView)
-       logo.frame = self.view.bounds
+        logo.frame = self.view.frame
        self.view.addSubview(logo)
        checkVersion()
 //       alertVodDownvc =  (UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AlertVodDownVC") as! AlertVodDownVC)
@@ -49,9 +52,10 @@ class ViewController: UIViewController {
        settings.menuWidth = view.bounds.width - 100
        return settings
    }
-   @IBAction func didTabMenu(){
-       present(menu!,animated: true)
-   }
+    @IBAction func goLeftMenu(_ sender: Any) {
+        present(menu!, animated: true, completion: nil)
+    }
+
    func checkVersion(){
         var parameters: [String: Any] = [:]
         parameters["version"]    =  Util.getAppversion()
@@ -93,7 +97,6 @@ class ViewController: UIViewController {
                         }
                         alert.addAction(OKAction)
                         self.present(alert, animated: true, completion: nil)
-                   
             }
         }
     }
@@ -140,7 +143,7 @@ class ViewController: UIViewController {
                                 let json = try JSON(data: data)
                                 if let reqcode = json["result"].string{
                                     if(reqcode == "SUCCESS"){
-                                        
+                                        SideMenuManager.default.addPanGestureToPresent(toView: self.view)
                                     }
                                 }
                             }catch{
@@ -217,8 +220,11 @@ extension ViewController : LoginControllerDelegate{
         toogleSideMenu()
     }
     func signIn(){
-        self.view .removeFromSuperview()
-        self.removeFromParent()
+        SideMenuManager.default.addPanGestureToPresent(toView: self.view)
+        loginViewConroller.view .removeFromSuperview()
+        loginViewConroller .removeFromParent()
+        
+        
 //        homeController.reflashUserid()
 //        homeController.getData()
 //        if self.loginViewConroller != nil{

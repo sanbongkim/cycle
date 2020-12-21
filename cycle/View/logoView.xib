@@ -10,50 +10,42 @@
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
-        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
+        <view contentMode="scaleToFill" id="JJr-z9-ga1">
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" id="JJr-z9-ga1">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cycle_background" translatesAutoresizingMaskIntoConstraints="NO" id="tja-L6-MT4">
-                            <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                        </imageView>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N2D-tN-CGe">
-                            <rect key="frame" x="0.0" y="44" width="414" height="204"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        </view>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="main_bi" translatesAutoresizingMaskIntoConstraints="NO" id="pcU-2S-7nv">
-                            <rect key="frame" x="55" y="248" width="304" height="90"/>
-                            <constraints>
-                                <constraint firstAttribute="width" secondItem="pcU-2S-7nv" secondAttribute="height" multiplier="138:41" id="RlE-es-TBX"/>
-                            </constraints>
-                        </imageView>
-                    </subviews>
-                    <viewLayoutGuide key="safeArea" id="oR8-vO-ZLE"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cycle_background" translatesAutoresizingMaskIntoConstraints="NO" id="tja-L6-MT4">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N2D-tN-CGe">
+                    <rect key="frame" x="0.0" y="44" width="414" height="204"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    <constraints>
-                        <constraint firstItem="N2D-tN-CGe" firstAttribute="trailing" secondItem="oR8-vO-ZLE" secondAttribute="trailing" id="2x4-pq-zE7"/>
-                        <constraint firstItem="tja-L6-MT4" firstAttribute="leading" secondItem="oR8-vO-ZLE" secondAttribute="leading" id="7Dq-rz-pVE"/>
-                        <constraint firstItem="pcU-2S-7nv" firstAttribute="top" secondItem="N2D-tN-CGe" secondAttribute="bottom" id="9az-E3-v5D"/>
-                        <constraint firstItem="oR8-vO-ZLE" firstAttribute="trailing" secondItem="pcU-2S-7nv" secondAttribute="trailing" multiplier="375:325" id="AnO-w5-v4n"/>
-                        <constraint firstItem="N2D-tN-CGe" firstAttribute="leading" secondItem="oR8-vO-ZLE" secondAttribute="leading" id="H0P-4t-Oyk"/>
-                        <constraint firstItem="pcU-2S-7nv" firstAttribute="leading" secondItem="oR8-vO-ZLE" secondAttribute="trailing" multiplier="50:375" id="J9V-BP-jYs"/>
-                        <constraint firstItem="tja-L6-MT4" firstAttribute="top" secondItem="oR8-vO-ZLE" secondAttribute="top" id="Lhg-Gm-jbO"/>
-                        <constraint firstItem="N2D-tN-CGe" firstAttribute="top" secondItem="oR8-vO-ZLE" secondAttribute="top" id="ND3-1Z-lAR"/>
-                        <constraint firstItem="tja-L6-MT4" firstAttribute="bottom" secondItem="oR8-vO-ZLE" secondAttribute="bottom" id="S4X-se-Fyl"/>
-                        <constraint firstItem="tja-L6-MT4" firstAttribute="trailing" secondItem="oR8-vO-ZLE" secondAttribute="trailing" id="i7b-bh-bNn"/>
-                        <constraint firstItem="N2D-tN-CGe" firstAttribute="height" secondItem="tja-L6-MT4" secondAttribute="height" multiplier="0.249319" id="rGC-13-ctf"/>
-                    </constraints>
                 </view>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="main_bi" translatesAutoresizingMaskIntoConstraints="NO" id="pcU-2S-7nv">
+                    <rect key="frame" x="55" y="248" width="304" height="90"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="pcU-2S-7nv" secondAttribute="height" multiplier="138:41" id="RlE-es-TBX"/>
+                    </constraints>
+                </imageView>
             </subviews>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <viewLayoutGuide key="safeArea" id="oR8-vO-ZLE"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-            <point key="canvasLocation" x="132" y="131"/>
+            <constraints>
+                <constraint firstItem="N2D-tN-CGe" firstAttribute="trailing" secondItem="oR8-vO-ZLE" secondAttribute="trailing" id="2x4-pq-zE7"/>
+                <constraint firstItem="tja-L6-MT4" firstAttribute="leading" secondItem="oR8-vO-ZLE" secondAttribute="leading" id="7Dq-rz-pVE"/>
+                <constraint firstItem="pcU-2S-7nv" firstAttribute="top" secondItem="N2D-tN-CGe" secondAttribute="bottom" id="9az-E3-v5D"/>
+                <constraint firstItem="oR8-vO-ZLE" firstAttribute="trailing" secondItem="pcU-2S-7nv" secondAttribute="trailing" multiplier="375:325" id="AnO-w5-v4n"/>
+                <constraint firstItem="N2D-tN-CGe" firstAttribute="leading" secondItem="oR8-vO-ZLE" secondAttribute="leading" id="H0P-4t-Oyk"/>
+                <constraint firstItem="pcU-2S-7nv" firstAttribute="leading" secondItem="oR8-vO-ZLE" secondAttribute="trailing" multiplier="50:375" id="J9V-BP-jYs"/>
+                <constraint firstItem="tja-L6-MT4" firstAttribute="top" secondItem="oR8-vO-ZLE" secondAttribute="top" id="Lhg-Gm-jbO"/>
+                <constraint firstItem="N2D-tN-CGe" firstAttribute="top" secondItem="oR8-vO-ZLE" secondAttribute="top" id="ND3-1Z-lAR"/>
+                <constraint firstItem="tja-L6-MT4" firstAttribute="bottom" secondItem="oR8-vO-ZLE" secondAttribute="bottom" id="S4X-se-Fyl"/>
+                <constraint firstItem="tja-L6-MT4" firstAttribute="trailing" secondItem="oR8-vO-ZLE" secondAttribute="trailing" id="i7b-bh-bNn"/>
+                <constraint firstItem="N2D-tN-CGe" firstAttribute="height" secondItem="tja-L6-MT4" secondAttribute="height" multiplier="0.249319" id="rGC-13-ctf"/>
+            </constraints>
+            <point key="canvasLocation" x="-283" y="-514"/>
         </view>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
     </objects>
     <resources>
         <image name="cycle_background" width="1080" height="1920"/>

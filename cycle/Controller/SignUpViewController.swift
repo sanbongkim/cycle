@@ -174,13 +174,11 @@ extension SignUpViewController:UITextFieldDelegate{
                                 let json = try JSON(data: data)
                                 if let reqcode = json["result"].string{
                                     if(reqcode == "SUCCESS"){
-                                        
-                                        let alert = UIAlertController(title: Util.localString(st: "alert"), message:Util.localString(st: "signup_success"), preferredStyle: .alert)
-                                        let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
-                                            self.dismiss(animated: true, completion: nil)
-                                        }
-                                        alert.addAction(OKAction)
-                                        self.present(alert, animated: true, completion: nil)
+                                        let alertVodDownvc =  (UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AlertSignUpVC") as! AlertSignUpVC)
+                                        //loginViewConroller.delegate = self
+                                        self.view.addSubview(alertVodDownvc.view)
+                                        self.addChild(alertVodDownvc)
+                                        alertVodDownvc.didMove(toParent: self)
                                     }
                                     else{
                                         if let reqcode = json["reason"].string{

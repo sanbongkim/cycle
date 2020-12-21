@@ -36,7 +36,9 @@ import CoreBluetooth
 class Constant{
     static let PORT =             ":3000/"
     static let VRFIT_BOXING_MUSIC_URL = "https://www.m2me.co.kr:4000/"
-    static let VRFIT_BOXING_HTTP_DOMAIN = "https://www.m2me.co.kr:6743/vr_boxing/"
+    
+    static let VRFIT_BOXING_HTTP_DOMAIN = "https://www.m2me.co.kr:4443/vr_cycle/" //싸이클 공통 도메인
+    
     //static let DEFAULT_URL    =   "http://192.168.1.121" + PORT
     static let URL_HTTP_VRFIT_VRCONTENT = "http://www.mtome.co.kr:8989/vrfit2/"
     static let VRFIT_CYCLE_HTTP_DOMAIN_SETTING = "https://www.m2me.co.kr:6443/setting/"
@@ -50,6 +52,8 @@ class Constant{
     static let VRFIT_MEMBER_MONTH_RECORD = VRFIT_BOXING_HTTP_DOMAIN + "exercise_Monthly_Record_360"
 
     static let VRFIT_RECORD = VRFIT_CYCLE_HTTP_DOMAIN_SETTING + "MainContent/webView.jsp?id=" //멤버 앱 통합기록 WEB VIEW URL; //게임 랭크 정보 가져오기
+    static let VRFIT_RANKING = VRFIT_BOXING_HTTP_DOMAIN + "MainContent/rankingList.jsp?id"
+    
     static let VRCYCLE_MEMBER_EXER_SAVE = VRFIT_BOXING_HTTP_DOMAIN + "exercise_Save_360" //멤버 운동정보 저장 URL
     static let VRFIT_VERSION_CHECK = VRFIT_BOXING_HTTP_DOMAIN + "api_Version_Check_i_360"
     /////////////////////////String VRFIT_MUSIC_LIST = VRFIT_CYCLE_HTTP_DOMAIN_SETTING + "music_Information";

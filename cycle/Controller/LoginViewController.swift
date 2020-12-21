@@ -26,9 +26,9 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         self.userid.tag = 100
         self.pwd.tag = 101
-//        self.userid.placeholder = Util.localString(st: "ph_user_id")
-//        self.pwd.placeholder = Util.localString(st: "ph_user_pwd")
-//        self.signup.setTitle(Util.localString(st:"ph_join_now"), for:.normal)
+        self.userid.placeholder = Util.localString(st: "ph_user_id")
+        self.pwd.placeholder = Util.localString(st: "ph_user_pwd")
+
         // call the 'keyboardWillShow' function when the view controller receive the notification that a keyboard is going to be shown
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -52,13 +52,6 @@ class LoginViewController: UIViewController {
            view.endEditing(true)
     }
     @IBAction func goLogin(_ sender: Any) {
-        
-        
-     
-        
-        
-        let button = sender as! UIButton
-        if ((button.currentImage?.isEqual(UIImage(named: "login_btn"))) != nil){
             guard let _ = userid.text, userid.text?.count != 0 else{
                 let alert = UIAlertController(title:Util.localString(st: "alert") , message: Util.localString(st: "id_not_input"), preferredStyle: .alert)
                 let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
@@ -101,7 +94,6 @@ class LoginViewController: UIViewController {
                                                  UserDefaults.standard.set(pwd, forKey: "userpw")
                                                  UserDefaults.standard.synchronize()
                                                  self.delegate?.signIn()
-                                                
                                              }
                                              else{
                                                  if let reqcode = json["reason"].string{
@@ -202,10 +194,7 @@ class LoginViewController: UIViewController {
                                 
                              }
                      }
-        }
-        else{
-            
-        }
+
 //    @objc func keyboardWillShow(notification: NSNotification) {
 //
 //        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {

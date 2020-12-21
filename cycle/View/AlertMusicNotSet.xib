@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jLu-le-GjG">
+                <view contentMode="scaleToFill" restorationIdentifier="AlertMusicNotSet" translatesAutoresizingMaskIntoConstraints="NO" id="jLu-le-GjG">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aSI-Kc-mal">
@@ -65,7 +65,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.70012922476459027" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.69585838065242134" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="aSI-Kc-mal" firstAttribute="width" secondItem="jLu-le-GjG" secondAttribute="width" multiplier="0.700483" id="61i-so-khS"/>
                         <constraint firstItem="aSI-Kc-mal" firstAttribute="centerX" secondItem="jLu-le-GjG" secondAttribute="centerX" id="HK4-Vy-gCj"/>
@@ -75,7 +75,7 @@
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="jLu-le-GjG" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="IRr-gA-LoE"/>
                 <constraint firstItem="jLu-le-GjG" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="MGa-4S-GOV"/>
