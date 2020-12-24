@@ -70,5 +70,10 @@ class LeftViewController : UIViewController{
             vc.url = URL(string:Constant.VRFIT_RANKING+"\(userid!)"+"&language="+Util.getlan())
             
         }
+        else if(segue.identifier == "PayWebView"){
+            let vc = segue.destination as! CycleWebViewController
+            vc.url = URL(string:Constant.VRFIT_PAY_MTOME)
+            
+        }
     }
 }

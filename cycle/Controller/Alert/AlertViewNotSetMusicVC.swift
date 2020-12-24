@@ -8,7 +8,6 @@
 import UIKit
 import Foundation
 class AlertViewNotSetMusicVC : UIViewController{
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }

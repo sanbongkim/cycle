@@ -13,7 +13,31 @@ class ViewController: UIViewController {
     var loginViewConroller : LoginViewController!
     var alertVodDownvc : AlertVodDownVC!
     
+    //뒤집어
+    @IBOutlet weak var complateVal: UILabel!
+    @IBOutlet weak var countLabelVal: UILabel!
+    @IBOutlet weak var pointVal: UILabel!
+    @IBOutlet weak var useridVal: UILabel!
+    
+    @IBOutlet weak var complate: UILabel!
+    @IBOutlet weak var countLabel: UILabel!
+    @IBOutlet weak var point: UILabel!
+    @IBOutlet weak var userid: UILabel!
     @IBOutlet weak var goLeftMenu: UIButton!
+    
+    @IBOutlet weak var addSensor: UIButton!
+    @IBOutlet weak var startGame: UIButton!
+    @IBOutlet weak var todayPerCent: UILabel!
+    
+    //하단정보
+    
+    @IBOutlet weak var todayHealthTime: UILabel!
+    @IBOutlet weak var todayHealthTimeVal: UILabel!
+    @IBOutlet weak var distance: UILabel!
+    
+    @IBOutlet weak var distanceVal: UILabel!
+    @IBOutlet weak var calories: UILabel!
+    @IBOutlet weak var caloriesVal: UILabel!
     
     
     override func viewDidLoad() {
@@ -30,13 +54,11 @@ class ViewController: UIViewController {
         logo.frame = self.view.frame
        self.view.addSubview(logo)
        checkVersion()
-//       alertVodDownvc =  (UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AlertVodDownVC") as! AlertVodDownVC)
-//       //loginViewConroller.delegate = self
-//       view.addSubview(alertVodDownvc.view)
-//       addChild(alertVodDownvc)
-//       alertVodDownvc.didMove(toParent: self)
+
    }
     override func viewWillAppear(_ animated: Bool) {
+       
+        
        super.viewWillAppear(true)
     }
    private func makeSettings() -> SideMenuSettings{

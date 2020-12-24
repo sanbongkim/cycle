@@ -19,9 +19,9 @@ class MusicListController : UIViewController{
     var player:AVPlayer?
     var playerItem:AVPlayerItem?
     var divView:UIView?
-    @IBOutlet weak var mHardButton: UIButton!
+    @IBOutlet weak var musicDownload: UIButton!
     @IBOutlet weak var backButton: UIButton!
-    @IBOutlet weak var mNormalButton: UIButton!
+    @IBOutlet weak var musicSetting: UIButton!
     @IBOutlet weak var mEasyButton: UIButton!
     var currentPlay: Int = 10000
     var progress : GradientCircularProgress?
@@ -33,42 +33,41 @@ class MusicListController : UIViewController{
     override func viewDidLoad() {
         let nibName = UINib(nibName: "LiveInfoCell", bundle: nil)
         tableview.register(nibName, forCellReuseIdentifier: "LiveInfoCell")
-        self.getMusicList()
-        mEasyButton.isSelected = true
+        //self.getMusicList()
+        musicDownload.isSelected = true
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(true)
     }
-    @IBAction func mEasyAction(_ sender: Any) {
+    @IBAction func musicDownloadAction(_ sender: Any) {
         let button = sender as! UIButton
         if button.isSelected == true{return}
         button.isSelected = !button.isSelected
-        self.musicSort.removeAll()
-        self.sortDifficult(value: "easy")
-        self.tableview.reloadData()
-        mNormalButton.isSelected = false
-        mHardButton.isSelected = false
+        musicDownload.isSelected = true
+        musicDownload.isSelected = false
+  
+  
     }
-    @IBAction func mNormalAction(_ sender: Any) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "MusicTutorialViewController"{
+            let vc = segue.destination as! MusicTutorialViewController
+            if musicDownload.isSelected{
+                vc.mode = ImageMode.downlaod
+            }else{
+                vc.mode = ImageMode.setting
+            }
+        }
+           
+    }
+    @IBAction func musicSettingAction(_ sender: Any) {
         let button = sender as! UIButton
         if button.isSelected == true{return}
         button.isSelected = !button.isSelected
-        self.musicSort.removeAll()
-        self.sortDifficult(value: "normal")
-        self.tableview.reloadData()
-        mEasyButton.isSelected = false
-        mHardButton.isSelected = false
+      
+        musicDownload.isSelected = false
+        musicSetting.isSelected = true
     }
-    @IBAction func mHardAction(_ sender: Any) {
-        let button = sender as! UIButton
-        if button.isSelected == true{return}
-        button.isSelected = !button.isSelected
-        self.musicSort.removeAll()
-        self.sortDifficult(value: "hard")
-        self.tableview.reloadData()
-        mNormalButton.isSelected = false
-        mEasyButton.isSelected = false
-    }
+
     func sortDifficult(value:String){
         for music in musicInfos {
             if music.difficulty == value{

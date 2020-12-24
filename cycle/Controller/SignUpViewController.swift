@@ -21,7 +21,8 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var passwordComplate: UITextField!
     @IBOutlet weak var signe: UIButton!
-    override func viewDidLoad() {
+    override func viewDidLoad(){
+        
         super.viewDidLoad()
         self.asignTitle.text = Util.localString(st: "ph_join_now")
         self.userId.placeholder = Util.localString(st: "ph_user_id")
@@ -231,10 +232,8 @@ extension SignUpViewController:UITextFieldDelegate{
                                                 alert.addAction(OKAction)
                                                 self.present(alert, animated: true, completion: nil)
                                             }
-                                            
                                         }
                                     }
-                                    
                                 }
                             }catch{
                                 print("Unexpected error: \(error).")
