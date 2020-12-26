@@ -9,7 +9,13 @@
 "ham_setting"   = "ibtn_ham_vr_setting_btn";
 "ham_moviedn"   = "ibtn_ham_movie_down_btn";
 
-"close_button" = "닫기";
+//튜토리얼 이미지
+
+"music_instruction1" = "music_instruction1";
+"music_instruction2" = "music_instruciton2";
+"instruction" = "en_instruction";
+
+ "close_button" = "닫기";
 //이미지 뷰어
 "turorial_image_view" = "vr_boxing_instruction_main";
 "music_info" = "vr_boxing_instruction_music";

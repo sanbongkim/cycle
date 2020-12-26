@@ -80,13 +80,12 @@ class ViewController: UIViewController {
 
    func checkVersion(){
         var parameters: [String: Any] = [:]
-        parameters["version"]    =  Util.getAppversion()
+        parameters["version"]    =  "0.0.0"//Util.getAppversion()
         print(parameters)
         let manager = Alamofire.SessionManager.default
             manager.session.configuration.timeoutIntervalForRequest = 15
             manager.request(Constant.VRFIT_VERSION_CHECK, method: .post, parameters:parameters, encoding:URLEncoding.httpBody)
                 .responseJSON { [self] response in
-//                    self.activityIndicator.stopActivityIndicator()
                     switch(response.result) {
                     case.success:
                         

@@ -20,13 +20,13 @@ class MusicTutorialViewController : UIViewController{
         super.viewDidLoad()
         switch mode {
         case .downlaod:
-            image.image = UIImage(named:"music_instruction1")
+            image.image = UIImage(named:Util.localString(st:"music_instruction1"))
             break
         case .setting:
-            image.image = UIImage(named:"music_instruction2")
+            image.image = UIImage(named:Util.localString(st:"music_instruction2"))
             break
         case .tutorial:
-            image.image = UIImage(named:"instruction")
+            image.image = UIImage(named:Util.localString(st:"instruction"))
             break
         }
     }

@@ -9,12 +9,14 @@ import Foundation
 import UIKit
 import Alamofire
 import SwiftyJSON
-
 class VodListController:UIViewController{
     @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var tableview: UITableView!
     var videoInfo = [InfoData]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        let nibName = UINib(nibName: "VodListCell", bundle: nil)
+        tableview.register(nibName, forCellReuseIdentifier: "VodListCell")
         getVodList()
     }
     @IBAction func backButtonAction(_ sender: Any) {
@@ -38,37 +40,17 @@ class VodListController:UIViewController{
                         let json = try JSONDecoder().decode(VideoInfo.self,from: jsonData)
                         if json.result == "FAIL"{
                            for Infodata in json.data!.values{
-                           
                                self.videoInfo.append(Infodata)
                            }
                             self.videoInfo.sort {
                                 $0.title!.localizedCaseInsensitiveCompare($1.title!) == ComparisonResult.orderedAscending
                             }
-                            
+                            self.tableview .reloadData()
                         }
                     }
                     catch{
                         print(error.localizedDescription)
-                    }
-//                    if let data = response.data, let _ = String(data: data, encoding: .utf8){
-//                        //print("Data: \(utf8Text)") // original server data as UTF8 string
-//                        do{
-//                            // Get json data
-//                            let json = try JSON(data: data)
-//                            if let reqcode = json["result"].string{
-//                                if(reqcode == "SUCCESS"){
-//                                    print("success")
-//                                }
-//                                else{
-//                                    let json = try JSONDecoder().decode(InfoData.self, from: json["data"])
-//
-//                                }
-//                            }
-//                        }catch{
-//                            print("Unexpected error: \(error).")
-//                        }
-//                    }
-                   
+                    }                   
                 case.failure(let error):
                      activityIndicator.stopActivityIndicator()
                     if let error = error as? AFError {
@@ -109,4 +91,25 @@ class VodListController:UIViewController{
                 }
         }
     }
+}
+extension VodListController : UITableViewDelegate,UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.videoInfo.count
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableview.dequeueReusableCell(withIdentifier:"voidlist",for:indexPath) as! VodListCell
+        let videoInfo = self.videoInfo[indexPath.row]
+        cell.title.text = videoInfo.aviname
+        cell.playTime.text = videoInfo.pay
+        if  let image = videoInfo.image{
+            cell.thumNail.image = Util.convertBase64StringToImage(imageBase64String:image)
+        }
+        return cell
+    }
+   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.view.bounds.width/4
+    }
+   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+   
+   }
 }
