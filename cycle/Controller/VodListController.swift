@@ -116,10 +116,7 @@ extension VodListController : UITableViewDelegate,UITableViewDataSource{
    
     let board = UIStoryboard(name: "Main", bundle: nil)
     let vc = board.instantiateViewController(withIdentifier: "AlertResolution")
-    self.view.addSubview(vc.view)
-    addChild(vc)
-    self.didMove(toParent: vc)
-    
-    
+    vc.modalPresentationStyle = .fullScreen
+    self.showDetailViewController(vc, sender: nil)
    }
 }

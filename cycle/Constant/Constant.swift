@@ -36,9 +36,7 @@ import CoreBluetooth
 class Constant{
     static let PORT =             ":3000/"
     static let VRFIT_BOXING_MUSIC_URL = "https://www.m2me.co.kr:4000/"
-    
     static let VRFIT_BOXING_HTTP_DOMAIN = "https://www.m2me.co.kr:4443/vr_cycle/" //싸이클 공통 도메인
-    
     //static let DEFAULT_URL    =   "http://192.168.1.121" + PORT
     static let URL_HTTP_VRFIT_VRCONTENT = "http://www.mtome.co.kr:8989/vrfit2/"
     static let VRFIT_CYCLE_HTTP_DOMAIN_SETTING = "https://www.m2me.co.kr:6443/setting/"
@@ -50,23 +48,17 @@ class Constant{
     static let VRFIT_MEMBER_DATA_ACHIVE = VRFIT_BOXING_HTTP_DOMAIN + "exercise_Achivement"
     static let VRFIT_MEMBER_TODAY_RECORD = VRFIT_BOXING_HTTP_DOMAIN + "today_Exercise_Record_360"
     static let VRFIT_MEMBER_MONTH_RECORD = VRFIT_BOXING_HTTP_DOMAIN + "exercise_Monthly_Record_360"
-
     static let VRFIT_RECORD = VRFIT_CYCLE_HTTP_DOMAIN_SETTING + "MainContent/webView.jsp?id=" //멤버 앱 통합기록 WEB VIEW URL; //게임 랭크 정보 가져오기
     static let VRFIT_RANKING = VRFIT_BOXING_HTTP_DOMAIN + "MainContent/rankingList.jsp?id"
-    
     static let VRCYCLE_MEMBER_EXER_SAVE = VRFIT_BOXING_HTTP_DOMAIN + "exercise_Save_360" //멤버 운동정보 저장 URL
     static let VRFIT_VERSION_CHECK = VRFIT_BOXING_HTTP_DOMAIN + "api_Version_Check_i_360"
     /////////////////////////String VRFIT_MUSIC_LIST = VRFIT_CYCLE_HTTP_DOMAIN_SETTING + "music_Information";
     static let VRFIT_MUSIC_LIST = VRFIT_BOXING_HTTP_DOMAIN + "avi_Information"
     static let URL_GET_MAGNET = "https://www.m2me.co.kr:9443/setting/get_Calibration?uu_id=%s&id=%s" // Magnet X Y Z 찾아오는 URL
-    
     static let VRFIT_PAY_MTOME = "http://www.m2me.kr"
-    
-    
     static let SERVER_SUCCESS = "SUCCESS"
     static let SERVER_FAIL = "FAIL"
     static let WIFI_FAIL = "WIFI_FAIL"
-    
     static let SERVICE_ERR_000 = "service_err_000"
     static let SERVICE_ERR_001 = "service_err_001"
     static let SERVICE_ERR_002 = "service_err_002"
@@ -86,15 +78,12 @@ class Constant{
     static let SERVICE_ERR_016 = "service_err_016"
     static let SERVICE_ERR_017 = "service_err_017"
     static let SERVICE_ERR_018 = "service_err_018"
-    
     static let XCEPTION_01 = "EXCEPTION"
     static let EXCEPTION_02 = "EXCEPTION_SOCKET_TIME_OUT"
     static let DIALOG_ERROR = "DIALOG_ERROR"
     static let DIALOG_POSITIVE = "DIALOG_POSITIVE"
     static let DIALOG_UNKNOWN = "DIALOG_UNKNOWN "
-     
     //Blutooth
-    
     public static let HEART_RATE_MEASUREMENT = "00002a37-0000-1000-8000-00805f9b34fb";
     public static let CLIENT_CHARACTERISTIC_CONFIG = "00002902-0000-1000-8000-00805f9b34fb";
     public static let CSC_MEASUREMENT = "00002a5b-0000-1000-8000-00805f9b34fb";
@@ -102,25 +91,19 @@ class Constant{
     public static let CS_CONTROL_POINT = "00002a55-0000-1000-8000-00805f9b34fb"
     public static let GENERIC_ACCESS_SERVICE = "00001800-0000-1000-8000-00805f9b34fb";
     public static let BATTERY_LEVEL = "00002A19-0000-1000-8000-00805f9b34fb";
-    
     public static let SEND_DATA_SERVICE_TEST = "F000AA70-0451-4000-B000-000000000000"
     public static let SEND_DATA_CHARACTERISTIC = "F000AA72-0451-4000-B000-000000000000";
-    
     public static let RECIEVE_DATA_SERVICE_TEST = "F000AA80-0451-4000-B000-000000000000";
     public static let RECIEVE_DATA_CHARACTERISTIC = "F000AA81-0451-4000-B000-000000000000";
-    
     //Protocall
-    
     public static let STX : UInt8 = 0x02
     public static let ETX : UInt8 = 0x03
     public static let NAK : UInt8 = 0x15
     public static let ACK : UInt8 = 0x06
-    
     public static let CMD_SENSOR_TYPE : UInt8 = 0x21
     public static let CMD_INIT_MODULE : UInt8 = 0x22
     public static let CMD_COUNT_START : UInt8 = 0x23
     public static let CMD_COUNT_STOP : UInt8 = 0x24
-    
     //모듈 동작 이벤트 (펀치 날리기 이벤트)
     public static let CMD_COUNT_RESULT : UInt8 = 0x26
     public static let CMD_CALIBRATION_GYRO_START : UInt8 = 0x27

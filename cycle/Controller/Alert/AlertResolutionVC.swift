@@ -26,21 +26,16 @@ class AlertResolutionVC: UIViewController{
         super.viewDidLoad()
     }
     @IBAction func closeAction(_ sender: Any) {
-        self.view .removeFromSuperview()
-        self.removeFromParent()
+        self.dismiss(animated: false, completion: nil)
     }
     @IBAction func cancelAction(_ sender: Any) {
-        self.view .removeFromSuperview()
-        self.removeFromParent()
+        self.dismiss(animated: false, completion: nil)
     }
     @IBAction func downAction(_ sender: Any) {
         let board = UIStoryboard(name: "Main", bundle: nil)
         let vc = board.instantiateViewController(withIdentifier: "AlerVodDown")
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: false, completion: nil)
-        self.view .removeFromSuperview()
-        self.removeFromParent()
-        
     }
     @IBAction func lowAction(_ sender: Any) {
         

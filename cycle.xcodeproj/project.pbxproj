@@ -16,6 +16,7 @@
 		4876857825904A0D001E5BFA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4876857A25904A0D001E5BFA /* Localizable.strings */; };
 		487685872590674B001E5BFA /* AlertSignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487685862590674B001E5BFA /* AlertSignUpVC.swift */; };
 		4876858B25907F65001E5BFA /* CyCleWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4876858A25907F65001E5BFA /* CyCleWebViewController.swift */; };
+		48A2CC5C2599822A006E50BF /* CustomSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A2CC5B2599822A006E50BF /* CustomSegue.swift */; };
 		48A9B0AD258855EC00862D13 /* AlertMusicNotSet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48A9B0AC258855EC00862D13 /* AlertMusicNotSet.xib */; };
 		48A9B0B02588561000862D13 /* AlertMusicNotSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A9B0AF2588561000862D13 /* AlertMusicNotSet.swift */; };
 		48A9B0BE25887B4E00862D13 /* AlertViewNotSetMusicVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A9B0BD25887B4E00862D13 /* AlertViewNotSetMusicVC.swift */; };
@@ -57,6 +58,7 @@
 		4876857C25904A1D001E5BFA /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		487685862590674B001E5BFA /* AlertSignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertSignUpVC.swift; sourceTree = "<group>"; };
 		4876858A25907F65001E5BFA /* CyCleWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyCleWebViewController.swift; sourceTree = "<group>"; };
+		48A2CC5B2599822A006E50BF /* CustomSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegue.swift; sourceTree = "<group>"; };
 		48A9B0AC258855EC00862D13 /* AlertMusicNotSet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlertMusicNotSet.xib; sourceTree = "<group>"; };
 		48A9B0AF2588561000862D13 /* AlertMusicNotSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertMusicNotSet.swift; sourceTree = "<group>"; };
 		48A9B0BD25887B4E00862D13 /* AlertViewNotSetMusicVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewNotSetMusicVC.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 		481F0490256B889200EF8000 /* cycle */ = {
 			isa = PBXGroup;
 			children = (
+				48A2CC5A259981FC006E50BF /* CustomSegue */,
 				48B14AFE2581E647005606C4 /* Constant */,
 				48B14AFD2581E636005606C4 /* Util */,
 				48B5DBDE25709219002C931D /* Protocol */,
@@ -142,6 +145,14 @@
 				481F049F256B889300EF8000 /* Info.plist */,
 			);
 			path = cycle;
+			sourceTree = "<group>";
+		};
+		48A2CC5A259981FC006E50BF /* CustomSegue */ = {
+			isa = PBXGroup;
+			children = (
+				48A2CC5B2599822A006E50BF /* CustomSegue.swift */,
+			);
+			path = CustomSegue;
 			sourceTree = "<group>";
 		};
 		48A9B0C0258892D600862D13 /* Alert */ = {
@@ -377,6 +388,7 @@
 				48A9B0BE25887B4E00862D13 /* AlertViewNotSetMusicVC.swift in Sources */,
 				48DE4116259440610000346E /* VideoInfo.swift in Sources */,
 				48CE28E52592E5D70044EAE4 /* MusicTutorialViewController.swift in Sources */,
+				48A2CC5C2599822A006E50BF /* CustomSegue.swift in Sources */,
 				4876858B25907F65001E5BFA /* CyCleWebViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

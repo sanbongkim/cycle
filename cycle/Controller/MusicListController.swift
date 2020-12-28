@@ -357,7 +357,6 @@ extension MusicListController:UITableViewDelegate,UITableViewDataSource{
                     _ = DatabaseManager.getInstance().saveData(model:mInfo)
                     self.tableview.reloadData()
                     Util.Toast.show(message: Util.localString(st: "remove_music_success"), controller: self)
-                    
                 }
             })
             let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
