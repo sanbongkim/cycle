@@ -17,6 +17,9 @@ class VodListController:UIViewController{
         super.viewDidLoad()
         let nibName = UINib(nibName: "VodListCell", bundle: nil)
         tableview.register(nibName, forCellReuseIdentifier: "VodListCell")
+        tableview.delegate = self
+        tableview.dataSource = self
+        tableview.backgroundView = UIImageView(image: UIImage(named: "cycle_background"))
         getVodList()
     }
     @IBAction func backButtonAction(_ sender: Any) {
@@ -97,7 +100,7 @@ extension VodListController : UITableViewDelegate,UITableViewDataSource{
         return self.videoInfo.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableview.dequeueReusableCell(withIdentifier:"voidlist",for:indexPath) as! VodListCell
+        let cell = tableview.dequeueReusableCell(withIdentifier:"VodListCell",for:indexPath) as! VodListCell
         let videoInfo = self.videoInfo[indexPath.row]
         cell.title.text = videoInfo.aviname
         cell.playTime.text = videoInfo.pay
@@ -107,9 +110,16 @@ extension VodListController : UITableViewDelegate,UITableViewDataSource{
         return cell
     }
    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.view.bounds.width/4
+        return 190
     }
    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
    
+    let board = UIStoryboard(name: "Main", bundle: nil)
+    let vc = board.instantiateViewController(withIdentifier: "AlertResolution")
+    self.view.addSubview(vc.view)
+    addChild(vc)
+    self.didMove(toParent: vc)
+    
+    
    }
 }

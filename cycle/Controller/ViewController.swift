@@ -51,7 +51,7 @@ class ViewController: UIViewController {
        menu?.settings = makeSettings()
        SideMenuManager.default.leftMenuNavigationController = menu
        logo = (Bundle.main.loadNibNamed("logoView", owner: self, options: nil)![0] as! UIView)
-        logo.frame = self.view.frame
+       logo.frame = self.view.frame
        self.view.addSubview(logo)
        checkVersion()
 
@@ -80,7 +80,7 @@ class ViewController: UIViewController {
 
    func checkVersion(){
         var parameters: [String: Any] = [:]
-        parameters["version"]    =  "0.0.0"//Util.getAppversion()
+        parameters["version"]    =  "0.0.2"//Util.getAppversion()
         print(parameters)
         let manager = Alamofire.SessionManager.default
             manager.session.configuration.timeoutIntervalForRequest = 15

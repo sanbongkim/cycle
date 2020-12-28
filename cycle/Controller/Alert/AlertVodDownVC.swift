@@ -7,10 +7,24 @@
 
 import Foundation
 import UIKit
-class AlertVodDownVC : UIViewController{
+
+enum resolution{
     
+    case low,middle,high
+}
+
+class AlertVodDownVC : UIViewController{
+    @IBOutlet weak var close: UIButton!
+    @IBOutlet weak var downloadPercent: UILabel!
+    @IBOutlet weak var message: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    @IBAction func closeAction(_ sender: Any) {
+        self.dismiss(animated: false, completion: nil)
+    }
+    @IBAction func cancelAciton(_ sender: Any) {
+        self.dismiss(animated: false, completion: nil)
     }
 }
 @IBDesignable extension UIButton {

@@ -33,7 +33,7 @@ class MusicListController : UIViewController{
     override func viewDidLoad() {
         let nibName = UINib(nibName: "LiveInfoCell", bundle: nil)
         tableview.register(nibName, forCellReuseIdentifier: "LiveInfoCell")
-        //self.getMusicList()
+        self.getMusicList()
         musicDownload.isSelected = true
     }
     override func viewDidDisappear(_ animated: Bool) {
