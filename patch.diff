@@ -1,0 +1,437 @@
+From 952341a32c043ce70b58589e5845b1e45e1d39a7 Mon Sep 17 00:00:00 2001
+From: SSG <ksb700djr@naver.com>
+Date: Mon, 28 Dec 2020 18:03:47 +0900
+Subject: [PATCH] =?UTF-8?q?1.=20=ED=8C=9D=EC=97=85=EC=97=90=EC=84=9C=20?=
+ =?UTF-8?q?=ED=8C=9D=EC=97=85=20=EA=B5=AC=ED=98=84=EC=A4=91?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ cycle.xcodeproj/project.pbxproj               | 12 ++++++
+ cycle/Base.lproj/Main.storyboard              | 43 ++++++++++++++++---
+ cycle/Constant/Constant.swift                 | 17 --------
+ .../Controller/Alert/AlertResolutionVC.swift  |  9 +---
+ .../Controller/Alert/AlertSencerCheckVC.swift |  1 -
+ cycle/Controller/LeftViewController.swift     |  3 --
+ cycle/Controller/MusicListController.swift    |  1 -
+ cycle/Controller/ViewController.swift         | 15 +++----
+ cycle/Controller/VodListController.swift      |  7 +--
+ cycle/CustomSegue/CustomSegue.swift           | 25 +++++++++++
+ 10 files changed, 85 insertions(+), 48 deletions(-)
+ create mode 100644 cycle/CustomSegue/CustomSegue.swift
+
+diff --git a/cycle.xcodeproj/project.pbxproj b/cycle.xcodeproj/project.pbxproj
+index 6fdc729..5ef595e 100644
+--- a/cycle.xcodeproj/project.pbxproj
++++ b/cycle.xcodeproj/project.pbxproj
+@@ -16,6 +16,7 @@
+ 		4876857825904A0D001E5BFA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4876857A25904A0D001E5BFA /* Localizable.strings */; };
+ 		487685872590674B001E5BFA /* AlertSignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487685862590674B001E5BFA /* AlertSignUpVC.swift */; };
+ 		4876858B25907F65001E5BFA /* CyCleWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4876858A25907F65001E5BFA /* CyCleWebViewController.swift */; };
++		48A2CC5C2599822A006E50BF /* CustomSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A2CC5B2599822A006E50BF /* CustomSegue.swift */; };
+ 		48A9B0AD258855EC00862D13 /* AlertMusicNotSet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48A9B0AC258855EC00862D13 /* AlertMusicNotSet.xib */; };
+ 		48A9B0B02588561000862D13 /* AlertMusicNotSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A9B0AF2588561000862D13 /* AlertMusicNotSet.swift */; };
+ 		48A9B0BE25887B4E00862D13 /* AlertViewNotSetMusicVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A9B0BD25887B4E00862D13 /* AlertViewNotSetMusicVC.swift */; };
+@@ -57,6 +58,7 @@
+ 		4876857C25904A1D001E5BFA /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+ 		487685862590674B001E5BFA /* AlertSignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertSignUpVC.swift; sourceTree = "<group>"; };
+ 		4876858A25907F65001E5BFA /* CyCleWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyCleWebViewController.swift; sourceTree = "<group>"; };
++		48A2CC5B2599822A006E50BF /* CustomSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegue.swift; sourceTree = "<group>"; };
+ 		48A9B0AC258855EC00862D13 /* AlertMusicNotSet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlertMusicNotSet.xib; sourceTree = "<group>"; };
+ 		48A9B0AF2588561000862D13 /* AlertMusicNotSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertMusicNotSet.swift; sourceTree = "<group>"; };
+ 		48A9B0BD25887B4E00862D13 /* AlertViewNotSetMusicVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewNotSetMusicVC.swift; sourceTree = "<group>"; };
+@@ -129,6 +131,7 @@
+ 		481F0490256B889200EF8000 /* cycle */ = {
+ 			isa = PBXGroup;
+ 			children = (
++				48A2CC5A259981FC006E50BF /* CustomSegue */,
+ 				48B14AFE2581E647005606C4 /* Constant */,
+ 				48B14AFD2581E636005606C4 /* Util */,
+ 				48B5DBDE25709219002C931D /* Protocol */,
+@@ -144,6 +147,14 @@
+ 			path = cycle;
+ 			sourceTree = "<group>";
+ 		};
++		48A2CC5A259981FC006E50BF /* CustomSegue */ = {
++			isa = PBXGroup;
++			children = (
++				48A2CC5B2599822A006E50BF /* CustomSegue.swift */,
++			);
++			path = CustomSegue;
++			sourceTree = "<group>";
++		};
+ 		48A9B0C0258892D600862D13 /* Alert */ = {
+ 			isa = PBXGroup;
+ 			children = (
+@@ -377,6 +388,7 @@
+ 				48A9B0BE25887B4E00862D13 /* AlertViewNotSetMusicVC.swift in Sources */,
+ 				48DE4116259440610000346E /* VideoInfo.swift in Sources */,
+ 				48CE28E52592E5D70044EAE4 /* MusicTutorialViewController.swift in Sources */,
++				48A2CC5C2599822A006E50BF /* CustomSegue.swift in Sources */,
+ 				4876858B25907F65001E5BFA /* CyCleWebViewController.swift in Sources */,
+ 			);
+ 			runOnlyForDeploymentPostprocessing = 0;
+diff --git a/cycle/Base.lproj/Main.storyboard b/cycle/Base.lproj/Main.storyboard
+index c916ab4..7af6f30 100644
+--- a/cycle/Base.lproj/Main.storyboard
++++ b/cycle/Base.lproj/Main.storyboard
+@@ -1,5 +1,5 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
++<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GPe-wm-y7m">
+     <device id="retina6_5" orientation="portrait" appearance="light"/>
+     <dependencies>
+         <deployment identifier="iOS"/>
+@@ -9,6 +9,21 @@
+         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+     </dependencies>
+     <scenes>
++        <!--Navigation Controller-->
++        <scene sceneID="UDD-4K-tWU">
++            <objects>
++                <placeholder placeholderIdentifier="IBFirstResponder" id="qAo-p5-vlI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
++                <navigationController navigationBarHidden="YES" id="GPe-wm-y7m" sceneMemberID="viewController">
++                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qev-ld-PQd">
++                        <autoresizingMask key="autoresizingMask"/>
++                    </navigationBar>
++                    <connections>
++                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="wKr-Hy-V7m"/>
++                    </connections>
++                </navigationController>
++            </objects>
++            <point key="canvasLocation" x="-2577" y="-747"/>
++        </scene>
+         <!--View Controller-->
+         <scene sceneID="tne-QT-ifu">
+             <objects>
+@@ -550,6 +565,7 @@
+                             <constraint firstItem="g2Y-fZ-kTy" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="yWV-Ee-lN4"/>
+                         </constraints>
+                     </view>
++                    <navigationItem key="navigationItem" id="JXa-db-UQ8"/>
+                     <connections>
+                         <outlet property="addSensor" destination="jI7-Bm-lhX" id="Tsn-79-Qs2"/>
+                         <outlet property="calories" destination="qVX-lp-sbN" id="g2l-nC-EAY"/>
+@@ -573,7 +589,22 @@
+                 </viewController>
+                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+             </objects>
+-            <point key="canvasLocation" x="-1690" y="-747"/>
++            <point key="canvasLocation" x="-1810" y="-747"/>
++        </scene>
++        <!--Side Menu Navigation Controller-->
++        <scene sceneID="g6S-Z0-Ie4">
++            <objects>
++                <navigationController storyboardIdentifier="LeftMenuNavigationController" navigationBarHidden="YES" id="ldh-mB-aue" customClass="SideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
++                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="egJ-F0-fCc">
++                        <autoresizingMask key="autoresizingMask"/>
++                    </navigationBar>
++                    <connections>
++                        <segue destination="v3j-4Y-dKO" kind="relationship" relationship="rootViewController" id="GDX-cj-elu"/>
++                    </connections>
++                </navigationController>
++                <placeholder placeholderIdentifier="IBFirstResponder" id="8lZ-KX-N9X" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
++            </objects>
++            <point key="canvasLocation" x="-945" y="-747"/>
+         </scene>
+         <!--Left View Controller-->
+         <scene sceneID="oYw-Gf-8Z6">
+@@ -610,7 +641,7 @@
+                                         <state key="normal" image="ibtn_ham_movie_down_btn"/>
+                                         <connections>
+                                             <action selector="movieDnAcitonWith_sender:" destination="v3j-4Y-dKO" eventType="touchUpInside" id="iF9-K1-11H"/>
+-                                            <segue destination="cBZ-b9-Cwt" kind="presentation" modalPresentationStyle="fullScreen" id="Su0-E6-hrF"/>
++                                            <segue destination="cBZ-b9-Cwt" kind="presentation" identifier="vodListView" modalPresentationStyle="fullScreen" id="Su0-E6-hrF"/>
+                                         </connections>
+                                     </button>
+                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hjh-Et-Dxz">
+@@ -697,7 +728,7 @@
+                 </viewController>
+                 <placeholder placeholderIdentifier="IBFirstResponder" id="aMP-xW-YkR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+             </objects>
+-            <point key="canvasLocation" x="-500" y="-747"/>
++            <point key="canvasLocation" x="-101" y="-747"/>
+         </scene>
+         <!--Cycle Web View Controller-->
+         <scene sceneID="1hm-HQ-zam">
+@@ -747,7 +778,7 @@
+                 </viewController>
+                 <placeholder placeholderIdentifier="IBFirstResponder" id="nCS-3I-d4f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+             </objects>
+-            <point key="canvasLocation" x="1000" y="-747"/>
++            <point key="canvasLocation" x="972" y="-755"/>
+         </scene>
+         <!--View Controller-->
+         <scene sceneID="597-WT-9bf">
+@@ -2316,7 +2347,7 @@
+     </scenes>
+     <inferredMetricsTieBreakers>
+         <segue reference="IXX-YZ-N8V"/>
+-        <segue reference="FQA-Rg-TAZ"/>
++        <segue reference="J6N-KC-tbU"/>
+     </inferredMetricsTieBreakers>
+     <resources>
+         <image name="back_arrow_btn" width="80" height="80"/>
+diff --git a/cycle/Constant/Constant.swift b/cycle/Constant/Constant.swift
+index bcb2ec1..6dfa86f 100755
+--- a/cycle/Constant/Constant.swift
++++ b/cycle/Constant/Constant.swift
+@@ -36,9 +36,7 @@ import CoreBluetooth
+ class Constant{
+     static let PORT =             ":3000/"
+     static let VRFIT_BOXING_MUSIC_URL = "https://www.m2me.co.kr:4000/"
+-    
+     static let VRFIT_BOXING_HTTP_DOMAIN = "https://www.m2me.co.kr:4443/vr_cycle/" //싸이클 공통 도메인
+-    
+     //static let DEFAULT_URL    =   "http://192.168.1.121" + PORT
+     static let URL_HTTP_VRFIT_VRCONTENT = "http://www.mtome.co.kr:8989/vrfit2/"
+     static let VRFIT_CYCLE_HTTP_DOMAIN_SETTING = "https://www.m2me.co.kr:6443/setting/"
+@@ -50,23 +48,17 @@ class Constant{
+     static let VRFIT_MEMBER_DATA_ACHIVE = VRFIT_BOXING_HTTP_DOMAIN + "exercise_Achivement"
+     static let VRFIT_MEMBER_TODAY_RECORD = VRFIT_BOXING_HTTP_DOMAIN + "today_Exercise_Record_360"
+     static let VRFIT_MEMBER_MONTH_RECORD = VRFIT_BOXING_HTTP_DOMAIN + "exercise_Monthly_Record_360"
+-
+     static let VRFIT_RECORD = VRFIT_CYCLE_HTTP_DOMAIN_SETTING + "MainContent/webView.jsp?id=" //멤버 앱 통합기록 WEB VIEW URL; //게임 랭크 정보 가져오기
+     static let VRFIT_RANKING = VRFIT_BOXING_HTTP_DOMAIN + "MainContent/rankingList.jsp?id"
+-    
+     static let VRCYCLE_MEMBER_EXER_SAVE = VRFIT_BOXING_HTTP_DOMAIN + "exercise_Save_360" //멤버 운동정보 저장 URL
+     static let VRFIT_VERSION_CHECK = VRFIT_BOXING_HTTP_DOMAIN + "api_Version_Check_i_360"
+     /////////////////////////String VRFIT_MUSIC_LIST = VRFIT_CYCLE_HTTP_DOMAIN_SETTING + "music_Information";
+     static let VRFIT_MUSIC_LIST = VRFIT_BOXING_HTTP_DOMAIN + "avi_Information"
+     static let URL_GET_MAGNET = "https://www.m2me.co.kr:9443/setting/get_Calibration?uu_id=%s&id=%s" // Magnet X Y Z 찾아오는 URL
+-    
+     static let VRFIT_PAY_MTOME = "http://www.m2me.kr"
+-    
+-    
+     static let SERVER_SUCCESS = "SUCCESS"
+     static let SERVER_FAIL = "FAIL"
+     static let WIFI_FAIL = "WIFI_FAIL"
+-    
+     static let SERVICE_ERR_000 = "service_err_000"
+     static let SERVICE_ERR_001 = "service_err_001"
+     static let SERVICE_ERR_002 = "service_err_002"
+@@ -86,15 +78,12 @@ class Constant{
+     static let SERVICE_ERR_016 = "service_err_016"
+     static let SERVICE_ERR_017 = "service_err_017"
+     static let SERVICE_ERR_018 = "service_err_018"
+-    
+     static let XCEPTION_01 = "EXCEPTION"
+     static let EXCEPTION_02 = "EXCEPTION_SOCKET_TIME_OUT"
+     static let DIALOG_ERROR = "DIALOG_ERROR"
+     static let DIALOG_POSITIVE = "DIALOG_POSITIVE"
+     static let DIALOG_UNKNOWN = "DIALOG_UNKNOWN "
+-     
+     //Blutooth
+-    
+     public static let HEART_RATE_MEASUREMENT = "00002a37-0000-1000-8000-00805f9b34fb";
+     public static let CLIENT_CHARACTERISTIC_CONFIG = "00002902-0000-1000-8000-00805f9b34fb";
+     public static let CSC_MEASUREMENT = "00002a5b-0000-1000-8000-00805f9b34fb";
+@@ -102,25 +91,19 @@ class Constant{
+     public static let CS_CONTROL_POINT = "00002a55-0000-1000-8000-00805f9b34fb"
+     public static let GENERIC_ACCESS_SERVICE = "00001800-0000-1000-8000-00805f9b34fb";
+     public static let BATTERY_LEVEL = "00002A19-0000-1000-8000-00805f9b34fb";
+-    
+     public static let SEND_DATA_SERVICE_TEST = "F000AA70-0451-4000-B000-000000000000"
+     public static let SEND_DATA_CHARACTERISTIC = "F000AA72-0451-4000-B000-000000000000";
+-    
+     public static let RECIEVE_DATA_SERVICE_TEST = "F000AA80-0451-4000-B000-000000000000";
+     public static let RECIEVE_DATA_CHARACTERISTIC = "F000AA81-0451-4000-B000-000000000000";
+-    
+     //Protocall
+-    
+     public static let STX : UInt8 = 0x02
+     public static let ETX : UInt8 = 0x03
+     public static let NAK : UInt8 = 0x15
+     public static let ACK : UInt8 = 0x06
+-    
+     public static let CMD_SENSOR_TYPE : UInt8 = 0x21
+     public static let CMD_INIT_MODULE : UInt8 = 0x22
+     public static let CMD_COUNT_START : UInt8 = 0x23
+     public static let CMD_COUNT_STOP : UInt8 = 0x24
+-    
+     //모듈 동작 이벤트 (펀치 날리기 이벤트)
+     public static let CMD_COUNT_RESULT : UInt8 = 0x26
+     public static let CMD_CALIBRATION_GYRO_START : UInt8 = 0x27
+diff --git a/cycle/Controller/Alert/AlertResolutionVC.swift b/cycle/Controller/Alert/AlertResolutionVC.swift
+index 3edf3db..77c2001 100644
+--- a/cycle/Controller/Alert/AlertResolutionVC.swift
++++ b/cycle/Controller/Alert/AlertResolutionVC.swift
+@@ -26,21 +26,16 @@ class AlertResolutionVC: UIViewController{
+         super.viewDidLoad()
+     }
+     @IBAction func closeAction(_ sender: Any) {
+-        self.view .removeFromSuperview()
+-        self.removeFromParent()
++        self.dismiss(animated: false, completion: nil)
+     }
+     @IBAction func cancelAction(_ sender: Any) {
+-        self.view .removeFromSuperview()
+-        self.removeFromParent()
++        self.dismiss(animated: false, completion: nil)
+     }
+     @IBAction func downAction(_ sender: Any) {
+         let board = UIStoryboard(name: "Main", bundle: nil)
+         let vc = board.instantiateViewController(withIdentifier: "AlerVodDown")
+         vc.modalPresentationStyle = .fullScreen
+         self.present(vc, animated: false, completion: nil)
+-        self.view .removeFromSuperview()
+-        self.removeFromParent()
+-        
+     }
+     @IBAction func lowAction(_ sender: Any) {
+         
+diff --git a/cycle/Controller/Alert/AlertSencerCheckVC.swift b/cycle/Controller/Alert/AlertSencerCheckVC.swift
+index 93ab2ab..20516ef 100644
+--- a/cycle/Controller/Alert/AlertSencerCheckVC.swift
++++ b/cycle/Controller/Alert/AlertSencerCheckVC.swift
+@@ -12,6 +12,5 @@ class AlertSencerCheckVC: UIViewController{
+     
+     override func viewDidLoad() {
+         super.viewDidLoad()
+-        
+     }
+ }
+diff --git a/cycle/Controller/LeftViewController.swift b/cycle/Controller/LeftViewController.swift
+index 26557eb..ef6f5e8 100644
+--- a/cycle/Controller/LeftViewController.swift
++++ b/cycle/Controller/LeftViewController.swift
+@@ -8,8 +8,6 @@ import UIKit
+ import Foundation
+ 
+ class LeftViewController : UIViewController{
+-
+-
+     @IBOutlet weak var goBack: UIButton!
+     @IBOutlet weak var record: UIButton!
+     @IBOutlet weak var rank: UIButton!
+@@ -20,7 +18,6 @@ class LeftViewController : UIViewController{
+     @IBOutlet weak var version: UIButton!
+     @IBOutlet weak var sencerBuy: UIButton!
+     override func viewDidLoad() {
+-        
+         super.viewDidLoad()
+         record.setImage(UIImage(named:Util.localString(st: "ham_record")), for: .normal)
+         rank.setImage(UIImage(named:Util.localString(st: "ham_rank")), for: .normal)
+diff --git a/cycle/Controller/MusicListController.swift b/cycle/Controller/MusicListController.swift
+index c2f50cc..d81e1a6 100755
+--- a/cycle/Controller/MusicListController.swift
++++ b/cycle/Controller/MusicListController.swift
+@@ -357,7 +357,6 @@ extension MusicListController:UITableViewDelegate,UITableViewDataSource{
+                     _ = DatabaseManager.getInstance().saveData(model:mInfo)
+                     self.tableview.reloadData()
+                     Util.Toast.show(message: Util.localString(st: "remove_music_success"), controller: self)
+-                    
+                 }
+             })
+             let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
+diff --git a/cycle/Controller/ViewController.swift b/cycle/Controller/ViewController.swift
+index edda6c1..d50d5f9 100644
+--- a/cycle/Controller/ViewController.swift
++++ b/cycle/Controller/ViewController.swift
+@@ -7,7 +7,7 @@ import UIKit
+ import SideMenu
+ import Alamofire
+ import SwiftyJSON
+-class ViewController: UIViewController {
++class ViewController: UIViewController, UINavigationControllerDelegate {
+     var logo : UIView!
+     var menu:SideMenuNavigationController?
+     var loginViewConroller : LoginViewController!
+@@ -42,23 +42,22 @@ class ViewController: UIViewController {
+     
+     override func viewDidLoad() {
+        super.viewDidLoad()
++        
+        // Do any additional setup after loading the view.
+-       let board = UIStoryboard(name: "Main", bundle: nil)
+-       let vc = board.instantiateViewController(withIdentifier: "leftViewController")
+-       menu = SideMenuNavigationController(rootViewController:vc)
++       menu = storyboard?.instantiateViewController(withIdentifier: "LeftMenuNavigationController") as? SideMenuNavigationController
+        menu?.leftSide = true
+        menu?.setNavigationBarHidden(true, animated: false)
+        menu?.settings = makeSettings()
+        SideMenuManager.default.leftMenuNavigationController = menu
+        logo = (Bundle.main.loadNibNamed("logoView", owner: self, options: nil)![0] as! UIView)
+        logo.frame = self.view.frame
+-       self.view.addSubview(logo)
++       
++        self.view.addSubview(logo)
+        checkVersion()
+ 
+    }
+     override func viewWillAppear(_ animated: Bool) {
+        
+-        
+        super.viewWillAppear(true)
+     }
+    private func makeSettings() -> SideMenuSettings{
+@@ -75,7 +74,7 @@ class ViewController: UIViewController {
+        return settings
+    }
+     @IBAction func goLeftMenu(_ sender: Any) {
+-        present(menu!, animated: true, completion: nil)
++        self.navigationController!.present(menu!, animated: true, completion: nil)
+     }
+ 
+    func checkVersion(){
+@@ -221,7 +220,7 @@ class ViewController: UIViewController {
+         }
+     }
+ }
+-extension ViewController : LoginControllerDelegate{
++extension ViewController : LoginControllerDelegate,SideMenuNavigationControllerDelegate{
+     func alertWeight() {
+ //        self.openAlertView()
+     }
+diff --git a/cycle/Controller/VodListController.swift b/cycle/Controller/VodListController.swift
+index fc97b96..822ffc7 100644
+--- a/cycle/Controller/VodListController.swift
++++ b/cycle/Controller/VodListController.swift
+@@ -116,10 +116,7 @@ extension VodListController : UITableViewDelegate,UITableViewDataSource{
+    
+     let board = UIStoryboard(name: "Main", bundle: nil)
+     let vc = board.instantiateViewController(withIdentifier: "AlertResolution")
+-    self.view.addSubview(vc.view)
+-    addChild(vc)
+-    self.didMove(toParent: vc)
+-    
+-    
++    vc.modalPresentationStyle = .fullScreen
++    self.showDetailViewController(vc, sender: nil)
+    }
+ }
+diff --git a/cycle/CustomSegue/CustomSegue.swift b/cycle/CustomSegue/CustomSegue.swift
+new file mode 100644
+index 0000000..6b501b5
+--- /dev/null
++++ b/cycle/CustomSegue/CustomSegue.swift
+@@ -0,0 +1,25 @@
++//
++//  CustomSegue.swift
++//  cycle
++//
++//  Created by SSG on 2020/12/28.
++//
++
++import Foundation
++import UIKit
++
++class CustomSegue : UIStoryboardSegue{
++    
++    override func perform() {
++        if identifier == "voidListView" {
++            let dvc = self.destination as! VodListController
++            let ovc = self.source
++            ovc.navigationController?.pushViewController(dvc, animated: false)
++        }
++        else{
++            
++            
++        }
++        
++    }
++}
+-- 
+2.27.0
+
