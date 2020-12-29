@@ -8,8 +8,6 @@ import UIKit
 import Foundation
 
 class LeftViewController : UIViewController{
-
-
     @IBOutlet weak var goBack: UIButton!
     @IBOutlet weak var record: UIButton!
     @IBOutlet weak var rank: UIButton!
@@ -20,7 +18,6 @@ class LeftViewController : UIViewController{
     @IBOutlet weak var version: UIButton!
     @IBOutlet weak var sencerBuy: UIButton!
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         record.setImage(UIImage(named:Util.localString(st: "ham_record")), for: .normal)
         rank.setImage(UIImage(named:Util.localString(st: "ham_rank")), for: .normal)

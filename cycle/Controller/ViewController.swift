@@ -7,7 +7,7 @@ import UIKit
 import SideMenu
 import Alamofire
 import SwiftyJSON
-class ViewController: UIViewController {
+class ViewController: UIViewController, UINavigationControllerDelegate {
     var logo : UIView!
     var menu:SideMenuNavigationController?
     var loginViewConroller : LoginViewController!
@@ -43,9 +43,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
        super.viewDidLoad()
        // Do any additional setup after loading the view.
-       let board = UIStoryboard(name: "Main", bundle: nil)
-       let vc = board.instantiateViewController(withIdentifier: "leftViewController")
-       menu = SideMenuNavigationController(rootViewController:vc)
+       menu = storyboard?.instantiateViewController(withIdentifier: "LeftMenuNavigationController") as? SideMenuNavigationController
        menu?.leftSide = true
        menu?.setNavigationBarHidden(true, animated: false)
        menu?.settings = makeSettings()
@@ -58,7 +56,6 @@ class ViewController: UIViewController {
    }
     override func viewWillAppear(_ animated: Bool) {
        
-        
        super.viewWillAppear(true)
     }
    private func makeSettings() -> SideMenuSettings{
@@ -75,7 +72,7 @@ class ViewController: UIViewController {
        return settings
    }
     @IBAction func goLeftMenu(_ sender: Any) {
-        present(menu!, animated: true, completion: nil)
+        self.navigationController!.present(menu!, animated: true, completion: nil)
     }
 
    func checkVersion(){
@@ -221,7 +218,7 @@ class ViewController: UIViewController {
         }
     }
 }
-extension ViewController : LoginControllerDelegate{
+extension ViewController : LoginControllerDelegate,SideMenuNavigationControllerDelegate{
     func alertWeight() {
 //        self.openAlertView()
     }

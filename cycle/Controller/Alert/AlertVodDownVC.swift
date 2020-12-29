@@ -7,24 +7,88 @@
 
 import Foundation
 import UIKit
-
+import Alamofire
 enum resolution{
     
     case low,middle,high
 }
 
 class AlertVodDownVC : UIViewController{
+    var url: String!
+    var fileName : String!
+    var downloadUrl : URL!
+    var vodresolution: resolution = resolution.low
+    
     @IBOutlet weak var close: UIButton!
     @IBOutlet weak var downloadPercent: UILabel!
     @IBOutlet weak var message: UILabel!
+   
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let encoded = makeUrl().addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+           let myURL = URL(string: encoded) {
+            downloadUsingAlamofire(url: myURL, fileName: fileName+".mp4")
+        }
+
+
+     
+       
+      
     }
     @IBAction func closeAction(_ sender: Any) {
-        self.dismiss(animated: false, completion: nil)
+        self.removeFromParent()
+        self.view.removeFromSuperview()
     }
     @IBAction func cancelAciton(_ sender: Any) {
-        self.dismiss(animated: false, completion: nil)
+      
+        self.removeFromParent()
+        self.view.removeFromSuperview()
+    }
+    func makeStringKoreanEncoded(_ string: String) -> String {
+        return string.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? string
+    }
+    func makeUrl()->String{
+        var url : String! = Constant.VRFIT_DOWNLOAD
+        switch(vodresolution){
+        case .low:
+            url.append("download?file=")
+            break
+        case .middle:
+            url.append("download_2k?file=")
+            break
+        case .high:
+            url.append("download_4k?file=")
+            break
+        }
+        url.append(fileName)
+        url.append(".mp4")
+       return url
+    }
+    func downloadUsingAlamofire(url: URL, fileName: String) {
+        let manager = Alamofire.SessionManager.default
+        let destination: DownloadRequest.DownloadFileDestination = { _, _ in
+            var documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            documentsURL.appendPathComponent(fileName)
+            print(documentsURL)
+            return (documentsURL,[.removePreviousFile])
+        }
+        manager.download(url, to: destination)
+            .downloadProgress(queue: .main, closure: { (progress) in
+                print(CGFloat(progress.fractionCompleted))
+            })
+            .responseData { response in
+            if let destinationUrl = response.destinationURL {
+                print(destinationUrl)
+                if let statusCode = response.response?.statusCode{
+                    if statusCode == 200 {
+                        DispatchQueue.main.async() {
+                        }
+                    }else{
+                    }
+                }
+            }else{
+            }
+        }
     }
 }
 @IBDesignable extension UIButton {

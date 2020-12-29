@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GPe-wm-y7m">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -9,6 +9,21 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="UDD-4K-tWU">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="GPe-wm-y7m" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qev-ld-PQd">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="wKr-Hy-V7m"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qAo-p5-vlI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2577" y="-747"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -550,6 +565,7 @@
                             <constraint firstItem="g2Y-fZ-kTy" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="yWV-Ee-lN4"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="JXa-db-UQ8"/>
                     <connections>
                         <outlet property="addSensor" destination="jI7-Bm-lhX" id="Tsn-79-Qs2"/>
                         <outlet property="calories" destination="qVX-lp-sbN" id="g2l-nC-EAY"/>
@@ -573,7 +589,26 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1690" y="-747"/>
+            <point key="canvasLocation" x="-1810" y="-747"/>
+        </scene>
+        <!--Side Menu Navigation Controller-->
+        <scene sceneID="g6S-Z0-Ie4">
+            <objects>
+                <navigationController storyboardIdentifier="LeftMenuNavigationController" navigationBarHidden="YES" id="ldh-mB-aue" customClass="SideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="egJ-F0-fCc">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="presentingViewControllerUserInteractionEnabled" value="NO"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="leftSide" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <segue destination="v3j-4Y-dKO" kind="relationship" relationship="rootViewController" id="GDX-cj-elu"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8lZ-KX-N9X" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-945" y="-747"/>
         </scene>
         <!--Left View Controller-->
         <scene sceneID="oYw-Gf-8Z6">
@@ -594,7 +629,7 @@
                                         <state key="normal" image="ibtn_ham_record_btn"/>
                                         <connections>
                                             <action selector="recordAction:" destination="v3j-4Y-dKO" eventType="touchUpInside" id="eYa-L4-Ngn"/>
-                                            <segue destination="5Ga-FU-hdp" kind="presentation" identifier="RecordWebView" modalPresentationStyle="fullScreen" id="FQA-Rg-TAZ"/>
+                                            <segue destination="5Ga-FU-hdp" kind="show" identifier="RecordWebView" id="FQA-Rg-TAZ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2fz-2N-Acb">
@@ -602,7 +637,7 @@
                                         <state key="normal" image="ibtn_ham_rank_btn"/>
                                         <connections>
                                             <action selector="rankAction:" destination="v3j-4Y-dKO" eventType="touchUpInside" id="fmQ-NB-lK9"/>
-                                            <segue destination="5Ga-FU-hdp" kind="presentation" identifier="RankWebView" modalPresentationStyle="fullScreen" id="uqC-C3-PkZ"/>
+                                            <segue destination="5Ga-FU-hdp" kind="show" identifier="RankWebView" id="uqC-C3-PkZ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AqT-Dh-Eb5">
@@ -610,7 +645,7 @@
                                         <state key="normal" image="ibtn_ham_movie_down_btn"/>
                                         <connections>
                                             <action selector="movieDnAcitonWith_sender:" destination="v3j-4Y-dKO" eventType="touchUpInside" id="iF9-K1-11H"/>
-                                            <segue destination="cBZ-b9-Cwt" kind="presentation" modalPresentationStyle="fullScreen" id="Su0-E6-hrF"/>
+                                            <segue destination="cBZ-b9-Cwt" kind="show" identifier="vodListView" id="Su0-E6-hrF"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hjh-Et-Dxz">
@@ -649,7 +684,7 @@
                                         <state key="normal" image="ibtn_ham_buy_btn"/>
                                         <connections>
                                             <action selector="sencerBuyActionWith_sender:" destination="v3j-4Y-dKO" eventType="touchUpInside" id="egz-PM-0kJ"/>
-                                            <segue destination="5Ga-FU-hdp" kind="presentation" identifier="PayWebView" modalPresentationStyle="fullScreen" id="J6N-KC-tbU"/>
+                                            <segue destination="5Ga-FU-hdp" kind="show" identifier="PayWebView" id="J6N-KC-tbU"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -697,7 +732,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aMP-xW-YkR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-500" y="-747"/>
+            <point key="canvasLocation" x="-101" y="-747"/>
         </scene>
         <!--Cycle Web View Controller-->
         <scene sceneID="1hm-HQ-zam">
@@ -747,7 +782,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nCS-3I-d4f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1000" y="-747"/>
+            <point key="canvasLocation" x="972" y="-755"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="597-WT-9bf">
@@ -1145,7 +1180,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MaF-ng-mCp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="77" y="-11"/>
+            <point key="canvasLocation" x="76.811594202898561" y="-11.383928571428571"/>
         </scene>
         <!--Alert Vod DownVC-->
         <scene sceneID="IFN-Tj-nqh">
@@ -2316,7 +2351,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="IXX-YZ-N8V"/>
-        <segue reference="FQA-Rg-TAZ"/>
+        <segue reference="J6N-KC-tbU"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="back_arrow_btn" width="80" height="80"/>

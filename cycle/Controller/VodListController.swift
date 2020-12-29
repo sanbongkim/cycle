@@ -23,7 +23,7 @@ class VodListController:UIViewController{
         getVodList()
     }
     @IBAction func backButtonAction(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController!.popViewController(animated: true)
     }
     func getVodList(){
         var parameters: [String: Any] = [:]
@@ -115,11 +115,18 @@ extension VodListController : UITableViewDelegate,UITableViewDataSource{
    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
    
     let board = UIStoryboard(name: "Main", bundle: nil)
-    let vc = board.instantiateViewController(withIdentifier: "AlertResolution")
-    self.view.addSubview(vc.view)
-    addChild(vc)
+    let vc = board.instantiateViewController(withIdentifier: "AlertResolution") as! AlertResolutionVC
+    let videoInfo = self.videoInfo[indexPath.row]
+    vc.fileName = videoInfo.title
+    self.navigationController!.view.addSubview(vc.view)
+    self.navigationController!.addChild(vc)
     self.didMove(toParent: vc)
     
+//    let window = UIApplication.shared.keyWindow!
     
+    
+//    window.rootViewController!.addChild(vc)
+//    window.rootViewController!.view.addSubview(vc.view)
+//    self.didMove(toParent: vc)
    }
 }
