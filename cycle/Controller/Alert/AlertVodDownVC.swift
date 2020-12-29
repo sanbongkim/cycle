@@ -40,7 +40,13 @@ class AlertVodDownVC : UIViewController{
         self.view.removeFromSuperview()
     }
     @IBAction func cancelAciton(_ sender: Any) {
-      
+        let sessionManager = Alamofire.SessionManager.default
+                sessionManager.session.getTasksWithCompletionHandler { dataTasks, uploadTasks, downloadTasks in
+                    dataTasks.forEach { $0.cancel() }
+                    uploadTasks.forEach { $0.cancel() }
+                    downloadTasks.forEach { $0.cancel() }
+            
+                }
         self.removeFromParent()
         self.view.removeFromSuperview()
     }
@@ -74,14 +80,21 @@ class AlertVodDownVC : UIViewController{
         }
         manager.download(url, to: destination)
             .downloadProgress(queue: .main, closure: { (progress) in
-                print(CGFloat(progress.fractionCompleted))
+                
+                let comp = CGFloat(progress.fractionCompleted) * 100
+                self.downloadPercent.text = String(Int(comp)) + "%"
             })
             .responseData { response in
+                
+            self.removeFromParent()
+            self.view.removeFromSuperview()
             if let destinationUrl = response.destinationURL {
                 print(destinationUrl)
                 if let statusCode = response.response?.statusCode{
                     if statusCode == 200 {
                         DispatchQueue.main.async() {
+                            
+                            
                         }
                     }else{
                     }
