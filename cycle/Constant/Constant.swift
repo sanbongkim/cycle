@@ -59,6 +59,10 @@ class Constant{
     static let SERVER_SUCCESS = "SUCCESS"
     static let SERVER_FAIL = "FAIL"
     static let WIFI_FAIL = "WIFI_FAIL"
+    
+    static let VRFIT_DOWNLOAD = VRFIT_BOXING_HTTP_DOMAIN
+    
+    
     static let SERVICE_ERR_000 = "service_err_000"
     static let SERVICE_ERR_001 = "service_err_001"
     static let SERVICE_ERR_002 = "service_err_002"

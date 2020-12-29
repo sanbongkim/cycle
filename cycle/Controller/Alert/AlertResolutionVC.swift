@@ -17,25 +17,39 @@ class AlertResolutionVC: UIViewController{
     @IBOutlet weak var cancel: UIButton!
     @IBOutlet weak var downAction: UIButton!
     @IBOutlet weak var cancelAction: UIButton!
-    
     @IBOutlet weak var low: UIButton!
-    
     @IBOutlet weak var middle: UIButton!
     @IBOutlet weak var high: UIButton!
+    var url : String!
+    var fileName : String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     @IBAction func closeAction(_ sender: Any) {
-        self.dismiss(animated: false, completion: nil)
+        self.view.removeFromSuperview()
+        self.removeFromParent()
     }
     @IBAction func cancelAction(_ sender: Any) {
-        self.dismiss(animated: false, completion: nil)
+        self.view.removeFromSuperview()
+        self.removeFromParent()
     }
     @IBAction func downAction(_ sender: Any) {
+        
         let board = UIStoryboard(name: "Main", bundle: nil)
-        let vc = board.instantiateViewController(withIdentifier: "AlerVodDown")
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: false, completion: nil)
+        let vc = board.instantiateViewController(withIdentifier: "AlerVodDown") as! AlertVodDownVC
+        vc.url = self.url
+        vc.fileName = self.fileName
+        if low.isSelected {vc.vodresolution = resolution.low }
+        else if middle.isSelected {vc.vodresolution = resolution.middle }
+        else if high.isSelected {vc.vodresolution = resolution.high }
+        
+        self.navigationController!.view.addSubview(vc.view)
+        self.navigationController!.addChild(vc)
+        
+        self.didMove(toParent: vc)
+        self.view.removeFromSuperview()
+        self.removeFromParent()
     }
     @IBAction func lowAction(_ sender: Any) {
         

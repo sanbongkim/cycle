@@ -18,7 +18,11 @@ struct ActivityIndicator {
     let tabBarController: UITabBarController?
     let activityIndicatorView = UIActivityIndicatorView()
     let loadingTextLabel = UILabel()
-    var navigationBarHeight: CGFloat { return navigationController?.navigationBar.frame.size.height ?? 0.0 }
+    //네비게이션 bar 높이계산 현재는 숨겼기 때문에 필요 없어 0.0 으로 세팅
+    var navigationBarHeight: CGFloat {
+        //navigationController?.navigationBar.frame.size.height ?? 0.0
+        return 0.0
+    }
     var tabBarHeight: CGFloat { return tabBarController?.tabBar.frame.height ?? 0.0 }
     func showActivityIndicator(text: String) {
         viewForActivityIndicator.frame = CGRect(x: 0.0, y: 0.0, width: 100, height: 100)
