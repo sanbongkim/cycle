@@ -43,11 +43,16 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     override func viewDidLoad() {
        super.viewDidLoad()
        // Do any additional setup after loading the view.
+       Util.copyDatabase("box.db")
        menu = storyboard?.instantiateViewController(withIdentifier: "LeftMenuNavigationController") as? SideMenuNavigationController
        menu?.leftSide = true
        menu?.setNavigationBarHidden(true, animated: false)
        menu?.settings = makeSettings()
        SideMenuManager.default.leftMenuNavigationController = menu
+        
+        
+       
+      
        logo = (Bundle.main.loadNibNamed("logoView", owner: self, options: nil)![0] as! UIView)
        logo.frame = self.view.frame
        self.view.addSubview(logo)

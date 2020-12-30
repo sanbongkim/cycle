@@ -32,6 +32,7 @@
 		48B14B092581FC03005606C4 /* MusicInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B14B082581FC03005606C4 /* MusicInfo.swift */; };
 		48B14B0D2581FC2C005606C4 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B14B0B2581FC2C005606C4 /* DatabaseManager.swift */; };
 		48B14B0E2581FC2C005606C4 /* MyStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B14B0C2581FC2C005606C4 /* MyStyle.swift */; };
+		48C67B74259C478600E507FE /* box.db in Resources */ = {isa = PBXBuildFile; fileRef = 48C67B66259C37C000E507FE /* box.db */; };
 		48CE28E52592E5D70044EAE4 /* MusicTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CE28E42592E5D70044EAE4 /* MusicTutorialViewController.swift */; };
 		48CE28E82592F1F60044EAE4 /* AlertVersionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CE28E72592F1F60044EAE4 /* AlertVersionVC.swift */; };
 		48D793462589BC0400AA45F5 /* AlertSencerCheckVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D793452589BC0400AA45F5 /* AlertSencerCheckVC.swift */; };
@@ -74,6 +75,7 @@
 		48B14B082581FC03005606C4 /* MusicInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicInfo.swift; sourceTree = "<group>"; };
 		48B14B0B2581FC2C005606C4 /* DatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		48B14B0C2581FC2C005606C4 /* MyStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyStyle.swift; sourceTree = "<group>"; };
+		48C67B66259C37C000E507FE /* box.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = box.db; sourceTree = "<group>"; };
 		48CE28E42592E5D70044EAE4 /* MusicTutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicTutorialViewController.swift; sourceTree = "<group>"; };
 		48CE28E72592F1F60044EAE4 /* AlertVersionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertVersionVC.swift; sourceTree = "<group>"; };
 		48D793452589BC0400AA45F5 /* AlertSencerCheckVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertSencerCheckVC.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 		48B14AFD2581E636005606C4 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				48C67B66259C37C000E507FE /* box.db */,
 				48B14B0B2581FC2C005606C4 /* DatabaseManager.swift */,
 				48B14B0C2581FC2C005606C4 /* MyStyle.swift */,
 				48B14B002581E6B8005606C4 /* Util.swift */,
@@ -303,6 +306,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48C67B74259C478600E507FE /* box.db in Resources */,
 				481F049E256B889300EF8000 /* LaunchScreen.storyboard in Resources */,
 				48B14AF32581E50C005606C4 /* LiveInfoCell.xib in Resources */,
 				481F049B256B889300EF8000 /* Assets.xcassets in Resources */,

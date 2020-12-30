@@ -7,6 +7,7 @@
 //
 
 import Foundation
+//뮤직데이터
 class MusicInfo{
 
    var index:Int32?
@@ -22,12 +23,27 @@ class MusicInfo{
    var difficulty:String?
    var isPlaying:Bool
    var isDownload:Bool
-    var playSec:Int32?
-    required init?(){
+   var playSec:Int32?
+   required init?(){
         isPlaying = false
         isDownload = false
         index = 0
     }
+}
+//영상테이터
+class VoidInfo{
     
-
+    var image : String?
+    var title : String?
+    var aviname : String?
+    var description : String?
+    var type : String?
+    var cn : String?
+    var pay : String?
+    var isDownLoad:Bool
+    var isCheck:Bool
+    required init?(){
+        isDownLoad = false
+        isCheck = false
+     }
 }

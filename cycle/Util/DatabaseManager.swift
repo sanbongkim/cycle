@@ -29,8 +29,41 @@ class DatabaseManager : NSObject{
         shareInstance.database?.close()
         return true
     }
-    func saveData(model:MusicInfo) -> Bool{
+    func saveVodInfo(modelInfo:[InfoData])-> Bool{
+        shareInstance.database?.open()
+        var count : Int = 0
+        for model in modelInfo{
+            count+=1;
+            let success = shareInstance.database?.executeUpdate("INSERT OR REPLACE INTO vodinfo(image,title,aviname,description,cn,pay,download) VALUES (?,?,?,?,?,?,(SELECT download FROM vodinfo where title = ?))",
+                                                                withArgumentsIn:[model.image!,model.title!,model.aviname!,model.description!,model.cn!,model.pay!,String(model.title!)])
+            if success == false{
+                print("insertFalse")
+                continue
+            }
+        }
+        shareInstance.database?.close()
+        return true
+    }
+    func selectVodData(query : String)->[InfoData]{
+        var model : [InfoData] = []
+        let queryString = "SELECT *from vodinfo order by title asc"
          shareInstance.database?.open()
+        let result = shareInstance.database?.executeQuery(queryString, withArgumentsIn: [])
+        if  (result != nil) {
+            while(result!.next()){
+            let data : InfoData = InfoData(image: result!.string(forColumn: "image"), title: result!.string(forColumn: "title"),aviname:result!.string(forColumn: "aviname"),
+                                           description: result!.string(forColumn: "description")
+                                          ,length_4k: 0, length_2k: 0, length: 0, type: "", cn: result!.string(forColumn: "cn")
+                                          ,pay:result!.string(forColumn: "pay"), check: result!.bool(forColumn: "check"),download: result!.bool(forColumn: "check"))
+          model.append(data)
+         }
+        }
+        shareInstance.database?.close()
+        return model
+        
+    }
+    func saveData(model:MusicInfo) -> Bool{
+         shareInstance.database?.open() 
          //데이터 수정
         let sqlUpdate : String = "UPDATE boxinfo SET down =? WHERE title =?"
         let success = shareInstance.database?.executeUpdate(sqlUpdate,withArgumentsIn: [(model.isDownload ? 1 : 0),model.title!])
@@ -61,3 +94,4 @@ class DatabaseManager : NSObject{
     }
     
 }
+

@@ -68,14 +68,14 @@ class LoginViewController: UIViewController {
                 self.present(alert, animated: true, completion: nil)
                 return
             }
-                var parameters: [String: Any] = [:]
-                     parameters["id"]    = userid.text
-                     parameters["pw"] = pwd.text
-                    parameters["timezone"] = Util.timeZoneOffsetInHours()
-                     print(parameters)
-                     activityindi = ActivityIndicator(view: self.view,navigationController: self.navigationController,tabBarController: nil)
-                     activityindi.showActivityIndicator(text:"")
-                     Alamofire.request(Constant.VRFIT_MEMBER_LOGIN_ADDRESS, method: .post, parameters:parameters, encoding:URLEncoding.httpBody)
+            var parameters: [String: Any] = [:]
+                parameters["id"]    = userid.text
+                parameters["pw"] = pwd.text
+                parameters["timezone"] = Util.timeZoneOffsetInHours()
+                print(parameters)
+                activityindi = ActivityIndicator(view: self.view,navigationController: self.navigationController,tabBarController: nil)
+                activityindi.showActivityIndicator(text:"")
+                Alamofire.request(Constant.VRFIT_MEMBER_LOGIN_ADDRESS, method: .post, parameters:parameters, encoding:URLEncoding.httpBody)
                          .responseJSON { response in
                             self.activityindi.stopActivityIndicator()
                              switch(response.result) {
@@ -338,7 +338,6 @@ class LoginViewController: UIViewController {
                 }
         }
     }
-    
     /*
      * 포스트 소스
      */

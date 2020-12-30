@@ -20,7 +20,10 @@ class VodListController:UIViewController{
         tableview.delegate = self
         tableview.dataSource = self
         tableview.backgroundView = UIImageView(image: UIImage(named: "cycle_background"))
-        getVodList()
+        
+        videoInfo =  DatabaseManager.getInstance().selectVodData(query: "")
+        self.tableview .reloadData()
+        //getVodList()
     }
     @IBAction func backButtonAction(_ sender: Any) {
         self.navigationController!.popViewController(animated: true)
@@ -34,28 +37,31 @@ class VodListController:UIViewController{
         let manager = Alamofire.SessionManager.default
         manager.session.configuration.timeoutIntervalForRequest = 15
         manager.request(Constant.VRFIT_MUSIC_LIST, method: .post, parameters:parameters, encoding:URLEncoding.httpBody)
-            .responseJSON { response in
+            .responseJSON { [self] response in
                 switch(response.result) {
                 case.success(let obj):
-                     activityIndicator.stopActivityIndicator()
+                    activityIndicator.stopActivityIndicator()
                     do{
                         let jsonData = try JSONSerialization.data(withJSONObject: obj, options: .prettyPrinted)
                         let json = try JSONDecoder().decode(VideoInfo.self,from: jsonData)
+                        print(json)
                         if json.result == "FAIL"{
-                           for Infodata in json.data!.values{
-                               self.videoInfo.append(Infodata)
-                           }
+                            for Infodata in json.data!.values{
+                                self.videoInfo.append(Infodata)
+                            }
                             self.videoInfo.sort {
                                 $0.title!.localizedCaseInsensitiveCompare($1.title!) == ComparisonResult.orderedAscending
                             }
                             self.tableview .reloadData()
+                        }else{
+                            _ = DatabaseManager.getInstance().saveVodInfo(modelInfo:videoInfo)
                         }
                     }
                     catch{
                         print(error.localizedDescription)
                     }                   
                 case.failure(let error):
-                     activityIndicator.stopActivityIndicator()
+                    activityIndicator.stopActivityIndicator()
                     if let error = error as? AFError {
                         switch error {
                         case .invalidURL(let url):
@@ -84,15 +90,15 @@ class VodListController:UIViewController{
                             print("Failure Reason: \(reason)")
                         }
                     } else if let error = error as? URLError {
-                       let alert = UIAlertController(title: Util.localString(st: "alert"), message: Util.localString(st:"wifi_fail"), preferredStyle: .alert)
+                        let alert = UIAlertController(title: Util.localString(st: "alert"), message: Util.localString(st:"wifi_fail"), preferredStyle: .alert)
                         let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
-                         }
-                         alert.addAction(OKAction)
-                         self.present(alert, animated: true, completion: nil)
+                        }
+                        alert.addAction(OKAction)
+                        self.present(alert, animated: true, completion: nil)
                         print("Unknown error: \(error)")
                     }
                 }
-        }
+            }
     }
 }
 extension VodListController : UITableViewDelegate,UITableViewDataSource{
@@ -109,24 +115,24 @@ extension VodListController : UITableViewDelegate,UITableViewDataSource{
         }
         return cell
     }
-   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 190
     }
-   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-   
-    let board = UIStoryboard(name: "Main", bundle: nil)
-    let vc = board.instantiateViewController(withIdentifier: "AlertResolution") as! AlertResolutionVC
-    let videoInfo = self.videoInfo[indexPath.row]
-    vc.fileName = videoInfo.title
-    self.navigationController!.view.addSubview(vc.view)
-    self.navigationController!.addChild(vc)
-    self.didMove(toParent: vc)
-    
-//    let window = UIApplication.shared.keyWindow!
-    
-    
-//    window.rootViewController!.addChild(vc)
-//    window.rootViewController!.view.addSubview(vc.view)
-//    self.didMove(toParent: vc)
-   }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        
+        let board = UIStoryboard(name: "Main", bundle: nil)
+        let vc = board.instantiateViewController(withIdentifier: "AlertResolution") as! AlertResolutionVC
+        let videoInfo = self.videoInfo[indexPath.row]
+        vc.fileName = videoInfo.title
+        self.navigationController!.view.addSubview(vc.view)
+        self.navigationController!.addChild(vc)
+        self.didMove(toParent: vc)
+        
+        //    let window = UIApplication.shared.keyWindow!
+        
+        
+        //    window.rootViewController!.addChild(vc)
+        //    window.rootViewController!.view.addSubview(vc.view)
+        //    self.didMove(toParent: vc)
+    }
 }

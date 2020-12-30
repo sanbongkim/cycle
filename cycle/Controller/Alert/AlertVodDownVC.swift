@@ -30,10 +30,6 @@ class AlertVodDownVC : UIViewController{
             downloadUsingAlamofire(url: myURL, fileName: fileName+".mp4")
         }
 
-
-     
-       
-      
     }
     @IBAction func closeAction(_ sender: Any) {
         self.removeFromParent()
