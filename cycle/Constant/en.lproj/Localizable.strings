@@ -32,6 +32,14 @@
 "jab"   = "box_ins_jab_en";
 "upper" = "box_ins_upper_en";
 
+//팝업관련
+"down_cancel_content"  = "Downloading video\nAre you sure you want to cancel?";
+"down_cancel_music"    = "Downloading music\nAre you sure you want to cancel?";
+
+"custom_vr_down_info"  = "# Download VRFit video\n1. From the \'Download video for exercise\' menu, touch the video you want to receive.\n\n2. Choose from \'low quality\', \'medium quality\', and \'high quality\' according to the phone\'s specifications.\n(For low-end phones, if you select high quality, it may stop during playback.)\n\n# User video download\n1. Install an app that allows you to download videos from Facebook or Vimeo to your phone with a search term such as \'video down\' in \'Google Play Store\'.\n\n2. Run the installed app, search for VR video, (not normal 2D video), and download it. (Search for videos moving at a constant speed, e.g. search term : \'360 driving\')\n\n3. After running the 360VRFit Cycle1 app and selecting and setting the downloaded VR video, the VR video can be played during exercise.";
+
+"custom_vr_setting_info" = "In the upper \"Downloaded Video List\", Videos provided by VRFit are shown.\n\nIn the lower \'User Video List\', the videos downloaded by the user from other sites are displayed. (It may takes time to create the first list.)\n\nIf you touch the video you want to use in the video list (multiple selections are possible), the selected videos are played during exercise.";
+
 
 //회원가입 로그인 PlaceHold
 "ph_not_member" = "Not a member yet?";
@@ -152,9 +160,6 @@
  "remove_music_failed"="Removal failed.";
 
  "graph_recent_warning"="This graph is up to date.";
-
- "down_cancel_content"="Downloading music\nAre you sure you want to cancel?";
-
 // Need Input Weight --="
  "input_weight"="For more accurate calculation of calories burned,\nPlease enter your weight(kg).";
  "input_weight_fail"="Failed to save weight data.\nPlease try again later.";

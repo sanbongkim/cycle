@@ -35,6 +35,7 @@
 		48C67B74259C478600E507FE /* box.db in Resources */ = {isa = PBXBuildFile; fileRef = 48C67B66259C37C000E507FE /* box.db */; };
 		48CE28E52592E5D70044EAE4 /* MusicTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CE28E42592E5D70044EAE4 /* MusicTutorialViewController.swift */; };
 		48CE28E82592F1F60044EAE4 /* AlertVersionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CE28E72592F1F60044EAE4 /* AlertVersionVC.swift */; };
+		48D632FC259D716A00DA9EB5 /* AlertViewVodHelpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D632FB259D716A00DA9EB5 /* AlertViewVodHelpVC.swift */; };
 		48D793462589BC0400AA45F5 /* AlertSencerCheckVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D793452589BC0400AA45F5 /* AlertSencerCheckVC.swift */; };
 		48D793492589C99400AA45F5 /* AlertResolutionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D793482589C99400AA45F5 /* AlertResolutionVC.swift */; };
 		48DB9F15259711FB00C82B64 /* VodListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DB9F14259711FB00C82B64 /* VodListCell.swift */; };
@@ -78,6 +79,7 @@
 		48C67B66259C37C000E507FE /* box.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = box.db; sourceTree = "<group>"; };
 		48CE28E42592E5D70044EAE4 /* MusicTutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicTutorialViewController.swift; sourceTree = "<group>"; };
 		48CE28E72592F1F60044EAE4 /* AlertVersionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertVersionVC.swift; sourceTree = "<group>"; };
+		48D632FB259D716A00DA9EB5 /* AlertViewVodHelpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewVodHelpVC.swift; sourceTree = "<group>"; };
 		48D793452589BC0400AA45F5 /* AlertSencerCheckVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertSencerCheckVC.swift; sourceTree = "<group>"; };
 		48D793482589C99400AA45F5 /* AlertResolutionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertResolutionVC.swift; sourceTree = "<group>"; };
 		48DB9F14259711FB00C82B64 /* VodListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VodListCell.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				48D793482589C99400AA45F5 /* AlertResolutionVC.swift */,
 				487685862590674B001E5BFA /* AlertSignUpVC.swift */,
 				48CE28E72592F1F60044EAE4 /* AlertVersionVC.swift */,
+				48D632FB259D716A00DA9EB5 /* AlertViewVodHelpVC.swift */,
 			);
 			path = Alert;
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				48B14AFA2581E570005606C4 /* LoginViewController.swift in Sources */,
+				48D632FC259D716A00DA9EB5 /* AlertViewVodHelpVC.swift in Sources */,
 				487685872590674B001E5BFA /* AlertSignUpVC.swift in Sources */,
 				48A9B0C22588930900862D13 /* AlertVodDownVC.swift in Sources */,
 				48A9B0B02588561000862D13 /* AlertMusicNotSet.swift in Sources */,

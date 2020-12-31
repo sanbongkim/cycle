@@ -3,7 +3,7 @@
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -1263,6 +1263,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="cancel" destination="hZw-8F-E4D" id="Bwi-2t-wSE"/>
                         <outlet property="close" destination="GmV-PE-nCO" id="gr3-k6-PRR"/>
                         <outlet property="downloadPercent" destination="09i-mW-mWF" id="G9r-WJ-fCq"/>
                         <outlet property="message" destination="hbz-Jj-Ccg" id="gdt-vV-qkG"/>
@@ -1272,10 +1273,10 @@
             </objects>
             <point key="canvasLocation" x="869.56521739130437" y="-11.413043478260871"/>
         </scene>
-        <!--View Controller-->
+        <!--Alet View Vod HelpVC-->
         <scene sceneID="anC-q2-OIW">
             <objects>
-                <viewController id="1lW-R0-T0K" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AletViewVodHelpVC" id="1lW-R0-T0K" customClass="AletViewVodHelpVC" customModule="cycle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VFj-A4-Ush">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1305,6 +1306,9 @@
                                             <constraint firstAttribute="height" constant="23" id="EYO-Di-ZWR"/>
                                         </constraints>
                                         <state key="normal" image="dialog_back_key_btn"/>
+                                        <connections>
+                                            <action selector="closeAction:" destination="1lW-R0-T0K" eventType="touchUpInside" id="5ne-Bx-8Kb"/>
+                                        </connections>
                                     </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dialog_vr_help_q" translatesAutoresizingMaskIntoConstraints="NO" id="cx9-xg-ydN">
                                         <rect key="frame" x="112.33333333333333" y="55.999999999999972" width="56.333333333333329" height="48.333333333333343"/>
@@ -1346,6 +1350,10 @@
                             <constraint firstItem="DGG-sA-bBu" firstAttribute="centerX" secondItem="VFj-A4-Ush" secondAttribute="centerX" id="fL7-W5-Ajn"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="close" destination="r1G-ho-uyg" id="aP6-n0-vei"/>
+                        <outlet property="message" destination="wQd-8k-M1Y" id="N5J-11-Q4g"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l9S-2H-NBK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2311,6 +2319,17 @@
                                 <rect key="frame" x="0.0" y="164" width="414" height="698"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VLf-7f-gd4">
+                                <rect key="frame" x="355.33333333333331" y="51.333333333333343" width="38.666666666666686" height="38.666666666666657"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="VLf-7f-gd4" secondAttribute="height" multiplier="1:1" id="mdH-R6-ab8"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="btn_help"/>
+                                <connections>
+                                    <action selector="infoAction:" destination="cBZ-b9-Cwt" eventType="touchUpInside" id="3Aa-7Z-HeZ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="VPU-43-UOr"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -2322,10 +2341,13 @@
                             <constraint firstItem="k8O-2Y-nDS" firstAttribute="centerX" secondItem="f6A-K7-cem" secondAttribute="centerX" id="6be-SF-7rk"/>
                             <constraint firstItem="iFf-Ba-aFL" firstAttribute="width" secondItem="f6A-K7-cem" secondAttribute="width" id="8WA-Ll-TES"/>
                             <constraint firstItem="3u6-Ta-Vbi" firstAttribute="height" secondItem="f6A-K7-cem" secondAttribute="height" multiplier="0.0223214" id="C8s-VI-jK0"/>
+                            <constraint firstItem="VLf-7f-gd4" firstAttribute="centerY" secondItem="k8O-2Y-nDS" secondAttribute="centerY" id="Ctv-Si-URL"/>
                             <constraint firstItem="4RS-s6-0oy" firstAttribute="trailing" secondItem="VPU-43-UOr" secondAttribute="trailing" id="DM4-wU-a6N"/>
                             <constraint firstItem="iFf-Ba-aFL" firstAttribute="height" secondItem="f6A-K7-cem" secondAttribute="height" multiplier="0.0446429" id="ECh-c3-DN3"/>
+                            <constraint firstItem="VLf-7f-gd4" firstAttribute="width" secondItem="VLf-7f-gd4" secondAttribute="height" multiplier="1:1" id="EOn-Z7-MXH"/>
                             <constraint firstItem="q9B-wI-3ni" firstAttribute="leading" secondItem="VPU-43-UOr" secondAttribute="leading" constant="10" id="HyU-tt-Gfd"/>
                             <constraint firstItem="k8O-2Y-nDS" firstAttribute="width" secondItem="f6A-K7-cem" secondAttribute="width" multiplier="0.5" id="ILO-hq-OxW"/>
+                            <constraint firstItem="VLf-7f-gd4" firstAttribute="width" secondItem="VSx-AO-PBZ" secondAttribute="width" multiplier="0.0933977" id="KER-m0-pXE"/>
                             <constraint firstItem="3u6-Ta-Vbi" firstAttribute="leading" secondItem="VPU-43-UOr" secondAttribute="leading" constant="10" id="PRe-Ld-eco"/>
                             <constraint firstItem="q9B-wI-3ni" firstAttribute="centerY" secondItem="k8O-2Y-nDS" secondAttribute="centerY" id="SKs-Vg-MW0"/>
                             <constraint firstItem="4RS-s6-0oy" firstAttribute="leading" secondItem="VPU-43-UOr" secondAttribute="leading" id="WJu-S0-LnP"/>
@@ -2335,12 +2357,14 @@
                             <constraint firstItem="4RS-s6-0oy" firstAttribute="trailing" secondItem="VPU-43-UOr" secondAttribute="trailing" id="gsv-TA-1OV"/>
                             <constraint firstItem="iFf-Ba-aFL" firstAttribute="leading" secondItem="VPU-43-UOr" secondAttribute="leading" id="pTn-k6-nBi"/>
                             <constraint firstItem="3u6-Ta-Vbi" firstAttribute="top" secondItem="iFf-Ba-aFL" secondAttribute="bottom" constant="2" id="sha-zi-MTK"/>
+                            <constraint firstItem="VPU-43-UOr" firstAttribute="trailing" secondItem="VLf-7f-gd4" secondAttribute="trailing" constant="20" id="vmH-AL-Ja3"/>
                             <constraint firstItem="4RS-s6-0oy" firstAttribute="bottom" secondItem="VPU-43-UOr" secondAttribute="bottom" id="wRh-la-aA0"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="HMf-Y0-2tS"/>
                     <connections>
                         <outlet property="backButton" destination="q9B-wI-3ni" id="X8V-35-igd"/>
+                        <outlet property="info" destination="VLf-7f-gd4" id="bt6-To-wlh"/>
                         <outlet property="tableview" destination="4RS-s6-0oy" id="vy8-kr-yWQ"/>
                     </connections>
                 </viewController>
@@ -2350,7 +2374,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="IXX-YZ-N8V"/>
+        <segue reference="QWE-rh-HzL"/>
         <segue reference="J6N-KC-tbU"/>
     </inferredMetricsTieBreakers>
     <resources>

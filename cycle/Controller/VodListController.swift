@@ -12,6 +12,7 @@ import SwiftyJSON
 class VodListController:UIViewController{
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var tableview: UITableView!
+    @IBOutlet weak var info: UIButton!
     var videoInfo = [InfoData]()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,14 @@ class VodListController:UIViewController{
         videoInfo =  DatabaseManager.getInstance().selectVodData(query: "")
         self.tableview .reloadData()
         //getVodList()
+    }
+    @IBAction func infoAction(_ sender: Any) {
+        let board = UIStoryboard(name: "Main", bundle: nil)
+        let vc = board.instantiateViewController(withIdentifier: "AletViewVodHelpVC") as! AletViewVodHelpVC
+        self.navigationController!.view.addSubview(vc.view)
+        self.navigationController!.addChild(vc)
+        self.didMove(toParent: vc)
+        
     }
     @IBAction func backButtonAction(_ sender: Any) {
         self.navigationController!.popViewController(animated: true)

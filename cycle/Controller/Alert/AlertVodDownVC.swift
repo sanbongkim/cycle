@@ -23,8 +23,12 @@ class AlertVodDownVC : UIViewController{
     @IBOutlet weak var downloadPercent: UILabel!
     @IBOutlet weak var message: UILabel!
    
+    @IBOutlet weak var cancel: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        cancel.titleLabel!.text = Util.localString(st: "cancel")
+        message.text = Util.localString(st:"down_cancel_content")
         if let encoded = makeUrl().addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
            let myURL = URL(string: encoded) {
             downloadUsingAlamofire(url: myURL, fileName: fileName+".mp4")
