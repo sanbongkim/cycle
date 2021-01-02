@@ -12,7 +12,6 @@ enum resolution{
     
     case low,middle,high
 }
-
 class AlertVodDownVC : UIViewController{
     var url: String!
     var fileName : String!

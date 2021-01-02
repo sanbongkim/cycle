@@ -43,7 +43,7 @@ class VodListController:UIViewController{
         activityIndicator.showActivityIndicator(text: Util.localString(st: "loding"))
         let manager = Alamofire.SessionManager.default
         manager.session.configuration.timeoutIntervalForRequest = 15
-        manager.request(Constant.VRFIT_MUSIC_LIST, method: .post, parameters:parameters, encoding:URLEncoding.httpBody)
+        manager.request(Constant.VRFIT_VOD_LIST, method: .post, parameters:parameters, encoding:URLEncoding.httpBody)
             .responseJSON { [self] response in
                 switch(response.result) {
                 case.success(let obj):
