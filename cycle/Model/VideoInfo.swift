@@ -25,8 +25,10 @@ struct InfoData:Codable{
     var type : String?
     var cn : String?
     var pay : String?
-    var check :  Bool?
+    var vodcheck :  Bool?
     var download: Bool?
+    
+    
     
 }
 

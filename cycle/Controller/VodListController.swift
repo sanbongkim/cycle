@@ -21,10 +21,8 @@ class VodListController:UIViewController{
         tableview.delegate = self
         tableview.dataSource = self
         tableview.backgroundView = UIImageView(image: UIImage(named: "cycle_background"))
-        
-        videoInfo =  DatabaseManager.getInstance().selectVodData(query: "")
         self.tableview .reloadData()
-        //getVodList()
+        getVodList()
     }
     @IBAction func infoAction(_ sender: Any) {
         let board = UIStoryboard(name: "Main", bundle: nil)
@@ -62,8 +60,9 @@ class VodListController:UIViewController{
                                 $0.title!.localizedCaseInsensitiveCompare($1.title!) == ComparisonResult.orderedAscending
                             }
                             self.tableview .reloadData()
-                        }else{
                             _ = DatabaseManager.getInstance().saveVodInfo(modelInfo:videoInfo)
+                        }else{
+                           
                         }
                     }
                     catch{

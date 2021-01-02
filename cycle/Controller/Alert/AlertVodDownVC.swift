@@ -31,7 +31,7 @@ class AlertVodDownVC : UIViewController{
         message.text = Util.localString(st:"down_cancel_content")
         if let encoded = makeUrl().addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
            let myURL = URL(string: encoded) {
-            downloadUsingAlamofire(url: myURL, fileName: fileName+".mp4")
+            downloadUsingAlamofire(url: myURL, fileName: fileName + ".mp4")
         }
 
     }
@@ -80,22 +80,17 @@ class AlertVodDownVC : UIViewController{
         }
         manager.download(url, to: destination)
             .downloadProgress(queue: .main, closure: { (progress) in
-                
                 let comp = CGFloat(progress.fractionCompleted) * 100
                 self.downloadPercent.text = String(Int(comp)) + "%"
             })
             .responseData { response in
-                
-            self.removeFromParent()
-            self.view.removeFromSuperview()
-            if let destinationUrl = response.destinationURL {
-                print(destinationUrl)
+                if response.destinationURL != nil {
                 if let statusCode = response.response?.statusCode{
                     if statusCode == 200 {
-                        DispatchQueue.main.async() {
-                            
-                            
-                        }
+                        _ = DatabaseManager.getInstance().saveDownLoadComplate(fileName:self.fileName)
+                       // self.removeFromParent()
+                        //self.view.removeFromSuperview()
+                       
                     }else{
                     }
                 }

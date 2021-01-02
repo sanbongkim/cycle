@@ -50,9 +50,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
        menu?.settings = makeSettings()
        SideMenuManager.default.leftMenuNavigationController = menu
         
-        
-       
-      
        logo = (Bundle.main.loadNibNamed("logoView", owner: self, options: nil)![0] as! UIView)
        logo.frame = self.view.frame
        self.view.addSubview(logo)

@@ -54,6 +54,8 @@ class Constant{
     static let VRFIT_VERSION_CHECK = VRFIT_BOXING_HTTP_DOMAIN + "api_Version_Check_i_360"
     /////////////////////////String VRFIT_MUSIC_LIST = VRFIT_CYCLE_HTTP_DOMAIN_SETTING + "music_Information";
     static let VRFIT_MUSIC_LIST = VRFIT_BOXING_HTTP_DOMAIN + "avi_Information"
+    
+    
     static let URL_GET_MAGNET = "https://www.m2me.co.kr:9443/setting/get_Calibration?uu_id=%s&id=%s" // Magnet X Y Z 찾아오는 URL
     static let VRFIT_PAY_MTOME = "http://www.m2me.kr"
     static let SERVER_SUCCESS = "SUCCESS"

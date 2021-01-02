@@ -34,8 +34,10 @@ class DatabaseManager : NSObject{
         var count : Int = 0
         for model in modelInfo{
             count+=1;
-            let success = shareInstance.database?.executeUpdate("INSERT OR REPLACE INTO vodinfo(image,title,aviname,description,cn,pay,download) VALUES (?,?,?,?,?,?,(SELECT download FROM vodinfo where title = ?))",
-                                                                withArgumentsIn:[model.image!,model.title!,model.aviname!,model.description!,model.cn!,model.pay!,String(model.title!)])
+            let success = shareInstance.database?.executeUpdate("INSERT OR REPLACE INTO vodinfo(image,title,aviname,description,cn,pay,vodcheck,down) VALUES (?,?,?,?,?,?,?,(SELECT IFNULL(down,0) FROM vodinfo where title = ?))",
+                                                                withArgumentsIn:[model.image!,model.title!,model.aviname!,model.description!,model.cn!,model.pay!,0,model.title!])
+        
+            print(shareInstance.database?.lastErrorMessage() as Any)
             if success == false{
                 print("insertFalse")
                 continue
@@ -54,13 +56,22 @@ class DatabaseManager : NSObject{
             let data : InfoData = InfoData(image: result!.string(forColumn: "image"), title: result!.string(forColumn: "title"),aviname:result!.string(forColumn: "aviname"),
                                            description: result!.string(forColumn: "description")
                                           ,length_4k: 0, length_2k: 0, length: 0, type: "", cn: result!.string(forColumn: "cn")
-                                          ,pay:result!.string(forColumn: "pay"), check: result!.bool(forColumn: "check"),download: result!.bool(forColumn: "check"))
+                                          ,pay:result!.string(forColumn: "pay"), vodcheck: result!.bool(forColumn: "vodcheck"),download: result!.bool(forColumn: "down"))
           model.append(data)
          }
         }
         shareInstance.database?.close()
         return model
         
+    }
+    func saveDownLoadComplate(fileName : String) -> Bool{
+         shareInstance.database?.open()
+         //데이터 수정
+        let sqlUpdate : String = "UPDATE vodinfo SET down = ? WHERE title = ?"
+        let success = shareInstance.database?.executeUpdate(sqlUpdate,withArgumentsIn:[1,fileName])
+        print(shareInstance.database?.lastErrorMessage() as Any)
+        shareInstance.database?.close()
+        return success!
     }
     func saveData(model:MusicInfo) -> Bool{
          shareInstance.database?.open() 

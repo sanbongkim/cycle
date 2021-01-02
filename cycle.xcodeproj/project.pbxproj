@@ -32,7 +32,6 @@
 		48B14B092581FC03005606C4 /* MusicInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B14B082581FC03005606C4 /* MusicInfo.swift */; };
 		48B14B0D2581FC2C005606C4 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B14B0B2581FC2C005606C4 /* DatabaseManager.swift */; };
 		48B14B0E2581FC2C005606C4 /* MyStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B14B0C2581FC2C005606C4 /* MyStyle.swift */; };
-		48C67B74259C478600E507FE /* box.db in Resources */ = {isa = PBXBuildFile; fileRef = 48C67B66259C37C000E507FE /* box.db */; };
 		48CE28E52592E5D70044EAE4 /* MusicTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CE28E42592E5D70044EAE4 /* MusicTutorialViewController.swift */; };
 		48CE28E82592F1F60044EAE4 /* AlertVersionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CE28E72592F1F60044EAE4 /* AlertVersionVC.swift */; };
 		48D632FC259D716A00DA9EB5 /* AlertViewVodHelpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D632FB259D716A00DA9EB5 /* AlertViewVodHelpVC.swift */; };
@@ -42,6 +41,7 @@
 		48DB9F182597122B00C82B64 /* VodListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48DB9F172597122B00C82B64 /* VodListCell.xib */; };
 		48DE4116259440610000346E /* VideoInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DE4115259440610000346E /* VideoInfo.swift */; };
 		48DE411A259467210000346E /* VodListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DE4119259467210000346E /* VodListController.swift */; };
+		48EB7FAA25A045290087685C /* box.db in Resources */ = {isa = PBXBuildFile; fileRef = 48EB7FA825A0423F0087685C /* box.db */; };
 		48F0B36A258DCAB700C08B69 /* logoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48F0B369258DCAB700C08B69 /* logoView.xib */; };
 		48F0B36D258DCAFF00C08B69 /* logoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F0B36C258DCAFF00C08B69 /* logoView.swift */; };
 		61B73A6105FD72356115E73F /* Pods_cycle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD93B7089648CBFC9A79B9BA /* Pods_cycle.framework */; };
@@ -76,7 +76,6 @@
 		48B14B082581FC03005606C4 /* MusicInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicInfo.swift; sourceTree = "<group>"; };
 		48B14B0B2581FC2C005606C4 /* DatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		48B14B0C2581FC2C005606C4 /* MyStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyStyle.swift; sourceTree = "<group>"; };
-		48C67B66259C37C000E507FE /* box.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = box.db; sourceTree = "<group>"; };
 		48CE28E42592E5D70044EAE4 /* MusicTutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicTutorialViewController.swift; sourceTree = "<group>"; };
 		48CE28E72592F1F60044EAE4 /* AlertVersionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertVersionVC.swift; sourceTree = "<group>"; };
 		48D632FB259D716A00DA9EB5 /* AlertViewVodHelpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewVodHelpVC.swift; sourceTree = "<group>"; };
@@ -86,6 +85,7 @@
 		48DB9F172597122B00C82B64 /* VodListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VodListCell.xib; sourceTree = "<group>"; };
 		48DE4115259440610000346E /* VideoInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoInfo.swift; sourceTree = "<group>"; };
 		48DE4119259467210000346E /* VodListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VodListController.swift; sourceTree = "<group>"; };
+		48EB7FA825A0423F0087685C /* box.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = box.db; sourceTree = "<group>"; };
 		48F0B369258DCAB700C08B69 /* logoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = logoView.xib; sourceTree = "<group>"; };
 		48F0B36C258DCAFF00C08B69 /* logoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = logoView.swift; sourceTree = "<group>"; };
 		6A6DBCA2A901E77A07A1ADB1 /* Pods-cycle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cycle.release.xcconfig"; path = "Target Support Files/Pods-cycle/Pods-cycle.release.xcconfig"; sourceTree = "<group>"; };
@@ -176,7 +176,7 @@
 		48B14AFD2581E636005606C4 /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				48C67B66259C37C000E507FE /* box.db */,
+				48EB7FA825A0423F0087685C /* box.db */,
 				48B14B0B2581FC2C005606C4 /* DatabaseManager.swift */,
 				48B14B0C2581FC2C005606C4 /* MyStyle.swift */,
 				48B14B002581E6B8005606C4 /* Util.swift */,
@@ -309,7 +309,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				48C67B74259C478600E507FE /* box.db in Resources */,
+				48EB7FAA25A045290087685C /* box.db in Resources */,
 				481F049E256B889300EF8000 /* LaunchScreen.storyboard in Resources */,
 				48B14AF32581E50C005606C4 /* LiveInfoCell.xib in Resources */,
 				481F049B256B889300EF8000 /* Assets.xcassets in Resources */,
