@@ -52,7 +52,8 @@ class VodListController:UIViewController{
                         let jsonData = try JSONSerialization.data(withJSONObject: obj, options: .prettyPrinted)
                         let json = try JSONDecoder().decode(VideoInfo.self,from: jsonData)
                         print(json)
-                        if json.result == "FAIL"{
+                        //TODO: 테스트 하기위해 우선 FAIL 을 위해
+                        if json.result != "FAIL"{
                             for Infodata in json.data!.values{
                                 self.videoInfo.append(Infodata)
                             }
@@ -62,11 +63,12 @@ class VodListController:UIViewController{
                             self.tableview .reloadData()
                             _ = DatabaseManager.getInstance().saveVodInfo(modelInfo:videoInfo)
                         }else{
-                           
+                            videoInfo = DatabaseManager.getInstance().selectVodData(query: "")
+                            self.tableview .reloadData()
                         }
                     }
                     catch{
-                        print(error.localizedDescription)
+                            print(error.localizedDescription)
                     }                   
                 case.failure(let error):
                     activityIndicator.stopActivityIndicator()
@@ -135,12 +137,5 @@ extension VodListController : UITableViewDelegate,UITableViewDataSource{
         self.navigationController!.view.addSubview(vc.view)
         self.navigationController!.addChild(vc)
         self.didMove(toParent: vc)
-        
-        //    let window = UIApplication.shared.keyWindow!
-        
-        
-        //    window.rootViewController!.addChild(vc)
-        //    window.rootViewController!.view.addSubview(vc.view)
-        //    self.didMove(toParent: vc)
     }
 }

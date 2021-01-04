@@ -46,6 +46,24 @@ class DatabaseManager : NSObject{
         shareInstance.database?.close()
         return true
     }
+    func selectDownLoaded()->[InfoData]{
+        var model : [InfoData] = []
+        let queryString = "SELECT *from vodinfo where down = 1 order by title asc"
+         shareInstance.database?.open()
+        let result = shareInstance.database?.executeQuery(queryString, withArgumentsIn: [])
+        if  (result != nil) {
+            while(result!.next()){
+            let data : InfoData = InfoData(image: result!.string(forColumn: "image"), title: result!.string(forColumn: "title"),aviname:result!.string(forColumn: "aviname"),
+                                           description: result!.string(forColumn: "description")
+                                          ,length_4k: 0, length_2k: 0, length: 0, type: "", cn: result!.string(forColumn: "cn")
+                                          ,pay:result!.string(forColumn: "pay"), vodcheck: result!.bool(forColumn: "vodcheck"),download: result!.bool(forColumn: "down"))
+          model.append(data)
+         }
+        }
+        shareInstance.database?.close()
+        return model
+        
+    }
     func selectVodData(query : String)->[InfoData]{
         var model : [InfoData] = []
         let queryString = "SELECT *from vodinfo order by title asc"

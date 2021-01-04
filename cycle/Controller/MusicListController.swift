@@ -45,8 +45,6 @@ class MusicListController : UIViewController{
         button.isSelected = !button.isSelected
         musicDownload.isSelected = true
         musicDownload.isSelected = false
-  
-  
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "MusicTutorialViewController"{
@@ -57,17 +55,14 @@ class MusicListController : UIViewController{
                 vc.mode = ImageMode.setting
             }
         }
-           
     }
     @IBAction func musicSettingAction(_ sender: Any) {
         let button = sender as! UIButton
         if button.isSelected == true{return}
         button.isSelected = !button.isSelected
-      
         musicDownload.isSelected = false
         musicSetting.isSelected = true
     }
-
     func sortDifficult(value:String){
         for music in musicInfos {
             if music.difficulty == value{
