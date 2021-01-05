@@ -22,8 +22,8 @@ class DatabaseManager : NSObject{
         var count : Int = 0
         for model in modelInfo{
             count+=1;
-            let success = shareInstance.database?.executeUpdate("INSERT OR REPLACE INTO boxinfo(idx,title,singer,note,playtime,difficulty,bpm,bit,down) VALUES (?,?,?,?,?,?,?,?,(SELECT down FROM boxinfo where title = ?))",
-                withArgumentsIn:[count,model.title!,model.singer!,String(model.music_note!),model.playtime!,model.difficulty!,String(model.music_bpm!),String(model.music_bit!),model.title!])
+            let success = shareInstance.database?.executeUpdate("INSERT OR REPLACE INTO boxinfo(idx,title,singer,playtime,bpm,down) VALUES (?,?,?,?,?,(SELECT down FROM boxinfo where title = ?))",
+                withArgumentsIn:[count,model.title!,model.singer!,model.playtime!,String(model.music_bpm!),model.title!])
             if success==false{continue}
         }
         shareInstance.database?.close()
@@ -62,7 +62,6 @@ class DatabaseManager : NSObject{
         }
         shareInstance.database?.close()
         return model
-        
     }
     func selectVodData(query : String)->[InfoData]{
         var model : [InfoData] = []
@@ -82,8 +81,17 @@ class DatabaseManager : NSObject{
         return model
         
     }
+    func saveVodPlayCheck(fileName:String,check:Bool){
+        shareInstance.database?.open()
+         //데이터 수정
+        let sqlUpdate : String = "UPDATE vodinfo SET vodcheck = ? WHERE title = ?"
+        var value = check ? 1 : 0
+        shareInstance.database?.executeUpdate(sqlUpdate,withArgumentsIn:[value,fileName])
+        print(shareInstance.database?.lastErrorMessage() as Any)
+        shareInstance.database?.close()
+    }
     func saveDownLoadComplate(fileName : String) -> Bool{
-         shareInstance.database?.open()
+        shareInstance.database?.open()
          //데이터 수정
         let sqlUpdate : String = "UPDATE vodinfo SET down = ? WHERE title = ?"
         let success = shareInstance.database?.executeUpdate(sqlUpdate,withArgumentsIn:[1,fileName])

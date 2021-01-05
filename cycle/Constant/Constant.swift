@@ -53,7 +53,7 @@ class Constant{
     static let VRCYCLE_MEMBER_EXER_SAVE = VRFIT_BOXING_HTTP_DOMAIN + "exercise_Save_360" //멤버 운동정보 저장 URL
     static let VRFIT_VERSION_CHECK = VRFIT_BOXING_HTTP_DOMAIN + "api_Version_Check_i_360"
     /////////////////////////String VRFIT_MUSIC_LIST = VRFIT_CYCLE_HTTP_DOMAIN_SETTING + "music_Information"
-    static let VRFIT_MUSIC_LIST = VRFIT_BOXING_HTTP_DOMAIN + "music_Information"
+    static let VRFIT_MUSIC_LIST = "https://www.m2me.co.kr:6443/setting/music_Information"
     static let VRFIT_VOD_LIST = VRFIT_BOXING_HTTP_DOMAIN + "avi_Information"
     
     

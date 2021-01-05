@@ -9,7 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DownVodInfoCell" rowHeight="116" id="DUT-cP-r5Q" customClass="DownVodInfoCell" customModule="cycle" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="DownVodInfoCell" rowHeight="116" id="DUT-cP-r5Q" customClass="DownVodInfoCell" customModule="cycle" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="571" height="116"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DUT-cP-r5Q" id="DSY-Tn-IoK">
@@ -58,11 +58,20 @@
                             <constraint firstItem="RDP-9T-47n" firstAttribute="height" secondItem="dTD-ph-0Xy" secondAttribute="height" multiplier="0.5" id="mf9-bO-3Ec"/>
                         </constraints>
                     </stackView>
+                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="check" translatesAutoresizingMaskIntoConstraints="NO" id="cOY-cA-bu3">
+                        <rect key="frame" x="64" y="39.5" width="37" height="37"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="cOY-cA-bu3" secondAttribute="height" multiplier="1:1" id="21j-vX-PDE"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="cOY-cA-bu3" firstAttribute="centerY" secondItem="9bS-9I-k4b" secondAttribute="centerY" id="4VO-i9-fHa"/>
+                    <constraint firstItem="cOY-cA-bu3" firstAttribute="height" secondItem="9bS-9I-k4b" secondAttribute="height" multiplier="0.397849" id="8zy-vl-iyu"/>
                     <constraint firstItem="9bS-9I-k4b" firstAttribute="leading" secondItem="DSY-Tn-IoK" secondAttribute="leading" id="Htc-Ov-qU3"/>
                     <constraint firstItem="1Se-RM-8MJ" firstAttribute="leading" secondItem="9bS-9I-k4b" secondAttribute="trailing" constant="5" id="KNf-IS-3IQ"/>
                     <constraint firstAttribute="trailing" secondItem="1Se-RM-8MJ" secondAttribute="trailing" id="Nis-9c-cgn"/>
+                    <constraint firstItem="cOY-cA-bu3" firstAttribute="centerX" secondItem="9bS-9I-k4b" secondAttribute="centerX" id="dRa-G4-Ujh"/>
                     <constraint firstItem="9bS-9I-k4b" firstAttribute="height" secondItem="DSY-Tn-IoK" secondAttribute="height" multiplier="0.8" id="dqe-pF-Vhd"/>
                     <constraint firstItem="9bS-9I-k4b" firstAttribute="centerY" secondItem="DSY-Tn-IoK" secondAttribute="centerY" id="jWI-fz-r1U"/>
                     <constraint firstAttribute="bottom" secondItem="1Se-RM-8MJ" secondAttribute="bottom" id="osK-tN-hfI"/>
@@ -72,6 +81,7 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
+                <outlet property="check" destination="cOY-cA-bu3" id="vIR-q0-8YL"/>
                 <outlet property="palytime" destination="N4q-2A-A01" id="f9c-Xw-L1v"/>
                 <outlet property="thumbNail" destination="9bS-9I-k4b" id="fai-z7-t9J"/>
                 <outlet property="title" destination="dTD-ph-0Xy" id="u5E-EJ-Zoe"/>
@@ -79,4 +89,7 @@
             <point key="canvasLocation" x="-492.1875" y="128.75"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="check" width="165" height="165"/>
+    </resources>
 </document>

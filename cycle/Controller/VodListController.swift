@@ -53,7 +53,7 @@ class VodListController:UIViewController{
                         let json = try JSONDecoder().decode(VideoInfo.self,from: jsonData)
                         print(json)
                         //TODO: 테스트 하기위해 우선 FAIL 을 위해
-                        if json.result != "FAIL"{
+                        if json.result == "FAIL"{
                             for Infodata in json.data!.values{
                                 self.videoInfo.append(Infodata)
                             }

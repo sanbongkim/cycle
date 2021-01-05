@@ -10,63 +10,49 @@ class VodSettingViewController : UIViewController{
     var videoInfo = [InfoData]()
     
     @IBOutlet weak var vodlist: UITableView!
-    @IBOutlet weak var vodcustom: UITableView!
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
         vodlist.register(UINib(nibName: "DownVodInfoCell", bundle: nil), forCellReuseIdentifier: "DownVodInfoCell")
         vodlist.delegate = self
         vodlist.dataSource = self
         vodlist.tag = 0
-       
-        vodcustom.register(UINib(nibName: "UserVodInfoCell", bundle: nil), forCellReuseIdentifier: "UserVodInfoCell")
-        vodcustom.delegate = self
-        vodcustom.dataSource = self
-        vodcustom.tag = 1
-        
         videoInfo =  DatabaseManager.getInstance().selectDownLoaded()
-        
         self.vodlist .reloadData()
     }
     @IBAction func backAction(_ sender: Any) {
-        
+        self.navigationController!.popViewController(animated: true)
     }
     @IBAction func tutorialAciton(_ sender: Any) {
-        
+        let board = UIStoryboard(name: "Main", bundle: nil)
+        let vc = board.instantiateViewController(withIdentifier: "AletViewVodHelpVC") as! AletViewVodHelpVC
+        self.navigationController!.view.addSubview(vc.view)
+        self.navigationController!.addChild(vc)
+        self.didMove(toParent: vc)
     }
 }
 extension VodSettingViewController : UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView.tag == 0 {
-            return self.videoInfo.count
-        }else{ return self.videoInfo.count }
+        return self.videoInfo.count
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return self.view.frame.size.height/8
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if tableView.tag == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DownVodInfoCell", for:indexPath) as! DownVodInfoCell
-            let vodinfo = videoInfo[indexPath.row]
-            cell.title.text = vodinfo.title
-            cell.palytime.text = vodinfo.pay
-            if let image = vodinfo.image{
-                cell.thumbNail.image = Util.convertBase64StringToImage(imageBase64String:image)
-            }
-            return cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DownVodInfoCell", for:indexPath) as! DownVodInfoCell
+        let vodinfo = videoInfo[indexPath.row]
+        cell.title.text = vodinfo.title
+        cell.palytime.text = vodinfo.pay
+        cell.check.isHidden = !vodinfo.vodcheck!
+        if let image = vodinfo.image{
+           cell.thumbNail.image = Util.convertBase64StringToImage(imageBase64String:image)
         }
-        else{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "UserVodInfoCell", for:indexPath) as! UserVodInfoCell
-            let vodinfo = videoInfo[indexPath.row]
-            cell.title.text = vodinfo.title
-            cell.palytime.text = vodinfo.pay
-            if let image = vodinfo.image{
-                cell.thumbNail.image = Util.convertBase64StringToImage(imageBase64String:image)
-            }
-            return cell
-        }
+        return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        videoInfo[indexPath.row].vodcheck  =  !videoInfo[indexPath.row].vodcheck!
+        DatabaseManager.getInstance().saveVodPlayCheck(fileName: videoInfo[indexPath.row].title!, check:videoInfo[indexPath.row].vodcheck!)
+        tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }

@@ -11,11 +11,10 @@ import UIKit
 class LiveInfoCell: UITableViewCell {
 
     @IBOutlet weak var title: UILabel!
-    @IBOutlet weak var note: UILabel!
-    @IBOutlet weak var bit: UILabel!
     @IBOutlet weak var play: UIImageView!
     @IBOutlet weak var removeAnddownload: UIImageView!
     @IBOutlet weak var time: UILabel!
+    @IBOutlet weak var singer: UILabel!
     var isPlaying:Bool?
     override func awakeFromNib() {
         super.awakeFromNib()

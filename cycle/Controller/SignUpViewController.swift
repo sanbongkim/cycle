@@ -68,46 +68,31 @@ class SignUpViewController: UIViewController {
     }
     @IBAction func signAction(_ sender: Any) {
         if checkEmailid() == false{
-            let alert = UIAlertController(title: Util.localString(st: "alert"), message:Util.localString(st: "signup_email_input"), preferredStyle: .alert)
-            let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
-            }
-            alert.addAction(OKAction)
-            self.present(alert, animated: true, completion: nil)
+           let alert = UIAlertController(title: Util.localString(st: "alert"), message:Util.localString(st: "signup_email_input"), preferredStyle: .alert)
+           let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
+           }
+           alert.addAction(OKAction)
+           self.present(alert, animated: true, completion: nil)
         }
         else{
             if checkPassword() == -100{
-                
-                let alert = UIAlertController(title: Util.localString(st: "alert"), message:Util.localString(st: "signup_pwc_input"), preferredStyle: .alert)
-                let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
-                }
-                alert.addAction(OKAction)
-                self.present(alert, animated: true, completion: nil)
-                
-            }
-            else if  checkPassword() == -101{
+               let alert = UIAlertController(title: Util.localString(st: "alert"), message:Util.localString(st: "signup_pwc_input"), preferredStyle: .alert)
+               let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
+               }
+               alert.addAction(OKAction)
+               self.present(alert, animated: true, completion: nil)
+            }else if  checkPassword() == -101{
                 let alert = UIAlertController(title: Util.localString(st: "alert"), message:Util.localString(st: "signup_pw_input"), preferredStyle: .alert)
                 let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
                 }
                 alert.addAction(OKAction)
                 self.present(alert, animated: true, completion: nil)
                 
-            }
-            else if checkPassword() == 0{
-                
+            }else if checkPassword() == 0{
                 reqSignup()
             }
         }
     }
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-
 }
 extension SignUpViewController:UITextFieldDelegate{
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -298,20 +283,15 @@ extension SignUpViewController:UITextFieldDelegate{
         }
         else{
             return true
-            
         }
     }
     func checkPassword()->Int{
-        
         if self.password.text!.count<4||self.passwordComplate.text!.count<4{
-            
             return -101
         }
-        
         if self.password.text != self.passwordComplate.text{
             return -100
         }
-        
         return 0
     }
     

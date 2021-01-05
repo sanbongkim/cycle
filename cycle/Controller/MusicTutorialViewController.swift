@@ -15,6 +15,7 @@ class MusicTutorialViewController : UIViewController{
     @IBOutlet weak var back: UIButton!
     @IBOutlet weak var image: UIImageView!
     var mode : ImageMode = ImageMode.tutorial
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()

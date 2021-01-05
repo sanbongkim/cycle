@@ -44,10 +44,10 @@ class MusicListController : UIViewController{
         if button.isSelected == true{return}
         button.isSelected = !button.isSelected
         musicDownload.isSelected = true
-        musicDownload.isSelected = false
+        musicSetting.isSelected = false
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "MusicTutorialViewController"{
+        if segue.identifier == "MusicTutorialViewController" {
             let vc = segue.destination as! MusicTutorialViewController
             if musicDownload.isSelected{
                 vc.mode = ImageMode.downlaod
@@ -65,16 +65,13 @@ class MusicListController : UIViewController{
     }
     func sortDifficult(value:String){
         for music in musicInfos {
-            if music.difficulty == value{
+            if music.title == value{
                 musicSort.append(music)
             }
         }
     }
     @IBAction func backButtonAction(_ sender: Any) {
-        NotificationCenter.default.post(
-                 name: NSNotification.Name(rawValue: "musicClose"),
-                 object: nil)
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController!.popViewController(animated: true)
     }
     func getMusicList(){
         var parameters: [String: Any] = [:]
@@ -107,17 +104,9 @@ class MusicListController : UIViewController{
                                     product?.title = title
                                     product?.isDownload = self.checkFile(title:title+".mp3") ? true : false
                                 }
-                                if let composer = subJson["composer"].string {
-                                    product?.composer = composer
-                                }
+                        
                                 if let singer = subJson["singer"].string {
                                     product?.singer=singer
-                                }
-                                if let music_bit = subJson["music_bit"].string {
-                                    product?.music_bit = music_bit
-                                }
-                                if let music_note = subJson["music_note"].int32 {
-                                    product?.music_note = music_note
                                 }
                                 if let music_bpm = subJson["music_bpm"].int32 {
                                     product?.music_bpm = music_bpm
@@ -135,12 +124,6 @@ class MusicListController : UIViewController{
                                 if let h_playtime = subJson["h_playtime"].int32 {
                                     product?.h_playtime = h_playtime
                                 }
-                                if let length = subJson["length"].int32 {
-                                    product?.length = length
-                                }
-                                if let difficulty = subJson["difficulty"].string {
-                                    product?.difficulty = difficulty
-                                }
                                 self.musicInfos.append(product!)
                             }
                             self.musicInfos.sort {
@@ -148,7 +131,7 @@ class MusicListController : UIViewController{
                             }
                             _ = DatabaseManager.getInstance().saveAllData(modelInfo: self.musicInfos)
                             
-                            self.sortDifficult(value: "easy")
+                            //self.sortDifficult(value:"title")
                             self.tableview.reloadData()
                             
                         }catch{
@@ -291,7 +274,7 @@ class MusicListController : UIViewController{
                     })
                     if statusCode == 200 {
                         DispatchQueue.main.async() {
-                            let minfo = self.musicSort[index]
+                            let minfo = self.musicInfos[index]
                             minfo.isDownload = true
                             _ = DatabaseManager.getInstance().saveData(model:minfo)
                             self.tableview.reloadData()
@@ -312,23 +295,21 @@ class MusicListController : UIViewController{
 }
 extension MusicListController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return musicSort.count
+        return musicInfos.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LiveInfoCell", for: indexPath) as! LiveInfoCell
         let tapGestureRecognizerThumb = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
         let tapGestureRecognizerDown = UITapGestureRecognizer(target: self, action: #selector(downloadTapped(_:)))
-        let cInfo : MusicInfo = musicSort[indexPath.row]
+        let cInfo : MusicInfo = musicInfos[indexPath.row]
         cell.title.text = cInfo.title
-        cell.bit.text = String(cInfo.music_bpm!)
-        cell.time.text = cInfo.playtime!
-        cell.note.text = String(cInfo.music_note!)
-        cell.removeAnddownload.image = cInfo.isDownload ? UIImage(named: "music_remove") : UIImage(named: "music_down")
-        cell.removeAnddownload.restorationIdentifier = cInfo.isDownload ? "music_remove" : "music_down"
+        cell.singer.text = cInfo.singer
+        cell.time.text = cInfo.playtime! + "    \(cInfo.music_bpm!)" + "RPM"
+        cell.removeAnddownload.image = UIImage(named: "music_down_btn")
         cell.removeAnddownload.tag = indexPath.row;
         cell.removeAnddownload.addGestureRecognizer(tapGestureRecognizerDown)
         cell.removeAnddownload.isUserInteractionEnabled = true
-        cell.play.image = cInfo.isPlaying ? UIImage(named: "music_pause") : UIImage(named: "music_preplay")
+        cell.play.image = cInfo.isPlaying ? UIImage(named: "music_stop_btn") : UIImage(named: "music_play_btn")
         cell.play.addGestureRecognizer(tapGestureRecognizerThumb)
         cell.play.tag = indexPath.row
         cell.play.isUserInteractionEnabled = true
@@ -336,13 +317,13 @@ extension MusicListController:UITableViewDelegate,UITableViewDataSource{
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70
+        return self.view.frame.width/5
     }
     @objc func downloadTapped(_ gesture: UITapGestureRecognizer) {
         let v = gesture.view! as! UIImageView
         let tag = v.tag
         print("tag"+String(tag))
-        let mInfo:MusicInfo = musicSort[tag]
+        let mInfo:MusicInfo = musicInfos[tag]
         if v.restorationIdentifier == "music_remove"{
             let alert = UIAlertController.init(title: Util.localString(st: "alert"), message: Util.localString(st: "music_remove") + "[\(mInfo.title ?? "")]", preferredStyle: .alert)
             let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
@@ -392,7 +373,7 @@ extension MusicListController:UITableViewDelegate,UITableViewDataSource{
         let v = gesture.view!
         let tag = v.tag
         print("tag"+String(tag))
-        let mInfo:MusicInfo = musicSort[tag]
+        let mInfo:MusicInfo = musicInfos[tag]
         mInfo.isPlaying = !mInfo.isPlaying
         self.tableview.reloadData()
         if currentPlay == tag && mInfo.isPlaying == false{
@@ -418,7 +399,7 @@ extension MusicListController:UITableViewDelegate,UITableViewDataSource{
             NotificationCenter.default.addObserver(self, selector:#selector(self.playerDidFinishPlaying(note:)),name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player?.currentItem)
             player?.play()
             if currentPlay != 10000{
-                let mInfo:MusicInfo = musicSort[currentPlay]
+                let mInfo:MusicInfo = musicInfos[currentPlay]
                 mInfo.isPlaying = false
             }
             currentPlay = tag
@@ -426,7 +407,7 @@ extension MusicListController:UITableViewDelegate,UITableViewDataSource{
     }
     @objc func playerDidFinishPlaying(note: NSNotification) {
         if currentPlay != 10000{
-            let mInfo:MusicInfo = musicSort[currentPlay]
+            let mInfo:MusicInfo = musicInfos[currentPlay]
              mInfo.isPlaying = false
             player?.replaceCurrentItem(with: nil)
             currentPlay = 10000
