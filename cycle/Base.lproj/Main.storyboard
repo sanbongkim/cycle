@@ -2062,6 +2062,10 @@
                                     <constraint firstAttribute="width" secondItem="xBo-Yr-Fi1" secondAttribute="height" multiplier="71:25" id="Y3O-hP-50b"/>
                                 </constraints>
                             </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Csn-MZ-PqB">
+                                <rect key="frame" x="0.0" y="267.33333333333326" width="414" height="595"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xbV-u6-DC6">
                                 <rect key="frame" x="0.0" y="267.33333333333331" width="414" height="594.66666666666674"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -2074,13 +2078,14 @@
                         <viewLayoutGuide key="safeArea" id="hXr-Iy-fZy"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Csn-MZ-PqB" firstAttribute="top" secondItem="xbV-u6-DC6" secondAttribute="top" id="0yt-Jg-Hc7"/>
                             <constraint firstItem="xbV-u6-DC6" firstAttribute="top" secondItem="xBo-Yr-Fi1" secondAttribute="bottom" constant="8" id="2LE-Wt-A3C"/>
                             <constraint firstItem="xbV-u6-DC6" firstAttribute="bottom" secondItem="hXr-Iy-fZy" secondAttribute="bottom" id="5KB-aF-aNy"/>
                             <constraint firstItem="ikv-Yq-V7G" firstAttribute="top" secondItem="USJ-2Q-Oqs" secondAttribute="bottom" constant="49" id="963-f4-QZw"/>
                             <constraint firstItem="xBo-Yr-Fi1" firstAttribute="leading" secondItem="hXr-Iy-fZy" secondAttribute="leading" constant="20" id="9md-c4-0qn"/>
                             <constraint firstItem="I6K-bO-tgi" firstAttribute="width" secondItem="aJW-Sw-Ccd" secondAttribute="width" multiplier="0.0817757" id="Day-lf-cxD"/>
                             <constraint firstItem="USJ-2Q-Oqs" firstAttribute="width" secondItem="aJW-Sw-Ccd" secondAttribute="width" multiplier="0.5" id="Gsh-IV-OD6"/>
-                            <constraint firstItem="glm-Lv-MXF" firstAttribute="height" secondItem="aJW-Sw-Ccd" secondAttribute="height" multiplier="0.04" id="JVo-zH-eQd"/>
+                            <constraint firstItem="glm-Lv-MXF" firstAttribute="height" secondItem="aJW-Sw-Ccd" secondAttribute="height" multiplier="1:25" id="JVo-zH-eQd"/>
                             <constraint firstItem="cqU-CM-AoX" firstAttribute="width" secondItem="aJW-Sw-Ccd" secondAttribute="width" multiplier="0.0934579" id="LrU-tH-F4R"/>
                             <constraint firstItem="xBo-Yr-Fi1" firstAttribute="top" secondItem="glm-Lv-MXF" secondAttribute="bottom" id="Okt-Wt-nWD"/>
                             <constraint firstItem="glm-Lv-MXF" firstAttribute="top" secondItem="ikv-Yq-V7G" secondAttribute="bottom" id="P6X-zN-aZt"/>
@@ -2089,9 +2094,12 @@
                             <constraint firstItem="xbV-u6-DC6" firstAttribute="leading" secondItem="hXr-Iy-fZy" secondAttribute="leading" id="ZJn-Fk-NKZ"/>
                             <constraint firstItem="hXr-Iy-fZy" firstAttribute="trailing" secondItem="cqU-CM-AoX" secondAttribute="trailing" constant="20" id="aQQ-M7-kJM"/>
                             <constraint firstItem="cqU-CM-AoX" firstAttribute="centerY" secondItem="USJ-2Q-Oqs" secondAttribute="centerY" id="aaS-Ri-TuD"/>
+                            <constraint firstItem="Csn-MZ-PqB" firstAttribute="height" secondItem="xbV-u6-DC6" secondAttribute="height" multiplier="1.00056" id="bdy-jZ-8ln"/>
                             <constraint firstAttribute="trailing" secondItem="ikv-Yq-V7G" secondAttribute="trailing" id="bnE-Q1-NjN"/>
+                            <constraint firstItem="Csn-MZ-PqB" firstAttribute="leading" secondItem="xbV-u6-DC6" secondAttribute="leading" id="ebK-RV-xo9"/>
                             <constraint firstItem="xBo-Yr-Fi1" firstAttribute="width" secondItem="aJW-Sw-Ccd" secondAttribute="width" multiplier="0.171498" id="hgK-YD-2PI"/>
                             <constraint firstItem="glm-Lv-MXF" firstAttribute="leading" secondItem="hXr-Iy-fZy" secondAttribute="leading" id="j1b-7P-owt"/>
+                            <constraint firstItem="Csn-MZ-PqB" firstAttribute="width" secondItem="xbV-u6-DC6" secondAttribute="width" id="kPT-cX-h9b"/>
                             <constraint firstItem="USJ-2Q-Oqs" firstAttribute="centerX" secondItem="aJW-Sw-Ccd" secondAttribute="centerX" id="n3E-kn-fLR"/>
                             <constraint firstItem="xbV-u6-DC6" firstAttribute="trailing" secondItem="hXr-Iy-fZy" secondAttribute="trailing" id="o88-oD-OPw"/>
                             <constraint firstItem="I6K-bO-tgi" firstAttribute="centerY" secondItem="USJ-2Q-Oqs" secondAttribute="centerY" id="sXc-6e-Gz7"/>
@@ -2104,13 +2112,14 @@
                         <outlet property="backButton" destination="I6K-bO-tgi" id="cQF-tU-YkA"/>
                         <outlet property="mInfo" destination="cqU-CM-AoX" id="OrP-Bh-kkB"/>
                         <outlet property="musicDownload" destination="5Gb-fP-J6x" id="BZU-LC-C8j"/>
+                        <outlet property="musicSetTb" destination="Csn-MZ-PqB" id="7w9-OJ-vmx"/>
                         <outlet property="musicSetting" destination="ANS-Ld-pgu" id="btZ-2f-cpt"/>
                         <outlet property="tableview" destination="xbV-u6-DC6" id="yUj-lG-G1Q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5p1-4c-jh8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-520" y="-1612"/>
+            <point key="canvasLocation" x="-1190" y="-1602"/>
         </scene>
         <!--Alert Sign UpVC-->
         <scene sceneID="XST-iS-Vjt">

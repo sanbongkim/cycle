@@ -37,6 +37,8 @@
 		48C0379D25A2BDC600D5551B /* DownVodInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C0379C25A2BDC600D5551B /* DownVodInfoCell.swift */; };
 		48C037A025A2BDEC00D5551B /* DownVodInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48C0379F25A2BDEC00D5551B /* DownVodInfoCell.xib */; };
 		48C3EAF625A2B79100B8CAEF /* VodSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C3EAF525A2B79100B8CAEF /* VodSettingViewController.swift */; };
+		48CE217A25A5581C001859A6 /* MusicSetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CE217825A5581B001859A6 /* MusicSetCell.swift */; };
+		48CE217B25A5581C001859A6 /* MusicSetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48CE217925A5581C001859A6 /* MusicSetCell.xib */; };
 		48CE28E52592E5D70044EAE4 /* MusicTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CE28E42592E5D70044EAE4 /* MusicTutorialViewController.swift */; };
 		48CE28E82592F1F60044EAE4 /* AlertVersionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CE28E72592F1F60044EAE4 /* AlertVersionVC.swift */; };
 		48D632FC259D716A00DA9EB5 /* AlertViewVodHelpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D632FB259D716A00DA9EB5 /* AlertViewVodHelpVC.swift */; };
@@ -86,6 +88,8 @@
 		48C0379C25A2BDC600D5551B /* DownVodInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownVodInfoCell.swift; sourceTree = "<group>"; };
 		48C0379F25A2BDEC00D5551B /* DownVodInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DownVodInfoCell.xib; sourceTree = "<group>"; };
 		48C3EAF525A2B79100B8CAEF /* VodSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VodSettingViewController.swift; sourceTree = "<group>"; };
+		48CE217825A5581B001859A6 /* MusicSetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicSetCell.swift; sourceTree = "<group>"; };
+		48CE217925A5581C001859A6 /* MusicSetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MusicSetCell.xib; sourceTree = "<group>"; };
 		48CE28E42592E5D70044EAE4 /* MusicTutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicTutorialViewController.swift; sourceTree = "<group>"; };
 		48CE28E72592F1F60044EAE4 /* AlertVersionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertVersionVC.swift; sourceTree = "<group>"; };
 		48D632FB259D716A00DA9EB5 /* AlertViewVodHelpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewVodHelpVC.swift; sourceTree = "<group>"; };
@@ -232,6 +236,8 @@
 		48B5DBDD25709205002C931D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				48CE217825A5581B001859A6 /* MusicSetCell.swift */,
+				48CE217925A5581C001859A6 /* MusicSetCell.xib */,
 				4837D8CE25A2FF3300D32187 /* UserVodInfoCell.swift */,
 				4837D8CF25A2FF3300D32187 /* UserVodInfoCell.xib */,
 				48B14AF22581E50C005606C4 /* LiveInfoCell.swift */,
@@ -324,6 +330,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48CE217B25A5581C001859A6 /* MusicSetCell.xib in Resources */,
 				48EB7FAA25A045290087685C /* box.db in Resources */,
 				481F049E256B889300EF8000 /* LaunchScreen.storyboard in Resources */,
 				48B14AF32581E50C005606C4 /* LiveInfoCell.xib in Resources */,
@@ -413,6 +420,7 @@
 				48B14AF42581E50C005606C4 /* LiveInfoCell.swift in Sources */,
 				48DB9F15259711FB00C82B64 /* VodListCell.swift in Sources */,
 				48A9B0BE25887B4E00862D13 /* AlertViewNotSetMusicVC.swift in Sources */,
+				48CE217A25A5581C001859A6 /* MusicSetCell.swift in Sources */,
 				48DE4116259440610000346E /* VideoInfo.swift in Sources */,
 				48C3EAF625A2B79100B8CAEF /* VodSettingViewController.swift in Sources */,
 				48CE28E52592E5D70044EAE4 /* MusicTutorialViewController.swift in Sources */,

@@ -207,7 +207,6 @@ class LoginViewController: UIViewController {
 //
 //      self.view.frame.origin.y = 0 - keyboardSize.height
 //    }
-//
     }
     @objc func keyboardWillHide(notification: NSNotification) {
       // move back the root view origin to zero

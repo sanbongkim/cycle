@@ -12,9 +12,15 @@ import AVFoundation
 import AVKit
 import FMDB
 import GradientCircularProgress
+
+//테이블 뷰 모드
+let downmode = 100
+let setmode = 101
+
 class MusicListController : UIViewController{
     @IBOutlet weak var mInfo: UIButton!
     @IBOutlet weak var tableview: UITableView!
+    @IBOutlet weak var musicSetTb: UITableView!
     var dataBase : FMDatabase? = nil
     var player:AVPlayer?
     var playerItem:AVPlayerItem?
@@ -28,13 +34,20 @@ class MusicListController : UIViewController{
     var progressView : UIView?
     var bombSoundEffect: AVAudioPlayer?
     let difficult = ["easy","normal","hard"]
-    var musicSort = [MusicInfo]()
+    var musicSetInfo = [MusicInfo]()
     var musicInfos = [MusicInfo]()
+    var checkMaxcnt:Int32 = 0
     override func viewDidLoad() {
-        let nibName = UINib(nibName: "LiveInfoCell", bundle: nil)
-        tableview.register(nibName, forCellReuseIdentifier: "LiveInfoCell")
+        tableview.register( UINib(nibName: "LiveInfoCell", bundle: nil), forCellReuseIdentifier: "LiveInfoCell")
+        tableview.tag = downmode
+        musicSetTb.register(UINib(nibName:"MusicSetCell", bundle: nil), forCellReuseIdentifier: "MusicSetCell")
+        musicSetTb.delegate = self
+        musicSetTb.dataSource = self
+        musicSetTb.tag = setmode
+        musicSetTb.isHidden = true
         self.getMusicList()
         musicDownload.isSelected = true
+        
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(true)
@@ -45,6 +58,20 @@ class MusicListController : UIViewController{
         button.isSelected = !button.isSelected
         musicDownload.isSelected = true
         musicSetting.isSelected = false
+        tableview.isHidden = false
+        musicSetTb.isHidden = true
+    }
+    @IBAction func musicSettingAction(_ sender: Any) {
+        let button = sender as! UIButton
+        if button.isSelected == true{return}
+        button.isSelected = !button.isSelected
+        musicDownload.isSelected = false
+        musicSetting.isSelected = true
+        tableview.isHidden = true
+        musicSetTb.isHidden = false
+        self.musicSetInfo = DatabaseManager.getInstance().selectQuery(query: "")
+        checkMaxcnt = DatabaseManager.getInstance().selectMaxMusicIndexQuery()
+        musicSetTb.reloadData()
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "MusicTutorialViewController" {
@@ -53,20 +80,6 @@ class MusicListController : UIViewController{
                 vc.mode = ImageMode.downlaod
             }else{
                 vc.mode = ImageMode.setting
-            }
-        }
-    }
-    @IBAction func musicSettingAction(_ sender: Any) {
-        let button = sender as! UIButton
-        if button.isSelected == true{return}
-        button.isSelected = !button.isSelected
-        musicDownload.isSelected = false
-        musicSetting.isSelected = true
-    }
-    func sortDifficult(value:String){
-        for music in musicInfos {
-            if music.title == value{
-                musicSort.append(music)
             }
         }
     }
@@ -295,29 +308,86 @@ class MusicListController : UIViewController{
 }
 extension MusicListController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return musicInfos.count
+        
+        if tableView.tag == downmode{ return musicInfos.count }
+        else{
+            return musicSetInfo.count
+            
+        }
+     
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "LiveInfoCell", for: indexPath) as! LiveInfoCell
-        let tapGestureRecognizerThumb = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
-        let tapGestureRecognizerDown = UITapGestureRecognizer(target: self, action: #selector(downloadTapped(_:)))
-        let cInfo : MusicInfo = musicInfos[indexPath.row]
-        cell.title.text = cInfo.title
-        cell.singer.text = cInfo.singer
-        cell.time.text = cInfo.playtime! + "    \(cInfo.music_bpm!)" + "RPM"
-        cell.removeAnddownload.image = UIImage(named: "music_down_btn")
-        cell.removeAnddownload.tag = indexPath.row;
-        cell.removeAnddownload.addGestureRecognizer(tapGestureRecognizerDown)
-        cell.removeAnddownload.isUserInteractionEnabled = true
-        cell.play.image = cInfo.isPlaying ? UIImage(named: "music_stop_btn") : UIImage(named: "music_play_btn")
-        cell.play.addGestureRecognizer(tapGestureRecognizerThumb)
-        cell.play.tag = indexPath.row
-        cell.play.isUserInteractionEnabled = true
-        cell.selectionStyle = .none
-        return cell
+        if tableView.tag == downmode{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "LiveInfoCell", for: indexPath) as! LiveInfoCell
+            let tapGestureRecognizerThumb = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
+            let tapGestureRecognizerDown = UITapGestureRecognizer(target: self, action: #selector(downloadTapped(_:)))
+            let cInfo : MusicInfo = musicInfos[indexPath.row]
+            cell.title.text = cInfo.title
+            cell.singer.text = cInfo.singer
+            cell.time.text = cInfo.playtime! + "    \(cInfo.music_bpm!)" + "RPM"
+            cell.removeAnddownload.image = UIImage(named: "music_down_btn")
+            cell.removeAnddownload.tag = indexPath.row;
+            cell.removeAnddownload.addGestureRecognizer(tapGestureRecognizerDown)
+            cell.removeAnddownload.isUserInteractionEnabled = true
+            cell.play.image = cInfo.isPlaying ? UIImage(named: "music_stop_btn") : UIImage(named: "music_play_btn")
+            cell.play.addGestureRecognizer(tapGestureRecognizerThumb)
+            cell.play.tag = indexPath.row
+            cell.play.isUserInteractionEnabled = true
+            cell.selectionStyle = .none
+            return cell
+            
+        }else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MusicSetCell", for: indexPath) as! MusicSetCell
+            let tapGestureRecognizerThumb = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
+            let tapGestureRecognizerDown = UITapGestureRecognizer(target: self, action: #selector(setMusicTab(_:)))
+            let cInfo : MusicInfo = self.musicSetInfo[indexPath.row]
+            cell.title.text = cInfo.title
+            cell.singer.text = cInfo.singer
+            cell.time.text = cInfo.playtime! + "    \(cInfo.music_bpm!)" + "RPM"
+            cell.removeAnddownload.image = getMusicCheckNumber(name:cInfo.musicCheck!)
+            cell.removeAnddownload.tag = indexPath.row;
+            cell.removeAnddownload.addGestureRecognizer(tapGestureRecognizerDown)
+            cell.removeAnddownload.isUserInteractionEnabled = true
+            cell.play.image = cInfo.isPlaying ? UIImage(named: "music_stop_btn") : UIImage(named: "music_play_btn")
+            cell.play.addGestureRecognizer(tapGestureRecognizerThumb)
+            cell.play.tag = indexPath.row
+            cell.play.isUserInteractionEnabled = true
+            cell.selectionStyle = .none
+            return cell
+        }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.view.frame.width/5
+    }
+    @objc func setMusicTab(_ gesture: UITapGestureRecognizer) {
+        let v = gesture.view! as! UIImageView
+        let tag = v.tag
+        print("tag"+String(tag))
+        let mInfo = self.musicSetInfo[tag]
+        checkMaxcnt += 1
+        if mInfo.musicCheck == 0{
+            mInfo.musicCheck = checkMaxcnt
+            DatabaseManager.getInstance().musicCheckUpdate(title:mInfo.title!,number:tag)
+            musicSetTb.reloadData()
+        }
+        else{
+            mInfo.musicCheck = 0
+            checkMaxcnt = 0
+            DatabaseManager.getInstance().musicCheckReSetUpdate()
+            self.musicSetInfo.removeAll()
+            self.musicSetInfo = DatabaseManager.getInstance().selectQuery(query: "")
+            musicSetTb.reloadData()
+        }
+    }
+    func getMusicCheckNumber(name:Int32) ->UIImage?{
+
+        if name == 0 {
+            return UIImage(named: "music_empty")
+        }
+        else {
+            let imageName = "music_\(name)"
+            return UIImage(named:imageName)
+        }
     }
     @objc func downloadTapped(_ gesture: UITapGestureRecognizer) {
         let v = gesture.view! as! UIImageView

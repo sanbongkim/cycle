@@ -24,6 +24,7 @@ class MusicInfo{
    var isPlaying:Bool
    var isDownload:Bool
    var playSec:Int32?
+   var musicCheck : Int32?
    required init?(){
         isPlaying = false
         isDownload = false

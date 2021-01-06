@@ -100,12 +100,44 @@ class DatabaseManager : NSObject{
         return success!
     }
     func saveData(model:MusicInfo) -> Bool{
-         shareInstance.database?.open() 
+        shareInstance.database?.open()
          //데이터 수정
-        let sqlUpdate : String = "UPDATE boxinfo SET down =? WHERE title =?"
+        let sqlUpdate : String = "UPDATE boxinfo SET down = ? WHERE title = ?"
         let success = shareInstance.database?.executeUpdate(sqlUpdate,withArgumentsIn: [(model.isDownload ? 1 : 0),model.title!])
        shareInstance.database?.close()
         return success!
+    }
+    func selectMaxMusicIndexQuery()->Int32{
+        var ct : Int32 = 0
+        let queryString = "SELECT count(*) as cnt from boxinfo where musiccheck = 1"
+         shareInstance.database?.open()
+        let result = shareInstance.database?.executeQuery(queryString, withArgumentsIn: [])
+        while(result!.next()){
+           ct =  result!.int(forColumn:"cnt")
+        }
+        shareInstance.database?.close()
+        return ct
+        
+    }
+    func musicCheckReSetUpdate(){
+        
+        shareInstance.database?.open()
+         //데이터 수정
+        let sqlUpdate : String = "UPDATE boxinfo SET musicCheck = ?"
+        shareInstance.database?.executeUpdate(sqlUpdate,withArgumentsIn:[ 0])
+        shareInstance.database?.close()
+
+        
+    }
+    func musicCheckUpdate(title:String,number:Int){
+        
+        shareInstance.database?.open()
+         //데이터 수정
+        let sqlUpdate : String = "UPDATE boxinfo SET musicCheck = ? WHERE title = ?"
+        shareInstance.database?.executeUpdate(sqlUpdate,withArgumentsIn:[ number,title])
+        shareInstance.database?.close()
+
+        
     }
     func selectQuery(query : String)->[MusicInfo]{
         var model : [MusicInfo] = []
@@ -123,6 +155,7 @@ class DatabaseManager : NSObject{
                 data.music_bpm = result!.int(forColumn: "bpm")
                 data.music_bit = result!.string(forColumn: "bit")
                 data.isDownload = result!.bool(forColumn: "down")
+                data.musicCheck = result!.int(forColumn: "musicCheck")
                 model.append(data)
         }
         shareInstance.database?.close()
