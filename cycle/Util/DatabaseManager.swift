@@ -22,8 +22,8 @@ class DatabaseManager : NSObject{
         var count : Int = 0
         for model in modelInfo{
             count+=1;
-            let success = shareInstance.database?.executeUpdate("INSERT OR REPLACE INTO boxinfo(idx,title,singer,playtime,bpm,down) VALUES (?,?,?,?,?,(SELECT down FROM boxinfo where title = ?))",
-                withArgumentsIn:[count,model.title!,model.singer!,model.playtime!,String(model.music_bpm!),model.title!])
+            let success = shareInstance.database?.executeUpdate("INSERT OR REPLACE INTO boxinfo(idx,title,singer,playtime,bpm,musiccheck,down) VALUES (?,?,?,?,?,(SELECT musiccheck FROM boxinfo where title = ?),(SELECT down FROM boxinfo where title = ?))",
+                withArgumentsIn:[count,model.title!,model.singer!,model.playtime!,String(model.music_bpm!),model.title!,model.title!])
             if success==false{continue}
         }
         shareInstance.database?.close()
@@ -109,7 +109,7 @@ class DatabaseManager : NSObject{
     }
     func selectMaxMusicIndexQuery()->Int32{
         var ct : Int32 = 0
-        let queryString = "SELECT count(*) as cnt from boxinfo where musiccheck = 1"
+        let queryString = "SELECT count(*) as cnt from boxinfo where musiccheck > 0"
          shareInstance.database?.open()
         let result = shareInstance.database?.executeQuery(queryString, withArgumentsIn: [])
         while(result!.next()){
@@ -120,24 +120,18 @@ class DatabaseManager : NSObject{
         
     }
     func musicCheckReSetUpdate(){
-        
         shareInstance.database?.open()
          //데이터 수정
         let sqlUpdate : String = "UPDATE boxinfo SET musicCheck = ?"
         shareInstance.database?.executeUpdate(sqlUpdate,withArgumentsIn:[ 0])
         shareInstance.database?.close()
-
-        
     }
-    func musicCheckUpdate(title:String,number:Int){
-        
+    func musicCheckUpdate(title:String,number:Int32){
         shareInstance.database?.open()
          //데이터 수정
         let sqlUpdate : String = "UPDATE boxinfo SET musicCheck = ? WHERE title = ?"
         shareInstance.database?.executeUpdate(sqlUpdate,withArgumentsIn:[ number,title])
         shareInstance.database?.close()
-
-        
     }
     func selectQuery(query : String)->[MusicInfo]{
         var model : [MusicInfo] = []

@@ -58,8 +58,20 @@ class MusicListController : UIViewController{
         button.isSelected = !button.isSelected
         musicDownload.isSelected = true
         musicSetting.isSelected = false
-        tableview.isHidden = false
-        musicSetTb.isHidden = true
+      
+        UIView.transition(with: self.tableview, duration: 0.5,
+                          options: .curveLinear,
+                          animations: {
+                            self.tableview.isHidden = false
+                            self.musicSetTb.isHidden = true
+                      })
+        
+        //음악 플레이 중 메뉴 스위치가 생기면 플레이중 음악을 중지
+        if currentPlay != 10000{
+        musicSetInfo[currentPlay].isPlaying = false
+        }
+        tableview.reloadData()
+        stopPlayMusic()
     }
     @IBAction func musicSettingAction(_ sender: Any) {
         let button = sender as! UIButton
@@ -67,11 +79,22 @@ class MusicListController : UIViewController{
         button.isSelected = !button.isSelected
         musicDownload.isSelected = false
         musicSetting.isSelected = true
-        tableview.isHidden = true
-        musicSetTb.isHidden = false
+       
+        UIView.transition(with: self.musicSetTb, duration: 0.5,
+                          options: .curveLinear,
+                          animations: {
+                            self.tableview.isHidden = true
+                            self.musicSetTb.isHidden = false
+                      })
+       
         self.musicSetInfo = DatabaseManager.getInstance().selectQuery(query: "")
         checkMaxcnt = DatabaseManager.getInstance().selectMaxMusicIndexQuery()
+        //음악 플레이 중 메뉴 스위치가 생기면 플레이중 음악을 중지
+        if currentPlay != 10000{
+        musicInfos[currentPlay].isPlaying = false
+        }
         musicSetTb.reloadData()
+        stopPlayMusic()
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "MusicTutorialViewController" {
@@ -367,7 +390,7 @@ extension MusicListController:UITableViewDelegate,UITableViewDataSource{
         checkMaxcnt += 1
         if mInfo.musicCheck == 0{
             mInfo.musicCheck = checkMaxcnt
-            DatabaseManager.getInstance().musicCheckUpdate(title:mInfo.title!,number:tag)
+            DatabaseManager.getInstance().musicCheckUpdate(title:mInfo.title!,number:mInfo.musicCheck!)
             musicSetTb.reloadData()
         }
         else{
@@ -443,9 +466,16 @@ extension MusicListController:UITableViewDelegate,UITableViewDataSource{
         let v = gesture.view!
         let tag = v.tag
         print("tag"+String(tag))
-        let mInfo:MusicInfo = musicInfos[tag]
-        mInfo.isPlaying = !mInfo.isPlaying
-        self.tableview.reloadData()
+        let mInfo:MusicInfo!
+        if musicDownload.isSelected{
+            mInfo = musicInfos[tag]
+            mInfo.isPlaying = !mInfo.isPlaying
+            self.tableview.reloadData()
+        }else{
+            mInfo = musicSetInfo[tag]
+            mInfo.isPlaying = !mInfo.isPlaying
+            self.musicSetTb.reloadData()
+        }
         if currentPlay == tag && mInfo.isPlaying == false{
             player?.replaceCurrentItem(with: nil)
             currentPlay = 10000
@@ -456,6 +486,11 @@ extension MusicListController:UITableViewDelegate,UITableViewDataSource{
             }
         }
     }
+    func stopPlayMusic(){
+        
+        player?.replaceCurrentItem(with: nil)
+        currentPlay = 10000
+    }
     func playAudio(murl:String,tag:Int){
         player?.replaceCurrentItem(with: nil)
         if let encoded  = murl.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed),
@@ -464,6 +499,7 @@ extension MusicListController:UITableViewDelegate,UITableViewDataSource{
             let playerItem:AVPlayerItem = AVPlayerItem(url: myURL)
             player = AVPlayer(playerItem: playerItem)
             let playerLayer=AVPlayerLayer(player: player!)
+
             playerLayer.frame=CGRect(x:0, y:0, width:10, height:50)
             self.view.layer.addSublayer(playerLayer)
             NotificationCenter.default.addObserver(self, selector:#selector(self.playerDidFinishPlaying(note:)),name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player?.currentItem)
