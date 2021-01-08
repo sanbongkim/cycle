@@ -54,6 +54,11 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
        logo.frame = self.view.frame
        self.view.addSubview(logo)
        checkVersion()
+        
+        
+    
+
+
 
    }
     override func viewWillAppear(_ animated: Bool) {
@@ -239,24 +244,25 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
                         if(record=="SUCCESS"){
                             print("getTodayExerciseRecord"+"\(json)")
                             if let data = json["data"].dictionary{
-                                if let excal = data["ex_kcal"]?.string{
-                                   
+                                if let excal = data["ex_kcal"]?.int{
+                                    self.caloriesVal.text = String(format: "%@kcal",String(excal))
+                                    let attributedString = NSMutableAttributedString(string: self.caloriesVal.text!)
+                                    let fontSize = UIFont.boldSystemFont(ofSize:20)
+                                    attributedString.addAttribute(NSAttributedString.Key.font, value: fontSize, range:  ( self.caloriesVal.text! as NSString).range(of:"kcal"))
+                                    self.caloriesVal.attributedText = attributedString
                                 }
-                                if let excount = data["ex_count"]?.int{
-                                    
-                                    if excount > 0{
-                                      
-                                        let value = UserDefaults.standard.integer(forKey: "level")
-                                        var daypercent : String
-                                        if (Float(excount)/Float(value)) > 1.0 {
-                                            daypercent = "100.0"
-                                        }else{
-                                            daypercent = String(format: "%.1f", Float(excount)/Float(value) * 100.0)
-                                        }
-                                        daypercent += "%"
-                                    }
-                                  
-                                }
+//                                if let excount = data["ex_count"]?.int{
+//                                    if excount > 0{
+//                                        let value = UserDefaults.standard.integer(forKey: "level")
+//                                        var daypercent : String
+//                                        if (Float(excount)/Float(value)) > 1.0 {
+//                                            daypercent = "100.0"
+//                                        }else{
+//                                            daypercent = String(format: "%.1f", Float(excount)/Float(value) * 100.0)
+//                                        }
+//                                        daypercent += "%"
+//                                    }
+//                                }
                                 if let extime = data["ex_time"]?.int{
                                     var time:String? = nil
                                     Util.hmsFrom(seconds:extime) { hours, minutes, seconds in
@@ -265,10 +271,23 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
                                      let seconds = Util.getStringFrom(seconds: seconds)
                                      time = hours+":"+minutes+":"+seconds
                                     }
-                                   
+                                    self.todayHealthTimeVal.text = "\(time ?? "0")"+"Min"
+                                
+                                    let attributedString = NSMutableAttributedString(string: self.todayHealthTimeVal.text!)
+                                    let color = #colorLiteral(red: 0, green: 0.5898008943, blue: 1, alpha: 1)
+                                    let fontSize = UIFont.boldSystemFont(ofSize: 25)
+                                    attributedString.addAttribute(NSAttributedString.Key.font, value: fontSize, range:  ( self.todayHealthTimeVal.text! as NSString).range(of:"Min"))
+                                    attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value:color, range: (self.todayHealthTimeVal.text! as NSString).range(of:"Min"))
+                                    self.todayHealthTimeVal.attributedText = attributedString
                                 }
                                 if let distance = data["ex_distance"]?.float{
-                                    var hit = String(distance)
+                                    let hit = String(format: "%.2f", distance)
+                                     self.distanceVal.text = "\(hit)" + "km"
+                                     let attributedString = NSMutableAttributedString(string: self.distanceVal.text!)
+                                     let fontSize = UIFont.boldSystemFont(ofSize:20)
+                                     attributedString.addAttribute(NSAttributedString.Key.font, value: fontSize, range:  ( self.distanceVal.text! as NSString).range(of:"km"))
+                                     self.distanceVal.attributedText = attributedString
+
                                 }
                             }
                             if let level = json["goal_data"].dictionary{

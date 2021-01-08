@@ -410,7 +410,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="bh0-KG-g57">
-                                        <rect key="frame" x="218" y="65" width="141" height="72.333333333333314"/>
+                                        <rect key="frame" x="0.0" y="65" width="359" height="72.333333333333314"/>
                                         <attributedString key="attributedText">
                                             <fragment content="0">
                                                 <attributes>
@@ -472,7 +472,21 @@
                                                     <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                 </attributes>
                                             </fragment>
-                                            <fragment content="kal">
+                                            <fragment content="k">
+                                                <attributes>
+                                                    <color key="NSColor" red="0.57045853140000002" green="0.57047235969999999" blue="0.57046490910000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <font key="NSFont" size="19" name="Helvetica"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content="c">
+                                                <attributes>
+                                                    <color key="NSColor" red="0.57045853140000002" green="0.57047235969999999" blue="0.57046490910000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <font key="NSFont" size="19" name="AppleSDGothicNeo-Regular"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content="al">
                                                 <attributes>
                                                     <color key="NSColor" red="0.57045853140000002" green="0.57047235969999999" blue="0.57046490910000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <font key="NSFont" size="19" name="Helvetica"/>
@@ -495,7 +509,6 @@
                                     <constraint firstItem="cP2-KO-HsF" firstAttribute="top" secondItem="x5u-cc-yl4" secondAttribute="top" constant="25" id="LpY-wu-K5V"/>
                                     <constraint firstItem="cP2-KO-HsF" firstAttribute="height" secondItem="x5u-cc-yl4" secondAttribute="height" multiplier="0.174528" id="M5K-IP-PjS"/>
                                     <constraint firstAttribute="trailing" secondItem="cP2-KO-HsF" secondAttribute="trailing" constant="15" id="MZC-hn-jyH"/>
-                                    <constraint firstItem="bh0-KG-g57" firstAttribute="leading" secondItem="pj7-5M-9XC" secondAttribute="trailing" id="MdI-N0-j9B"/>
                                     <constraint firstItem="qVX-lp-sbN" firstAttribute="leading" secondItem="4sg-c6-6SZ" secondAttribute="trailing" id="QkI-8b-gts"/>
                                     <constraint firstItem="pj7-5M-9XC" firstAttribute="height" secondItem="x5u-cc-yl4" secondAttribute="height" multiplier="0.504717" id="V2H-df-HLa"/>
                                     <constraint firstItem="4sg-c6-6SZ" firstAttribute="height" secondItem="x5u-cc-yl4" secondAttribute="height" multiplier="0.0742358" id="WgC-B4-IDH"/>
@@ -511,6 +524,7 @@
                                     <constraint firstItem="pj7-5M-9XC" firstAttribute="leading" secondItem="x5u-cc-yl4" secondAttribute="leading" id="lSU-vo-bhN"/>
                                     <constraint firstItem="cP2-KO-HsF" firstAttribute="leading" secondItem="pj7-5M-9XC" secondAttribute="trailing" id="no7-TG-lRO"/>
                                     <constraint firstItem="Za7-Lr-NMc" firstAttribute="centerY" secondItem="bEB-Io-bNT" secondAttribute="centerY" id="oDb-Do-iZz"/>
+                                    <constraint firstItem="bh0-KG-g57" firstAttribute="leading" secondItem="x5u-cc-yl4" secondAttribute="leading" id="vZV-0o-tFj"/>
                                 </constraints>
                             </view>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="fZB-xh-eLv">
@@ -589,7 +603,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1810" y="-747"/>
+            <point key="canvasLocation" x="-1810.144927536232" y="-747.32142857142856"/>
         </scene>
         <!--Side Menu Navigation Controller-->
         <scene sceneID="g6S-Z0-Ie4">
