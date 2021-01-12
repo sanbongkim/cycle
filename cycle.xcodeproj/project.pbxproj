@@ -36,6 +36,9 @@
 		48B14B0E2581FC2C005606C4 /* MyStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B14B0C2581FC2C005606C4 /* MyStyle.swift */; };
 		48C0379D25A2BDC600D5551B /* DownVodInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C0379C25A2BDC600D5551B /* DownVodInfoCell.swift */; };
 		48C037A025A2BDEC00D5551B /* DownVodInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48C0379F25A2BDEC00D5551B /* DownVodInfoCell.xib */; };
+		48C3C62325ABEF0500758DB9 /* MonthRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C3C62225ABEF0500758DB9 /* MonthRecord.swift */; };
+		48C3E5BB25AD7113000572EE /* SettingLevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C3E5BA25AD7113000572EE /* SettingLevelViewController.swift */; };
+		48C3E5C025AD7507000572EE /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C3E5BE25AD7507000572EE /* SettingTableViewCell.swift */; };
 		48C3EAF625A2B79100B8CAEF /* VodSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C3EAF525A2B79100B8CAEF /* VodSettingViewController.swift */; };
 		48CE217A25A5581C001859A6 /* MusicSetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CE217825A5581B001859A6 /* MusicSetCell.swift */; };
 		48CE217B25A5581C001859A6 /* MusicSetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48CE217925A5581C001859A6 /* MusicSetCell.xib */; };
@@ -87,6 +90,9 @@
 		48B14B0C2581FC2C005606C4 /* MyStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyStyle.swift; sourceTree = "<group>"; };
 		48C0379C25A2BDC600D5551B /* DownVodInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownVodInfoCell.swift; sourceTree = "<group>"; };
 		48C0379F25A2BDEC00D5551B /* DownVodInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DownVodInfoCell.xib; sourceTree = "<group>"; };
+		48C3C62225ABEF0500758DB9 /* MonthRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthRecord.swift; sourceTree = "<group>"; };
+		48C3E5BA25AD7113000572EE /* SettingLevelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingLevelViewController.swift; sourceTree = "<group>"; };
+		48C3E5BE25AD7507000572EE /* SettingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		48C3EAF525A2B79100B8CAEF /* VodSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VodSettingViewController.swift; sourceTree = "<group>"; };
 		48CE217825A5581B001859A6 /* MusicSetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicSetCell.swift; sourceTree = "<group>"; };
 		48CE217925A5581C001859A6 /* MusicSetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MusicSetCell.xib; sourceTree = "<group>"; };
@@ -220,6 +226,7 @@
 				48CE28E42592E5D70044EAE4 /* MusicTutorialViewController.swift */,
 				48DE4119259467210000346E /* VodListController.swift */,
 				48C3EAF525A2B79100B8CAEF /* VodSettingViewController.swift */,
+				48C3E5BA25AD7113000572EE /* SettingLevelViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -227,6 +234,7 @@
 		48B5DBDC257091FE002C931D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				48C3C62225ABEF0500758DB9 /* MonthRecord.swift */,
 				48B14B082581FC03005606C4 /* MusicInfo.swift */,
 				48DE4115259440610000346E /* VideoInfo.swift */,
 			);
@@ -236,6 +244,7 @@
 		48B5DBDD25709205002C931D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				48C3E5BE25AD7507000572EE /* SettingTableViewCell.swift */,
 				48CE217825A5581B001859A6 /* MusicSetCell.swift */,
 				48CE217925A5581C001859A6 /* MusicSetCell.xib */,
 				4837D8CE25A2FF3300D32187 /* UserVodInfoCell.swift */,
@@ -411,6 +420,7 @@
 				48B14B012581E6B8005606C4 /* Protocol.swift in Sources */,
 				48DE411A259467210000346E /* VodListController.swift in Sources */,
 				48D793462589BC0400AA45F5 /* AlertSencerCheckVC.swift in Sources */,
+				48C3C62325ABEF0500758DB9 /* MonthRecord.swift in Sources */,
 				48B14B0E2581FC2C005606C4 /* MyStyle.swift in Sources */,
 				48B14AFB2581E570005606C4 /* MusicListController.swift in Sources */,
 				48B14B092581FC03005606C4 /* MusicInfo.swift in Sources */,
@@ -419,8 +429,10 @@
 				48B14B052581E6E7005606C4 /* Constant.swift in Sources */,
 				48B14AF42581E50C005606C4 /* LiveInfoCell.swift in Sources */,
 				48DB9F15259711FB00C82B64 /* VodListCell.swift in Sources */,
+				48C3E5BB25AD7113000572EE /* SettingLevelViewController.swift in Sources */,
 				48A9B0BE25887B4E00862D13 /* AlertViewNotSetMusicVC.swift in Sources */,
 				48CE217A25A5581C001859A6 /* MusicSetCell.swift in Sources */,
+				48C3E5C025AD7507000572EE /* SettingTableViewCell.swift in Sources */,
 				48DE4116259440610000346E /* VideoInfo.swift in Sources */,
 				48C3EAF625A2B79100B8CAEF /* VodSettingViewController.swift in Sources */,
 				48CE28E52592E5D70044EAE4 /* MusicTutorialViewController.swift in Sources */,

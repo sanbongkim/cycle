@@ -75,8 +75,10 @@
 "login_id_fail"="ID does not exist.";
 "find_id_success"="E-mail has been sent.\nPlease log in after checking.";
 "id_include_special"="ID contains special characters.";
-"goal1"="Target count : ";
-"goal2"="";
+
+//cycle 운동레벨
+"goal1"="Target exercise time : ";
+"goal2"="min";
 
  "user_lvl1"="Lv 1";
  "user_lvl2"="Lv 2";
