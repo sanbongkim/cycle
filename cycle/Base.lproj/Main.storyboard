@@ -172,7 +172,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="66" height="25.666666666666668"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.55000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="FhQ-nv-2Zv">
+                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.55000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="FhQ-nv-2Zv">
                                                 <rect key="frame" x="0.0" y="25.666666666666671" width="66" height="36"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -531,11 +531,11 @@
                                     <constraint firstItem="bh0-KG-g57" firstAttribute="leading" secondItem="x5u-cc-yl4" secondAttribute="leading" id="vZV-0o-tFj"/>
                                 </constraints>
                             </view>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="fZB-xh-eLv">
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fZB-xh-eLv">
                                 <rect key="frame" x="20" y="396" width="374" height="4"/>
                                 <color key="tintColor" red="0.45961487290000003" green="0.81684392689999996" blue="0.9118023515" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </progressView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eXp-r1-0LZ">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eXp-r1-0LZ">
                                 <rect key="frame" x="20" y="405" width="394" height="20.333333333333314"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -624,7 +624,7 @@
                         <outlet property="point" destination="wYP-mC-f3z" id="vFc-cj-9Fw"/>
                         <outlet property="pointVal" destination="FhQ-nv-2Zv" id="bhW-9z-nHi"/>
                         <outlet property="progressBar" destination="fZB-xh-eLv" id="2Ai-qg-tNc"/>
-                        <outlet property="star0" destination="RHa-in-rL3" id="lwz-vj-Tyo"/>
+                        <outlet property="star0" destination="rsU-7X-vvR" id="5ca-ge-e4y"/>
                         <outlet property="star1" destination="RHa-in-rL3" id="GdM-wp-yMB"/>
                         <outlet property="star2" destination="9bf-ix-JeE" id="YKR-GR-zTt"/>
                         <outlet property="star3" destination="V9Y-SI-dqy" id="hFy-mN-lPh"/>
@@ -788,7 +788,7 @@
         <!--Cycle Web View Controller-->
         <scene sceneID="1hm-HQ-zam">
             <objects>
-                <viewController id="5Ga-FU-hdp" customClass="CycleWebViewController" customModule="cycle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CycleWebViewController" id="5Ga-FU-hdp" customClass="CycleWebViewController" customModule="cycle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rOZ-Ka-axw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2535,7 +2535,7 @@
                                 <rect key="frame" x="20" y="104" width="374" height="758"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="levelCell" id="bF0-db-35j" customClass="SettingTableViewCell" customModule="_60VRFit_Boxing" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="levelCell" id="bF0-db-35j" customClass="SettingTableViewCell" customModule="cycle" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="374" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bF0-db-35j" id="euh-Mt-R3P">

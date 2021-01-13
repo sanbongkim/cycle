@@ -8,12 +8,17 @@
 import Foundation
 import UIKit
 import WebKit
+
+enum  popmode {
+    case push,modal
+}
 class CycleWebViewController : UIViewController,WKNavigationDelegate,WKUIDelegate{
     
     @IBOutlet weak var webView: WKWebView!
-    
     @IBOutlet weak var backButton: UIButton!
+    var pop = popmode.push
     var url : URL!
+    var mode : Int! //0 일때 네비게이션 push 1 일때 모달
     var activityIndicator : ActivityIndicator!
     override func viewDidLoad() {
         
@@ -31,7 +36,15 @@ class CycleWebViewController : UIViewController,WKNavigationDelegate,WKUIDelegat
 
     }
     @IBAction func backButtonAction(_ sender: Any) {
-        self.navigationController!.popViewController(animated: false)
+        
+        switch pop {
+            case .push:
+                self.navigationController!.popViewController(animated: false)
+                break
+            case .modal:
+                self.dismiss(animated: true, completion: nil)
+                break
+        }
     }
     func webView(_ webView: WKWebView, didCommit navigaiton: WKNavigation!){
         

@@ -28,7 +28,6 @@ class LoginViewController: UIViewController {
         self.pwd.tag = 101
         self.userid.placeholder = Util.localString(st: "ph_user_id")
         self.pwd.placeholder = Util.localString(st: "ph_user_pwd")
-
         // call the 'keyboardWillShow' function when the view controller receive the notification that a keyboard is going to be shown
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
