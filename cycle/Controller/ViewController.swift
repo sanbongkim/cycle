@@ -8,6 +8,7 @@ import SideMenu
 import Alamofire
 import SwiftyJSON
 import Charts
+import UnityFramework
 class ViewController: UIViewController, UINavigationControllerDelegate,ChartViewDelegate{
     
     var logo : UIView!
@@ -53,8 +54,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     var currentDay : String!
     var day = [String]()
     var monthRecord : [String:AnyObject] = [:]
-    
-    
     var dayExTime:Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,6 +95,10 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
         vc.levelValue = self.levelValue
         self.present(vc, animated: true, completion: nil)
         
+    }
+    @IBAction func startGameAction(_ sender: Any) {
+        
+        UnityEmbeddedSwift.showUnity(self , self)
     }
     func leveTextReflash(){
         self.countLabelVal.text = getLevel()
@@ -181,7 +184,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     @IBAction func goLeftMenu(_ sender: Any) {
         self.navigationController!.present(menu!, animated: true, completion: nil)
     }
-    
     func checkVersion(){
         var parameters: [String: Any] = [:]
         parameters["version"]    =  "0.0.2"//Util.getAppversion()
@@ -324,7 +326,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
      *
      *
      */
-    
     func getTodayExerciseRecord(){
         var parameters: [String: Any] = [:]
         parameters["id"] = UserDefaults.standard.string(forKey: "userid")
@@ -346,18 +347,18 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
                                     attributedString.addAttribute(NSAttributedString.Key.font, value: fontSize, range:  ( self.caloriesVal.text! as NSString).range(of:"kcal"))
                                     self.caloriesVal.attributedText = attributedString
                                 }
-                                //                                if let excount = data["ex_count"]?.int{
-                                //                                    if excount > 0{
-                                //                                        let value = UserDefaults.standard.integer(forKey: "level")
-                                //                                        var daypercent : String
-                                //                                        if (Float(excount)/Float(value)) > 1.0 {
-                                //                                            daypercent = "100.0"
-                                //                                        }else{
-                                //                                            daypercent = String(format: "%.1f", Float(excount)/Float(value) * 100.0)
-                                //                                        }
-                                //                                        daypercent += "%"
-                                //                                    }
-                                //                                }
+                                //  if let excount = data["ex_count"]?.int{
+                                //      if excount > 0{
+                                //          let value = UserDefaults.standard.integer(forKey: "level")
+                                //          var daypercent : String
+                                //          if (Float(excount)/Float(value)) > 1.0 {
+                                //              daypercent = "100.0"
+                                //          }else{
+                                //              daypercent = String(format: "%.1f", Float(excount)/Float(value) * 100.0)
+                                //          }
+                                //          daypercent += "%"
+                                //      }
+                                //  }
                                 if let extime = data["ex_time"]?.int{
                                     if extime != 0{
                                         self.dayExTime = extime
@@ -752,15 +753,19 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
             }
     }
 }
-extension ViewController : LoginControllerDelegate,SideMenuNavigationControllerDelegate,IAxisValueFormatter{
+extension ViewController : LoginControllerDelegate,SideMenuNavigationControllerDelegate,IAxisValueFormatter,UnityInit,NativeCallsProtocol{
+    func unityLodingCall(){
+        
+    }
+    func sendUnity(toIOS msg: String!) {
+        print("recv\(msg!)")
+    }
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
         return value <= 0.0 ? "" : String(describing: value)
     }
-    
     func alertWeight() {
         //        self.openAlertView()
     }
-    
     func saveWeight(weight: Int) {
         //        self.homeController.mWeight = Float(weight)
     }
@@ -779,16 +784,16 @@ extension ViewController : LoginControllerDelegate,SideMenuNavigationControllerD
         SideMenuManager.default.addPanGestureToPresent(toView: self.view)
         loginViewConroller.view .removeFromSuperview()
         loginViewConroller .removeFromParent()
-        //        homeController.reflashUserid()
-        //        homeController.getData()
-        //        if self.loginViewConroller != nil{
-        //            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations:{
-        //                       self.loginViewConroller.view.alpha = 0.1
-        //                   }, completion: { finished in
-        //                       self.loginViewConroller.view.removeFromSuperview()
-        //                       self.loginViewConroller.removeFromParent()
-        //                   })
-        //        }
+        //homeController.reflashUserid()
+        //homeController.getData()
+        //if self.loginViewConroller != nil{
+        //    UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations:{
+        //               self.loginViewConroller.view.alpha = 0.1
+        //           }, completion: { finished in
+        //               self.loginViewConroller.view.removeFromSuperview()
+        //               self.loginViewConroller.removeFromParent()
+        //           })
+        //}
     }
 }
 

@@ -41,10 +41,8 @@ class LoginViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         //self.userid.addBottomBorder()
-     
     }
     override func viewWillAppear(_ animated: Bool) {
-        
         super.viewWillAppear(true)
     }
     @IBAction func tabAction(_ sender: Any) {
@@ -212,28 +210,20 @@ class LoginViewController: UIViewController {
       self.view.frame.origin.y = 0
     }
     @objc func keyboardWillShow(notification: NSNotification) {
-
       guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
-
         // if keyboard size is not available for some reason, dont do anything
         return
       }
-
       var shouldMoveViewUp = false
-
       // if active text field is not nil
       if let activeTextField = activeTextField {
-
         let bottomOfTextField = activeTextField.convert(activeTextField.bounds, to: self.view).maxY;
-        
         let topOfKeyboard = self.view.frame.height - keyboardSize.height
-
         // if the bottom of Textfield is below the top of keyboard, move up
         if bottomOfTextField > topOfKeyboard {
           shouldMoveViewUp = true
         }
       }
-
       if(shouldMoveViewUp) {
         self.view.frame.origin.y = 0 - keyboardSize.height
       }

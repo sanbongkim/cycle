@@ -320,6 +320,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AQ8-V6-e9X">
                                         <rect key="frame" x="8" y="8" width="170" height="64.666666666666671"/>
                                         <state key="normal" backgroundImage="ibtn_exer_start"/>
+                                        <connections>
+                                            <action selector="startGameAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BwT-Lc-VE2"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jI7-Bm-lhX">
                                         <rect key="frame" x="190" y="6.6666666666666572" width="182" height="67"/>

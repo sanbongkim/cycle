@@ -12,6 +12,8 @@
 		481F0499256B889200EF8000 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 481F0497256B889200EF8000 /* Main.storyboard */; };
 		481F049B256B889300EF8000 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 481F049A256B889300EF8000 /* Assets.xcassets */; };
 		481F049E256B889300EF8000 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 481F049C256B889300EF8000 /* LaunchScreen.storyboard */; };
+		4829D47E25B0421A00859D12 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4829D47D25B0421A00859D12 /* BluetoothManager.swift */; };
+		4829D48025B0428200859D12 /* BluetoothDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4829D47F25B0428200859D12 /* BluetoothDelegate.swift */; };
 		4837D8D025A2FF3300D32187 /* UserVodInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4837D8CE25A2FF3300D32187 /* UserVodInfoCell.swift */; };
 		4837D8D125A2FF3300D32187 /* UserVodInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4837D8CF25A2FF3300D32187 /* UserVodInfoCell.xib */; };
 		486A956F256F45090094B2FB /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486A956E256F45090094B2FB /* LeftViewController.swift */; };
@@ -54,8 +56,25 @@
 		48EB7FAA25A045290087685C /* box.db in Resources */ = {isa = PBXBuildFile; fileRef = 48EB7FA825A0423F0087685C /* box.db */; };
 		48F0B36A258DCAB700C08B69 /* logoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48F0B369258DCAB700C08B69 /* logoView.xib */; };
 		48F0B36D258DCAFF00C08B69 /* logoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F0B36C258DCAFF00C08B69 /* logoView.swift */; };
+		48F8CC6C25B0113400DA9059 /* UnityFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48F8CC6B25B0113400DA9059 /* UnityFramework.framework */; };
+		48F8CC6D25B0113400DA9059 /* UnityFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 48F8CC6B25B0113400DA9059 /* UnityFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		48F8CC7D25B0176900DA9059 /* UnityEmbeddedSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F8CC7C25B0176900DA9059 /* UnityEmbeddedSwift.swift */; };
 		61B73A6105FD72356115E73F /* Pods_cycle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD93B7089648CBFC9A79B9BA /* Pods_cycle.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		48F8CC6E25B0113400DA9059 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				48F8CC6D25B0113400DA9059 /* UnityFramework.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		481F048E256B889200EF8000 /* cycle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cycle.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,6 +84,8 @@
 		481F049A256B889300EF8000 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		481F049D256B889300EF8000 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		481F049F256B889300EF8000 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4829D47D25B0421A00859D12 /* BluetoothManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
+		4829D47F25B0428200859D12 /* BluetoothDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothDelegate.swift; sourceTree = "<group>"; };
 		4837D8CE25A2FF3300D32187 /* UserVodInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserVodInfoCell.swift; sourceTree = "<group>"; };
 		4837D8CF25A2FF3300D32187 /* UserVodInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserVodInfoCell.xib; sourceTree = "<group>"; };
 		486A956E256F45090094B2FB /* LeftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftViewController.swift; sourceTree = "<group>"; };
@@ -108,6 +129,9 @@
 		48EB7FA825A0423F0087685C /* box.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = box.db; sourceTree = "<group>"; };
 		48F0B369258DCAB700C08B69 /* logoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = logoView.xib; sourceTree = "<group>"; };
 		48F0B36C258DCAFF00C08B69 /* logoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = logoView.swift; sourceTree = "<group>"; };
+		48F8CC6125AFE9EB00DA9059 /* NativeCallsProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NativeCallsProtocol.h; sourceTree = "<group>"; };
+		48F8CC6B25B0113400DA9059 /* UnityFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = UnityFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		48F8CC7C25B0176900DA9059 /* UnityEmbeddedSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnityEmbeddedSwift.swift; sourceTree = "<group>"; };
 		6A6DBCA2A901E77A07A1ADB1 /* Pods-cycle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cycle.release.xcconfig"; path = "Target Support Files/Pods-cycle/Pods-cycle.release.xcconfig"; sourceTree = "<group>"; };
 		AAF8A9DBBA5F86BD4889F21F /* Pods-cycle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cycle.debug.xcconfig"; path = "Target Support Files/Pods-cycle/Pods-cycle.debug.xcconfig"; sourceTree = "<group>"; };
 		AD93B7089648CBFC9A79B9BA /* Pods_cycle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cycle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,6 +143,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				61B73A6105FD72356115E73F /* Pods_cycle.framework in Frameworks */,
+				48F8CC6C25B0113400DA9059 /* UnityFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,6 +180,8 @@
 		481F0490256B889200EF8000 /* cycle */ = {
 			isa = PBXGroup;
 			children = (
+				4829D47C25B041F900859D12 /* Bluetooth */,
+				48F8CC6025AFE99200DA9059 /* UniyEmbed */,
 				48A2CC5A259981FC006E50BF /* CustomSegue */,
 				48B14AFE2581E647005606C4 /* Constant */,
 				48B14AFD2581E636005606C4 /* Util */,
@@ -169,6 +196,15 @@
 				481F049F256B889300EF8000 /* Info.plist */,
 			);
 			path = cycle;
+			sourceTree = "<group>";
+		};
+		4829D47C25B041F900859D12 /* Bluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				4829D47F25B0428200859D12 /* BluetoothDelegate.swift */,
+				4829D47D25B0421A00859D12 /* BluetoothManager.swift */,
+			);
+			path = Bluetooth;
 			sourceTree = "<group>";
 		};
 		48A2CC5A259981FC006E50BF /* CustomSegue */ = {
@@ -271,9 +307,19 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		48F8CC6025AFE99200DA9059 /* UniyEmbed */ = {
+			isa = PBXGroup;
+			children = (
+				48F8CC6125AFE9EB00DA9059 /* NativeCallsProtocol.h */,
+				48F8CC7C25B0176900DA9059 /* UnityEmbeddedSwift.swift */,
+			);
+			path = UniyEmbed;
+			sourceTree = "<group>";
+		};
 		95AB07CDA09AFA368A798CCD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				48F8CC6B25B0113400DA9059 /* UnityFramework.framework */,
 				AD93B7089648CBFC9A79B9BA /* Pods_cycle.framework */,
 			);
 			name = Frameworks;
@@ -291,6 +337,7 @@
 				481F048B256B889200EF8000 /* Frameworks */,
 				481F048C256B889200EF8000 /* Resources */,
 				2AB7CBB49D6722E49A378E2E /* [CP] Embed Pods Frameworks */,
+				48F8CC6E25B0113400DA9059 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -422,6 +469,7 @@
 				48D793462589BC0400AA45F5 /* AlertSencerCheckVC.swift in Sources */,
 				48C3C62325ABEF0500758DB9 /* MonthRecord.swift in Sources */,
 				48B14B0E2581FC2C005606C4 /* MyStyle.swift in Sources */,
+				4829D48025B0428200859D12 /* BluetoothDelegate.swift in Sources */,
 				48B14AFB2581E570005606C4 /* MusicListController.swift in Sources */,
 				48B14B092581FC03005606C4 /* MusicInfo.swift in Sources */,
 				48B14B022581E6B8005606C4 /* Util.swift in Sources */,
@@ -429,6 +477,7 @@
 				48B14B052581E6E7005606C4 /* Constant.swift in Sources */,
 				48B14AF42581E50C005606C4 /* LiveInfoCell.swift in Sources */,
 				48DB9F15259711FB00C82B64 /* VodListCell.swift in Sources */,
+				4829D47E25B0421A00859D12 /* BluetoothManager.swift in Sources */,
 				48C3E5BB25AD7113000572EE /* SettingLevelViewController.swift in Sources */,
 				48A9B0BE25887B4E00862D13 /* AlertViewNotSetMusicVC.swift in Sources */,
 				48CE217A25A5581C001859A6 /* MusicSetCell.swift in Sources */,
@@ -438,6 +487,7 @@
 				48CE28E52592E5D70044EAE4 /* MusicTutorialViewController.swift in Sources */,
 				48A2CC5C2599822A006E50BF /* CustomSegue.swift in Sources */,
 				4876858B25907F65001E5BFA /* CyCleWebViewController.swift in Sources */,
+				48F8CC7D25B0176900DA9059 /* UnityEmbeddedSwift.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -606,6 +656,7 @@
 				MARKETING_VERSION = 0.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mtome.cycle.cycle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = /Volumes/DATA/01.Project/02.IOS/cycle/NativeCall/NativeCallProxy.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -627,6 +678,7 @@
 				MARKETING_VERSION = 0.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mtome.cycle.cycle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = /Volumes/DATA/01.Project/02.IOS/cycle/NativeCall/NativeCallProxy.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
