@@ -1058,6 +1058,60 @@
             </objects>
             <point key="canvasLocation" x="1896" y="-1564"/>
         </scene>
+        <!--Alert Calorie SetVC-->
+        <scene sceneID="i0t-Nl-kpz">
+            <objects>
+                <viewController id="Aos-mh-oeA" customClass="AlertCalorieSetVC" customModule="cycle" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Tc1-1U-51S">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="WNt-EP-vrT">
+                                <rect key="frame" x="160.66666666666663" y="304" width="248.33333333333337" height="208"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V3k-yg-hRH">
+                                        <rect key="frame" x="0.0" y="0.0" width="248.33333333333334" height="62.666666666666664"/>
+                                        <state key="normal" image="sensor_setting_page_btn"/>
+                                        <connections>
+                                            <action selector="sensorSetAction:" destination="Aos-mh-oeA" eventType="touchUpInside" id="vif-Ed-L0x"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1X0-0C-UO1">
+                                        <rect key="frame" x="0.0" y="72.666666666666686" width="248.33333333333334" height="62.666666666666657"/>
+                                        <state key="normal" image="kcal_setting_btn"/>
+                                        <connections>
+                                            <action selector="calorieSetAction:" destination="Aos-mh-oeA" eventType="touchUpInside" id="d0r-R4-oV8"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O9i-jr-B9N">
+                                        <rect key="frame" x="0.0" y="145.33333333333331" width="248.33333333333334" height="62.666666666666657"/>
+                                        <state key="normal" image="sensor_delete_btn"/>
+                                        <connections>
+                                            <action selector="sensorDelAction:" destination="Aos-mh-oeA" eventType="touchUpInside" id="alD-eI-bKf"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="blU-xP-eJE"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.70106514551306287" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="blU-xP-eJE" firstAttribute="trailing" secondItem="WNt-EP-vrT" secondAttribute="trailing" constant="5" id="6lJ-Mc-Hh9"/>
+                            <constraint firstItem="WNt-EP-vrT" firstAttribute="centerY" secondItem="Tc1-1U-51S" secondAttribute="centerY" constant="-40" id="AHR-nh-ECM"/>
+                            <constraint firstItem="V3k-yg-hRH" firstAttribute="height" secondItem="Tc1-1U-51S" secondAttribute="height" multiplier="0.07" id="JLT-b9-beZ"/>
+                            <constraint firstItem="V3k-yg-hRH" firstAttribute="width" secondItem="Tc1-1U-51S" secondAttribute="width" multiplier="0.6" id="S78-hL-svy"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="calorieSet" destination="1X0-0C-UO1" id="cHg-dw-IUb"/>
+                        <outlet property="sensorDel" destination="O9i-jr-B9N" id="jdu-sJ-sKQ"/>
+                        <outlet property="sensorSet" destination="V3k-yg-hRH" id="rlG-kF-wPb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OXb-v0-iLl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2702.898550724638" y="-1554.2410714285713"/>
+        </scene>
         <!--Alert ResolutionVC-->
         <scene sceneID="owl-Bk-FIm">
             <objects>
@@ -2673,6 +2727,7 @@
         <image name="ibtn_ham_tutorial_btn" width="600" height="126"/>
         <image name="ibtn_ham_version_btn" width="600" height="126"/>
         <image name="ibtn_ham_vr_setting_btn" width="600" height="126"/>
+        <image name="kcal_setting_btn" width="450" height="94"/>
         <image name="login_btn" width="260" height="100"/>
         <image name="main_bi" width="1032" height="338"/>
         <image name="movie_list_icon" width="169" height="33"/>
@@ -2681,6 +2736,8 @@
         <image name="music_list_icon" width="169" height="33"/>
         <image name="music_setting_n" width="605" height="133"/>
         <image name="music_setting_p" width="605" height="133"/>
+        <image name="sensor_delete_btn" width="450" height="94"/>
+        <image name="sensor_setting_page_btn" width="450" height="94"/>
         <image name="signup_btn" width="300" height="70"/>
         <image name="target_percent_star_n" width="100" height="100"/>
         <image name="user_id_icon" width="90" height="90"/>

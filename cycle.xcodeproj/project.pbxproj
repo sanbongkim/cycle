@@ -14,6 +14,9 @@
 		481F049E256B889300EF8000 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 481F049C256B889300EF8000 /* LaunchScreen.storyboard */; };
 		4829D47E25B0421A00859D12 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4829D47D25B0421A00859D12 /* BluetoothManager.swift */; };
 		4829D48025B0428200859D12 /* BluetoothDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4829D47F25B0428200859D12 /* BluetoothDelegate.swift */; };
+		482C22F325B42958006D3EA7 /* AlertCalorieSetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482C22F225B42958006D3EA7 /* AlertCalorieSetVC.swift */; };
+		482C22F525B42CE2006D3EA7 /* SensorSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482C22F425B42CE2006D3EA7 /* SensorSetView.swift */; };
+		482C22F725B42D29006D3EA7 /* SensorSetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 482C22F625B42D29006D3EA7 /* SensorSetView.xib */; };
 		4837D8D025A2FF3300D32187 /* UserVodInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4837D8CE25A2FF3300D32187 /* UserVodInfoCell.swift */; };
 		4837D8D125A2FF3300D32187 /* UserVodInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4837D8CF25A2FF3300D32187 /* UserVodInfoCell.xib */; };
 		486A956F256F45090094B2FB /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486A956E256F45090094B2FB /* LeftViewController.swift */; };
@@ -86,6 +89,9 @@
 		481F049F256B889300EF8000 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4829D47D25B0421A00859D12 /* BluetoothManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
 		4829D47F25B0428200859D12 /* BluetoothDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothDelegate.swift; sourceTree = "<group>"; };
+		482C22F225B42958006D3EA7 /* AlertCalorieSetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertCalorieSetVC.swift; sourceTree = "<group>"; };
+		482C22F425B42CE2006D3EA7 /* SensorSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorSetView.swift; sourceTree = "<group>"; };
+		482C22F625B42D29006D3EA7 /* SensorSetView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SensorSetView.xib; sourceTree = "<group>"; };
 		4837D8CE25A2FF3300D32187 /* UserVodInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserVodInfoCell.swift; sourceTree = "<group>"; };
 		4837D8CF25A2FF3300D32187 /* UserVodInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserVodInfoCell.xib; sourceTree = "<group>"; };
 		486A956E256F45090094B2FB /* LeftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftViewController.swift; sourceTree = "<group>"; };
@@ -225,6 +231,7 @@
 				487685862590674B001E5BFA /* AlertSignUpVC.swift */,
 				48CE28E72592F1F60044EAE4 /* AlertVersionVC.swift */,
 				48D632FB259D716A00DA9EB5 /* AlertViewVodHelpVC.swift */,
+				482C22F225B42958006D3EA7 /* AlertCalorieSetVC.swift */,
 			);
 			path = Alert;
 			sourceTree = "<group>";
@@ -295,6 +302,8 @@
 				48DB9F172597122B00C82B64 /* VodListCell.xib */,
 				48C0379C25A2BDC600D5551B /* DownVodInfoCell.swift */,
 				48C0379F25A2BDEC00D5551B /* DownVodInfoCell.xib */,
+				482C22F425B42CE2006D3EA7 /* SensorSetView.swift */,
+				482C22F625B42D29006D3EA7 /* SensorSetView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -394,6 +403,7 @@
 				4876857825904A0D001E5BFA /* Localizable.strings in Resources */,
 				48F0B36A258DCAB700C08B69 /* logoView.xib in Resources */,
 				48DB9F182597122B00C82B64 /* VodListCell.xib in Resources */,
+				482C22F725B42D29006D3EA7 /* SensorSetView.xib in Resources */,
 				4837D8D125A2FF3300D32187 /* UserVodInfoCell.xib in Resources */,
 				48A9B0AD258855EC00862D13 /* AlertMusicNotSet.xib in Resources */,
 				481F0499256B889200EF8000 /* Main.storyboard in Resources */,
@@ -457,6 +467,7 @@
 				48A9B0C22588930900862D13 /* AlertVodDownVC.swift in Sources */,
 				48A9B0B02588561000862D13 /* AlertMusicNotSet.swift in Sources */,
 				48B14AF92581E570005606C4 /* SignUpViewController.swift in Sources */,
+				482C22F525B42CE2006D3EA7 /* SensorSetView.swift in Sources */,
 				48B14B0D2581FC2C005606C4 /* DatabaseManager.swift in Sources */,
 				48CE28E82592F1F60044EAE4 /* AlertVersionVC.swift in Sources */,
 				481F0496256B889200EF8000 /* ViewController.swift in Sources */,
@@ -486,6 +497,7 @@
 				48C3EAF625A2B79100B8CAEF /* VodSettingViewController.swift in Sources */,
 				48CE28E52592E5D70044EAE4 /* MusicTutorialViewController.swift in Sources */,
 				48A2CC5C2599822A006E50BF /* CustomSegue.swift in Sources */,
+				482C22F325B42958006D3EA7 /* AlertCalorieSetVC.swift in Sources */,
 				4876858B25907F65001E5BFA /* CyCleWebViewController.swift in Sources */,
 				48F8CC7D25B0176900DA9059 /* UnityEmbeddedSwift.swift in Sources */,
 			);

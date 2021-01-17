@@ -9,7 +9,8 @@ import Alamofire
 import SwiftyJSON
 import Charts
 import UnityFramework
-class ViewController: UIViewController, UINavigationControllerDelegate,ChartViewDelegate{
+import CoreBluetooth
+class ViewController: UIViewController, UINavigationControllerDelegate,ChartViewDelegate,BluetoothDelegate{
     
     var logo : UIView!
     var menu:SideMenuNavigationController?
@@ -17,6 +18,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     var alertVodDownvc : AlertVodDownVC!
     
     @IBOutlet weak var progressBar: UIProgressView!
+    
     //뒤집어
     @IBOutlet weak var complateVal: UILabel!
     @IBOutlet weak var countLabelVal: UILabel!
@@ -46,6 +48,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     @IBOutlet weak var star2: UIImageView!
     @IBOutlet weak var star3: UIImageView!
     @IBOutlet weak var star4: UIImageView!
+    
     //차트관련 정보
     @IBOutlet weak var chartView: BarChartView!
     var levelValue = [Int]()
@@ -55,6 +58,9 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     var day = [String]()
     var monthRecord : [String:AnyObject] = [:]
     var dayExTime:Int = 0
+    
+    let bluetoothManager = BluetoothManager.getInstance()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -76,6 +82,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        bluetoothManager.delegate = self
     }
     @objc func gotoPoint(){
         
@@ -143,7 +150,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
         default:
             break
         }
-        
     }
     func getLevel()->String{
         let getlevel = UserDefaults.standard.integer(forKey: "level")
@@ -236,17 +242,17 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
                 })
             } else { UIApplication.shared.openURL(url) } }
     }
-    //        let storeViewController = SKStoreProductViewController()
-    //        storeViewController.delegate = self
-    //            // 앱스토어에 있는 앱 id값으로 연결된 SKStoreProductParameterITunesItemIdentifier 키로 초기화
-    //            let parameters = [SKStoreProductParameterITunesItemIdentifier: 1085123968]
-    //            // 뷰 컨트롤러에 로드 되고 성공하면 표시된다.
-    //                storeViewController.loadProduct(withParameters: parameters, completionBlock: {result, error in
-    //                if result {
-    //                    self.present(storeViewController, animated: true, completion: nil)
-    //                }
-    //            })
+    //let storeViewController = SKStoreProductViewController()
+    //storeViewController.delegate = self
+    //    // 앱스토어에 있는 앱 id값으로 연결된 SKStoreProductParameterITunesItemIdentifier 키로 초기화
+    //    let parameters = [SKStoreProductParameterITunesItemIdentifier: 1085123968]
+    //    // 뷰 컨트롤러에 로드 되고 성공하면 표시된다.
+    //        storeViewController.loadProduct(withParameters: parameters, completionBlock: {result, error in
+    //        if result {
+    //            self.present(storeViewController, animated: true, completion: nil)
     //        }
+    //    })
+    //}
     //  달성일수 및 현제 포인터
     func getexerciseAchivement(){
         var parameters: [String: Any] = [:]
@@ -795,5 +801,68 @@ extension ViewController : LoginControllerDelegate,SideMenuNavigationControllerD
         //           })
         //}
     }
+    // MARK: BluetoothDelegate
+    func didDiscoverPeripheral(_ peripheral: CBPeripheral, advertisementData: [String : Any], RSSI: NSNumber) {
+       
+    }
+    /**
+     블루투스 상태 모니터
+     
+     - parameter state: 블루투스 상태
+     */
+    func didUpdateState(_ state: CBManagerState) {
+        print("MainController --> didUpdateState:\(state)")
+        switch state {
+        case .resetting:
+            print("MainController --> State : Resetting")
+        case .poweredOn:
+            bluetoothManager.startScanPeripheral()
+        case .poweredOff:
+            print(" MainController -->State : Powered Off")
+            fallthrough
+        case .unauthorized:
+            print("MainController --> State : Unauthorized")
+           
+            fallthrough
+        case .unknown:
+            print("MainController --> State : Unknown")
+           
+        case .unsupported:
+            print("MainController --> State : Unsupported")
+            bluetoothManager.stopScanPeripheral()
+            bluetoothManager.disconnectPeripheral()
+        @unknown default:break
+        }
+    }
+    /**
+     The callback function when central manager connected the peripheral successfully.
+     
+     - parameter connectedPeripheral: The peripheral which connected successfully.
+     */
+    func didConnectedPeripheral(_ connectedPeripheral: CBPeripheral) {
+        print("MainController --> didConnectedPeripheral")
+      
+    }
+    
+    /**
+     The peripheral services monitor
+     
+     - parameter services: The service instances which discovered by CoreBluetooth
+     */
+    func didDiscoverServices(_ peripheral: CBPeripheral) {
+        print("MainController --> didDiscoverService:\(peripheral.services?.description ?? "Unknow Service")")
+        
+        
+    }
+    
+    /**
+     The method invoked when interrogated fail.
+     
+     - parameter peripheral: The peripheral which interrogation failed.
+     */
+    func didFailedToInterrogate(_ peripheral: CBPeripheral) {
+    
+    }
+    
 }
 
