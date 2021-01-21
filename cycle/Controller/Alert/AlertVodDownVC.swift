@@ -21,9 +21,7 @@ class AlertVodDownVC : UIViewController{
     @IBOutlet weak var close: UIButton!
     @IBOutlet weak var downloadPercent: UILabel!
     @IBOutlet weak var message: UILabel!
-   
     @IBOutlet weak var cancel: UIButton!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         cancel.titleLabel!.text = Util.localString(st: "cancel")
@@ -32,7 +30,6 @@ class AlertVodDownVC : UIViewController{
            let myURL = URL(string: encoded) {
             downloadUsingAlamofire(url: myURL, fileName: fileName + ".mp4")
         }
-
     }
     @IBAction func closeAction(_ sender: Any) {
         self.removeFromParent()
@@ -45,7 +42,7 @@ class AlertVodDownVC : UIViewController{
                     uploadTasks.forEach { $0.cancel() }
                     downloadTasks.forEach { $0.cancel() }
             
-                }
+        }
         self.removeFromParent()
         self.view.removeFromSuperview()
     }
@@ -116,7 +113,6 @@ class AlertVodDownVC : UIViewController{
             return layer.cornerRadius
         }
     }
-
     @IBInspectable var borderColor: UIColor? {
         set {
             guard let uiColor = newValue else { return }

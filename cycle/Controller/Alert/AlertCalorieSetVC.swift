@@ -14,8 +14,6 @@ class AlertCalorieSetVC : UIViewController{
     @IBOutlet weak var sensorDel: UIButton!
     override func viewDidLoad() {
         
-        
-        
         super.viewDidLoad()
     }
     
@@ -30,5 +28,8 @@ class AlertCalorieSetVC : UIViewController{
     @IBAction func sensorDelAction(_ sender: Any) {
         
         
+    }
+    @IBAction func closeAction(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
 }

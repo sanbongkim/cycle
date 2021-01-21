@@ -59,7 +59,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     var monthRecord : [String:AnyObject] = [:]
     var dayExTime:Int = 0
     
-    let bluetoothManager = BluetoothManager.getInstance()
+    //let bluetoothManager = BluetoothManager.getInstance()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,7 +82,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        bluetoothManager.delegate = self
+        //bluetoothManager.delegate = self
     }
     @objc func gotoPoint(){
         
@@ -101,7 +101,12 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
         vc.sourceVc = self
         vc.levelValue = self.levelValue
         self.present(vc, animated: true, completion: nil)
-        
+    }
+    @IBAction func addSensorAction(_ sender: Any) {
+//        let board = UIStoryboard(name: "Main", bundle: nil)
+//        let vc = board.instantiateViewController(withIdentifier: "AlertCalorieSetVC") as! AlertCalorieSetVC
+//        vc.modalPresentationStyle = .overFullScreen
+//        self.present(vc, animated: true, completion: nil)
     }
     @IBAction func startGameAction(_ sender: Any) {
         
@@ -166,6 +171,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
             break
         case levelValue[3]:
             levelString = "4"
+            break
         case levelValue[4]:
             levelString = "5"
             break
@@ -353,25 +359,15 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
                                     attributedString.addAttribute(NSAttributedString.Key.font, value: fontSize, range:  ( self.caloriesVal.text! as NSString).range(of:"kcal"))
                                     self.caloriesVal.attributedText = attributedString
                                 }
-                                //  if let excount = data["ex_count"]?.int{
-                                //      if excount > 0{
-                                //          let value = UserDefaults.standard.integer(forKey: "level")
-                                //          var daypercent : String
-                                //          if (Float(excount)/Float(value)) > 1.0 {
-                                //              daypercent = "100.0"
-                                //          }else{
-                                //              daypercent = String(format: "%.1f", Float(excount)/Float(value) * 100.0)
-                                //          }
-                                //          daypercent += "%"
-                                //      }
-                                //  }
                                 if let extime = data["ex_time"]?.int{
                                     if extime != 0{
                                         self.dayExTime = extime
                                         let savelebel = UserDefaults.standard.integer(forKey:"lebel")
-                                        self.updateStar(level: savelebel / self.dayExTime)
-                                        self.todayPerCent.text = "\((self.dayExTime/savelebel)*100)"+"%"
-                                        self.progressBar.progress = Float(Int(self.dayExTime / savelebel))
+                                        if savelebel != 0{
+                                            self.updateStar(level: savelebel / self.dayExTime)
+                                            self.todayPerCent.text = "\((self.dayExTime/savelebel)*100)"+"%"
+                                            self.progressBar.progress = Float(Int(self.dayExTime / savelebel))
+                                        }
                                         let time = extime/60
                                         self.todayHealthTimeVal.text = "\(time)"+"Min"
                                         let attributedString = NSMutableAttributedString(string: self.todayHealthTimeVal.text!)
@@ -803,11 +799,10 @@ extension ViewController : LoginControllerDelegate,SideMenuNavigationControllerD
     }
     // MARK: BluetoothDelegate
     func didDiscoverPeripheral(_ peripheral: CBPeripheral, advertisementData: [String : Any], RSSI: NSNumber) {
-       
+        
     }
     /**
      블루투스 상태 모니터
-     
      - parameter state: 블루투스 상태
      */
     func didUpdateState(_ state: CBManagerState) {
@@ -816,7 +811,8 @@ extension ViewController : LoginControllerDelegate,SideMenuNavigationControllerD
         case .resetting:
             print("MainController --> State : Resetting")
         case .poweredOn:
-            bluetoothManager.startScanPeripheral()
+          
+        break
         case .poweredOff:
             print(" MainController -->State : Powered Off")
             fallthrough
@@ -829,8 +825,8 @@ extension ViewController : LoginControllerDelegate,SideMenuNavigationControllerD
            
         case .unsupported:
             print("MainController --> State : Unsupported")
-            bluetoothManager.stopScanPeripheral()
-            bluetoothManager.disconnectPeripheral()
+           // bluetoothManager.stopScanPeripheral()
+           // bluetoothManager.disconnectPeripheral()
         @unknown default:break
         }
     }
@@ -843,7 +839,6 @@ extension ViewController : LoginControllerDelegate,SideMenuNavigationControllerD
         print("MainController --> didConnectedPeripheral")
       
     }
-    
     /**
      The peripheral services monitor
      
@@ -854,7 +849,6 @@ extension ViewController : LoginControllerDelegate,SideMenuNavigationControllerD
         
         
     }
-    
     /**
      The method invoked when interrogated fail.
      
@@ -863,6 +857,5 @@ extension ViewController : LoginControllerDelegate,SideMenuNavigationControllerD
     func didFailedToInterrogate(_ peripheral: CBPeripheral) {
     
     }
-    
 }
 

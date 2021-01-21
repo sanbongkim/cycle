@@ -111,7 +111,8 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
      
      - parameter timer: The timer touch off this selector
      */
-    @objc func connectTimeout(_ timer : Timer) {
+    @objc func connectTimeout(_ timer : Timer){
+        
         if isConnecting {
             isConnecting = false
             connectPeripheral(timer.userInfo as! CBPeripheral)
@@ -276,13 +277,11 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
             print("Bluetooth Manager --> Discover Services Error, error:\(error?.localizedDescription ?? "")")
             return ;
         }
-        
         // If discover services, then invalidate the timeout monitor
         if interrogateMonitor != nil {
             interrogateMonitor?.invalidate()
             interrogateMonitor = nil
         }
-        
         self.delegate?.didDiscoverServices?(peripheral)
     }
     
