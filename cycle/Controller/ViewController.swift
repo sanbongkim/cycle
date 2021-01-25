@@ -11,7 +11,6 @@ import Charts
 import UnityFramework
 import CoreBluetooth
 class ViewController: UIViewController, UINavigationControllerDelegate,ChartViewDelegate,BluetoothDelegate{
-    
     var logo : UIView!
     var menu:SideMenuNavigationController?
     var loginViewConroller : LoginViewController!
@@ -49,6 +48,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     @IBOutlet weak var star3: UIImageView!
     @IBOutlet weak var star4: UIImageView!
     
+    var peripherals : CBPeripheral!
     //차트관련 정보
     @IBOutlet weak var chartView: BarChartView!
     var levelValue = [Int]()
@@ -59,9 +59,10 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     var monthRecord : [String:AnyObject] = [:]
     var dayExTime:Int = 0
     
-    //let bluetoothManager = BluetoothManager.getInstance()
+    let bluetoothManager = BluetoothManager.getInstance()
     
     override func viewDidLoad() {
+        bluetoothManager.delegate = self
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         Util.copyDatabase("box.db")
@@ -81,8 +82,15 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
         checkVersion()
     }
     override func viewWillAppear(_ animated: Bool) {
+        UserDefaults.standard.string(forKey: "BleUUID")
         super.viewWillAppear(true)
         //bluetoothManager.delegate = self
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ScanTableView"{
+            let segue = segue.destination as! ScanTableViewController
+            segue.parentView = self
+        }
     }
     @objc func gotoPoint(){
         
@@ -110,7 +118,14 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     }
     @IBAction func startGameAction(_ sender: Any) {
         
-        UnityEmbeddedSwift.showUnity(self , self)
+        let bluetooth = BluetoothManager.getInstance()
+        bluetooth.delegate = self
+        
+        if peripherals != nil {
+            
+            bluetooth._manager?.connect(peripherals, options: nil)
+        }
+        //UnityEmbeddedSwift.showUnity(self , self)
     }
     func leveTextReflash(){
         self.countLabelVal.text = getLevel()
@@ -811,7 +826,11 @@ extension ViewController : LoginControllerDelegate,SideMenuNavigationControllerD
         case .resetting:
             print("MainController --> State : Resetting")
         case .poweredOn:
-          
+              if let peripheralIdStr = UserDefaults.standard.object(forKey: "BleUUID") as? String,let peripheralId = UUID(uuidString: peripheralIdStr),let previouslyConnected = BluetoothManager.getInstance()._manager!.retrievePeripherals(withIdentifiers: [peripheralId])
+                   .first {
+                    self.peripherals = previouslyConnected
+                    // Next, try for ones that are connected to the system:
+               }
         break
         case .poweredOff:
             print(" MainController -->State : Powered Off")
@@ -847,7 +866,6 @@ extension ViewController : LoginControllerDelegate,SideMenuNavigationControllerD
     func didDiscoverServices(_ peripheral: CBPeripheral) {
         print("MainController --> didDiscoverService:\(peripheral.services?.description ?? "Unknow Service")")
         
-        
     }
     /**
      The method invoked when interrogated fail.
@@ -856,6 +874,9 @@ extension ViewController : LoginControllerDelegate,SideMenuNavigationControllerD
      */
     func didFailedToInterrogate(_ peripheral: CBPeripheral) {
     
+    }
+    func didDisconnectPeripheral(_ peripheral: CBPeripheral) {
+        
     }
 }
 

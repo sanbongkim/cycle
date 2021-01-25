@@ -329,7 +329,7 @@
                                         <state key="normal" image="gocenser"/>
                                         <connections>
                                             <action selector="addSensorAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fEU-Ur-rd1"/>
-                                            <segue destination="aaL-gR-df3" kind="presentation" modalPresentationStyle="overFullScreen" id="UyS-HW-RaJ"/>
+                                            <segue destination="aaL-gR-df3" kind="presentation" identifier="ScanTableView" modalPresentationStyle="overFullScreen" id="UyS-HW-RaJ"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YJl-9A-Zl7">
@@ -2960,7 +2960,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="3jp-hQ-NEQ"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.70279283421013949" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="7Aa-TB-8Es" firstAttribute="centerY" secondItem="3jp-hQ-NEQ" secondAttribute="centerY" constant="-40" id="4Re-Sq-2lX"/>
                             <constraint firstItem="7Aa-TB-8Es" firstAttribute="width" secondItem="3jp-hQ-NEQ" secondAttribute="width" multiplier="0.8" id="NAF-r2-552"/>

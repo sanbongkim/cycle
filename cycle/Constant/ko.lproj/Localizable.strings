@@ -4,7 +4,7 @@
 "ham_buy"   = "ibtn_ham_buy_btn";
 "ham_rank"  = "ibtn_ham_rank_btn";
 "ham_record"    = "ibtn_ham_record_btn";
-"ham_tutorial"  = "ibtn_ham_tuturial_btn";
+"ham_tutorial"  = "ibtn_ham_tutorial_btn";
 "ham_version"   = "ibtn_ham_version_btn";
 "ham_setting"   = "ibtn_ham_vr_setting_btn";
 "ham_moviedn"   = "ibtn_ham_movie_down_btn";

@@ -26,7 +26,9 @@
 		<true/>
 	</dict>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>"pp has crashed because it attempted to access privacy"</string>
+	<string>We need Bluetooth to discover, connect  with oher nearby devices.</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>We use Bluetooth to connect to the 360VRFit  hardware device</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

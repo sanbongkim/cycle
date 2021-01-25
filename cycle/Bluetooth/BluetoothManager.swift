@@ -51,27 +51,23 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
     }
     /**
      Singleton pattern method
-     
      - returns: Bluetooth single instance
      */
     static func getInstance() -> BluetoothManager {
         return instance
     }
-    
     /**
      The method provides for starting scan near by peripheral
      */
     func startScanPeripheral() {
         _manager?.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey:true])
     }
-    
     /**
      The method provides for stopping scan near by peripheral
      */
     func stopScanPeripheral() {
         _manager?.stopScan()
     }
-    
     /**
      The method provides for connecting the special peripheral
      
@@ -94,7 +90,6 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
             connectedPeripheral = nil
         }
     }
-    
     /**
      The method provides for the user who want to obtain the descriptor
      
@@ -105,7 +100,6 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
             connectedPeripheral?.discoverDescriptors(for: characteristic)
         }
     }
-    
     /**
      The method is invoked when connect peripheral is timeout
      
@@ -209,7 +203,6 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
             delegate?.didUpdateState?(state)
         }
     }
-    
     /**
      This method is invoked while scanning, upon the discovery of peripheral by central
      
