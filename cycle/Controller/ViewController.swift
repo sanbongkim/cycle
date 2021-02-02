@@ -70,6 +70,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
         menu?.leftSide = true
         menu?.setNavigationBarHidden(true, animated: false)
         menu?.settings = makeSettings()
+        
         SideMenuManager.default.leftMenuNavigationController = menu
         logo = (Bundle.main.loadNibNamed("logoView", owner: self, options: nil)![0] as! UIView)
         logo.frame = self.view.frame
@@ -197,7 +198,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     }
     private func makeSettings() -> SideMenuSettings{
         var presentationStyle = SideMenuPresentationStyle()
-        presentationStyle = .viewSlideOutMenuIn
+        presentationStyle = .menuSlideIn
         presentationStyle.backgroundColor = .clear
         presentationStyle.onTopShadowOpacity = 0.5
         presentationStyle.onTopShadowRadius = 5
