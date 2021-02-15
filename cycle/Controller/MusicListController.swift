@@ -47,7 +47,6 @@ class MusicListController : UIViewController{
         musicSetTb.isHidden = true
         self.getMusicList()
         musicDownload.isSelected = true
-        
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(true)
@@ -58,7 +57,6 @@ class MusicListController : UIViewController{
         button.isSelected = !button.isSelected
         musicDownload.isSelected = true
         musicSetting.isSelected = false
-      
         UIView.transition(with: self.tableview, duration: 0.5,
                           options: .curveLinear,
                           animations: {
@@ -79,7 +77,6 @@ class MusicListController : UIViewController{
         button.isSelected = !button.isSelected
         musicDownload.isSelected = false
         musicSetting.isSelected = true
-       
         UIView.transition(with: self.musicSetTb, duration: 0.5,
                           options: .curveLinear,
                           animations: {
@@ -140,7 +137,6 @@ class MusicListController : UIViewController{
                                     product?.title = title
                                     product?.isDownload = self.checkFile(title:title+".mp3") ? true : false
                                 }
-                        
                                 if let singer = subJson["singer"].string {
                                     product?.singer=singer
                                 }
@@ -166,7 +162,6 @@ class MusicListController : UIViewController{
                                 $0.title!.localizedCaseInsensitiveCompare($1.title!) == ComparisonResult.orderedAscending
                             }
                             _ = DatabaseManager.getInstance().saveAllData(modelInfo: self.musicInfos)
-                            
                             //self.sortDifficult(value:"title")
                             self.tableview.reloadData()
                             
@@ -335,7 +330,6 @@ extension MusicListController:UITableViewDelegate,UITableViewDataSource{
         if tableView.tag == downmode{ return musicInfos.count }
         else{
             return musicSetInfo.count
-            
         }
      
     }
@@ -403,7 +397,6 @@ extension MusicListController:UITableViewDelegate,UITableViewDataSource{
         }
     }
     func getMusicCheckNumber(name:Int32) ->UIImage?{
-
         if name == 0 {
             return UIImage(named: "music_empty")
         }
@@ -499,7 +492,6 @@ extension MusicListController:UITableViewDelegate,UITableViewDataSource{
             let playerItem:AVPlayerItem = AVPlayerItem(url: myURL)
             player = AVPlayer(playerItem: playerItem)
             let playerLayer=AVPlayerLayer(player: player!)
-
             playerLayer.frame=CGRect(x:0, y:0, width:10, height:50)
             self.view.layer.addSublayer(playerLayer)
             NotificationCenter.default.addObserver(self, selector:#selector(self.playerDidFinishPlaying(note:)),name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player?.currentItem)

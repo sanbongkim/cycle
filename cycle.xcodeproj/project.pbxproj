@@ -18,6 +18,7 @@
 		482C22F525B42CE2006D3EA7 /* AlertSensorSetViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482C22F425B42CE2006D3EA7 /* AlertSensorSetViewVC.swift */; };
 		4837D8D025A2FF3300D32187 /* UserVodInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4837D8CE25A2FF3300D32187 /* UserVodInfoCell.swift */; };
 		4837D8D125A2FF3300D32187 /* UserVodInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4837D8CF25A2FF3300D32187 /* UserVodInfoCell.xib */; };
+		4867BE9025DA5B6100DB7470 /* SensorSettingHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4867BE8F25DA5B6100DB7470 /* SensorSettingHelpViewController.swift */; };
 		486A956F256F45090094B2FB /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486A956E256F45090094B2FB /* LeftViewController.swift */; };
 		4876857825904A0D001E5BFA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4876857A25904A0D001E5BFA /* Localizable.strings */; };
 		487685872590674B001E5BFA /* AlertSignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487685862590674B001E5BFA /* AlertSignUpVC.swift */; };
@@ -93,6 +94,7 @@
 		482C22F425B42CE2006D3EA7 /* AlertSensorSetViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertSensorSetViewVC.swift; sourceTree = "<group>"; };
 		4837D8CE25A2FF3300D32187 /* UserVodInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserVodInfoCell.swift; sourceTree = "<group>"; };
 		4837D8CF25A2FF3300D32187 /* UserVodInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserVodInfoCell.xib; sourceTree = "<group>"; };
+		4867BE8F25DA5B6100DB7470 /* SensorSettingHelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorSettingHelpViewController.swift; sourceTree = "<group>"; };
 		486A956E256F45090094B2FB /* LeftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftViewController.swift; sourceTree = "<group>"; };
 		4876857925904A0D001E5BFA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4876857C25904A1D001E5BFA /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 				48C3EAF525A2B79100B8CAEF /* VodSettingViewController.swift */,
 				48C3E5BA25AD7113000572EE /* SettingLevelViewController.swift */,
 				48C1562725B8086A00E94E5F /* ScanTableViewController.swift */,
+				4867BE8F25DA5B6100DB7470 /* SensorSettingHelpViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -467,6 +470,7 @@
 				48A9B0C22588930900862D13 /* AlertVodDownVC.swift in Sources */,
 				48A9B0B02588561000862D13 /* AlertMusicNotSet.swift in Sources */,
 				48B14AF92581E570005606C4 /* SignUpViewController.swift in Sources */,
+				4867BE9025DA5B6100DB7470 /* SensorSettingHelpViewController.swift in Sources */,
 				482C22F525B42CE2006D3EA7 /* AlertSensorSetViewVC.swift in Sources */,
 				48B14B0D2581FC2C005606C4 /* DatabaseManager.swift in Sources */,
 				48CE28E82592F1F60044EAE4 /* AlertVersionVC.swift in Sources */,
