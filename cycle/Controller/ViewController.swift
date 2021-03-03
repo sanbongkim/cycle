@@ -15,9 +15,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     var menu:SideMenuNavigationController?
     var loginViewConroller : LoginViewController!
     var alertVodDownvc : AlertVodDownVC!
-    
     @IBOutlet weak var progressBar: UIProgressView!
-    
     //뒤집어
     @IBOutlet weak var complateVal: UILabel!
     @IBOutlet weak var countLabelVal: UILabel!
@@ -88,10 +86,8 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
         //bluetoothManager.delegate = self
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ScanTableView"{
-            let segue = segue.destination as! ScanTableViewController
-            segue.parentView = self
-        }
+        
+
     }
     @objc func gotoPoint(){
         
@@ -112,10 +108,20 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
         self.present(vc, animated: true, completion: nil)
     }
     @IBAction func addSensorAction(_ sender: Any) {
-//        let board = UIStoryboard(name: "Main", bundle: nil)
-//        let vc = board.instantiateViewController(withIdentifier: "AlertCalorieSetVC") as! AlertCalorieSetVC
-//        vc.modalPresentationStyle = .overFullScreen
-//        self.present(vc, animated: true, completion: nil)
+        let board = UIStoryboard(name: "Main", bundle: nil)
+        if self.peripherals != nil{
+            
+            let vc = board.instantiateViewController(withIdentifier: "AlertCalorieSetVC") as! AlertCalorieSetVC
+            vc.modalPresentationStyle = .overFullScreen
+            self.present(vc, animated: true, completion: nil)
+        }
+        else{
+            let vc = board.instantiateViewController(withIdentifier: "ScanTableViewController") as! ScanTableViewController
+            vc.parentView = self
+            vc.modalPresentationStyle = .overFullScreen
+            self.present(vc, animated: true, completion: nil)
+        }
+      
     }
     @IBAction func startGameAction(_ sender: Any) {
         
@@ -456,6 +462,17 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
                 }
             }
     }
+    func mainScreenSet(){
+        
+        SideMenuManager.default.addPanGestureToPresent(toView: self.view)
+        getexerciseAchivement()
+        self.useridVal.text = UserDefaults.standard.string(forKey: "userid")
+        getTodayExerciseRecord()
+        currentDay = self.calMounth(direction: 0)
+        dayCal(value: currentDay)
+        getexerciseMonthlyRecord(month: self.calMounth(direction:0))
+        
+    }
     func configureHomeController(){
         let saveid = UserDefaults.standard.string(forKey: "userid")
         if (saveid != nil) {
@@ -475,13 +492,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
                                 let json = try JSON(data: data)
                                 if let reqcode = json["result"].string{
                                     if(reqcode == "SUCCESS"){
-                                        SideMenuManager.default.addPanGestureToPresent(toView: self.view)
-                                        getexerciseAchivement()
-                                        self.useridVal.text = UserDefaults.standard.string(forKey: "userid")
-                                        getTodayExerciseRecord()
-                                        currentDay = self.calMounth(direction: 0)
-                                        dayCal(value: currentDay)
-                                        getexerciseMonthlyRecord(month: self.calMounth(direction:0))
+                                        self.mainScreenSet()
                                     }
                                 }
                             }catch{
