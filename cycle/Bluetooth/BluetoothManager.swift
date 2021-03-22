@@ -292,7 +292,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
             delegate?.didFailToDiscoverCharacteritics?(error!)
             return
         }
-        delegate?.didDiscoverCharacteritics?(service)
+        delegate?.didDiscoverCharacteritics?(service,pripheral: peripheral)
     }
     
     /**

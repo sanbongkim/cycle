@@ -10,7 +10,20 @@ import SwiftyJSON
 import Charts
 import UnityFramework
 import CoreBluetooth
-class ViewController: UIViewController, UINavigationControllerDelegate,ChartViewDelegate,BluetoothDelegate{
+
+
+
+enum GameMode{
+    case gameLobby
+    case countdown
+    case gameStart
+    case gameEnd
+}
+enum AltMode{
+    case BATTERY
+    case NONMUSIC
+}
+class ViewController: UIViewController, UINavigationControllerDelegate,ChartViewDelegate,CBCentralManagerDelegate,CBPeripheralDelegate{
     var logo : UIView!
     var menu:SideMenuNavigationController?
     var loginViewConroller : LoginViewController!
@@ -46,7 +59,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     @IBOutlet weak var star3: UIImageView!
     @IBOutlet weak var star4: UIImageView!
     
-    var peripherals : CBPeripheral!
     //차트관련 정보
     @IBOutlet weak var chartView: BarChartView!
     var levelValue = [Int]()
@@ -57,10 +69,27 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     var monthRecord : [String:AnyObject] = [:]
     var dayExTime:Int = 0
     
-    let bluetoothManager = BluetoothManager.getInstance()
     
+    var darkView : UIView?
+    var bodyView : UIView?
+    
+    // MARK: ===============================블루투스 변수======================================
+    var manager:CBCentralManager? = nil
+    var leftPeripheral:CBPeripheral? = nil
+    var rightPeripheral:CBPeripheral? = nil
+    var leftPeripheral_Connect:Bool? = false
+    var rightPeripheral_Connect:Bool? = false
+    var leftSaveTime :Int64 = 0
+    var rightSaveTime : Int64 = 0
+    var mainCharacteristic:CBCharacteristic? = nil
+    var connectBlock: DispatchWorkItem?
+    var block: DispatchWorkItem?
+    var app : AppDelegate?
+    
+    //MARK : ===============================유니티 전달 값======================================
+    var sendData : [MusicInfo] = []
     override func viewDidLoad() {
-        bluetoothManager.delegate = self
+      
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         Util.copyDatabase("box.db")
@@ -68,7 +97,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
         menu?.leftSide = true
         menu?.setNavigationBarHidden(true, animated: false)
         menu?.settings = makeSettings()
-        
+        manager = CBCentralManager(delegate: self, queue: nil)
         SideMenuManager.default.leftMenuNavigationController = menu
         logo = (Bundle.main.loadNibNamed("logoView", owner: self, options: nil)![0] as! UIView)
         logo.frame = self.view.frame
@@ -109,7 +138,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     }
     @IBAction func addSensorAction(_ sender: Any) {
         let board = UIStoryboard(name: "Main", bundle: nil)
-        if self.peripherals != nil{
+        if self.leftPeripheral != nil{
             
             let vc = board.instantiateViewController(withIdentifier: "AlertCalorieSetVC") as! AlertCalorieSetVC
             vc.modalPresentationStyle = .overFullScreen
@@ -118,20 +147,81 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
         else{
             let vc = board.instantiateViewController(withIdentifier: "ScanTableViewController") as! ScanTableViewController
             vc.parentView = self
+            manager?.delegate = vc
+            vc.manager = manager
             vc.modalPresentationStyle = .overFullScreen
             self.present(vc, animated: true, completion: nil)
         }
       
     }
-    @IBAction func startGameAction(_ sender: Any) {
-        
-        let bluetooth = BluetoothManager.getInstance()
-        bluetooth.delegate = self
-        
-        if peripherals != nil {
-            
-            bluetooth._manager?.connect(peripherals, options: nil)
+    
+    func showDarkView(){
+        if (darkView == nil) {
+            darkView = UIView()
+            let rect = CGRect.init(x: self.view.bounds.origin.x, y: self.view.bounds.origin.y, width: self.view.bounds.size.width, height:UIApplication.shared.statusBarFrame.size.height +
+                (self.navigationController?.navigationBar.frame.height ?? 0.0))
+            if let dv = darkView {
+                dv.frame = rect
+                dv.backgroundColor = .black
+                dv.alpha = 0.7
+                self.navigationController?.view.addSubview(darkView!)
+            }
+            bodyView = UIView()
+            bodyView!.frame = self.view.bounds
+            bodyView!.backgroundColor = .black
+            bodyView!.alpha = 0.7
+            self.view.addSubview(bodyView!)
         }
+        else{
+            darkView!.removeFromSuperview()
+            darkView=nil
+            bodyView!.removeFromSuperview()
+            bodyView=nil
+        }
+    }
+    
+    
+    func showAlert(style: UIAlertController.Style,text:String,alt_mode:AltMode){
+        
+        let alert = UIAlertController(title: Util.localString(st: "alert"), message:text, preferredStyle: style)
+        let success = UIAlertAction(title: Util.localString(st: "ok"), style: .default){ (action) in
+            print(Util.localString(st: "ok"))
+            switch(alt_mode){
+            case .BATTERY:
+               self.showDarkView()
+                if UserDefaults.standard.bool(forKey:"checkBox") != true{
+                    self.performSegue(withIdentifier: "tutorial_segue", sender: 0)
+                 }else{
+                               
+                 }
+            case .NONMUSIC:
+                print("")
+            }
+        }
+        alert.addAction(success)
+        self.present(alert, animated:true,completion:nil)
+    }
+    @IBAction func startGameAction(_ sender: Any) {
+       // self.showDarkView()
+        
+        
+        let vc = storyboard?.instantiateViewController(withIdentifier: "VodListController") as! VodListController
+        vc.modalPresentationStyle = .overFullScreen
+        self.present(vc, animated: true, completion: nil)
+        
+        /*
+        if self.leftPeripheral != nil{
+            
+            self.connectLeftBle()
+            
+//            if(self.sendData.count > 0){
+//                self.connectLeftBle()
+//            }else{
+//                showAlert(style: .alert, text:Util.localString(st: "empty_music_warning"),alt_mode: .NONMUSIC)
+//            }
+        }
+        else {
+            Util.Toast.show(message: Util.localString(st: "empty_sensor"), controller: self)}*/
         //UnityEmbeddedSwift.showUnity(self , self)
     }
     func leveTextReflash(){
@@ -222,9 +312,9 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
         var parameters: [String: Any] = [:]
         parameters["version"]    =  "0.0.2"//Util.getAppversion()
         print(parameters)
-        let manager = Alamofire.SessionManager.default
-        manager.session.configuration.timeoutIntervalForRequest = 15
-        manager.request(Constant.VRFIT_VERSION_CHECK, method: .post, parameters:parameters, encoding:URLEncoding.httpBody)
+        let afmanager = Alamofire.SessionManager.default
+        afmanager.session.configuration.timeoutIntervalForRequest = 15
+        afmanager.request(Constant.VRFIT_VERSION_CHECK, method: .post, parameters:parameters, encoding:URLEncoding.httpBody)
             .responseJSON { [self] response in
                 switch(response.result) {
                 case.success:
@@ -781,6 +871,565 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
                 }
             }
     }
+    func connectLeftBle(){
+        if self.leftPeripheral?.state == .connected{
+            return
+        }
+ 
+        Util.Toast.show(message: "Starting...", controller: self)
+        self.leftPeripheral?.delegate = self
+        self.manager?.connect(self.leftPeripheral!,options: [:])
+        if self.connectBlock != nil{
+            self.connectBlock!.cancel()
+        }
+        self.connectBlock = DispatchWorkItem {
+            self.timeOutbleResponse()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(15), execute: self.connectBlock!)
+        
+    }
+    //MARK - 블루투스 관련 함수 모음
+    func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
+        print("didFailToConnect")
+    }
+    func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+        //pass reference to connected peripheral to parent view
+        self.connectBlock?.cancel()
+        print(peripheral)
+        if leftPeripheral == peripheral{
+            leftPeripheral!.discoverServices(nil)
+            // peripheral.delegate = parentView
+            // peripheral.discoverServices(nil)
+            // set the manager's delegate view to parent so it can call relevant disconnect methods
+            // manager?.delegate = parentView
+        }
+        else if rightPeripheral == peripheral{
+            rightPeripheral!.discoverServices(nil)
+            //  peripheral.delegate = parentView
+            //  peripheral.discoverServices(nil)
+            //  set the manager's delegate view to parent so it can call relevant disconnect methods
+            //  manager?.delegate = parentView
+        }
+    }
+    func centralManagerDidUpdateState(_ central: CBCentralManager){
+        if central.state == .poweredOn {
+            if let peripheralIdStr = UserDefaults.standard.object(forKey: "BleUUID") as? String,let peripheralId = UUID(uuidString: peripheralIdStr),
+                let previouslyConnected = manager!.retrievePeripherals(withIdentifiers: [peripheralId])
+                    .first {
+                self.leftPeripheral = previouslyConnected
+                // Next, try for ones that are connected to the system:
+            }
+            
+        }
+        else if central.state == .poweredOff {
+            
+            let alert = UIAlertController(title:Util.localString(st: "alert"), message: Util.localString(st: "ble_turn_off"), preferredStyle: .alert)
+                       let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
+                       }
+                       alert.addAction(OKAction)
+                       self.present(alert, animated: true, completion: nil)
+            
+        }
+    }
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        for service in peripheral.services! {
+            print("Service found with UUID: " + service.uuid.uuidString)
+            if (service.uuid.uuidString == Constant.RECIEVE_DATA_SERVICE_TEST) {
+                peripheral.discoverCharacteristics(nil, for: service)
+            }
+                //Bluno Service
+            else if (service.uuid.uuidString == Constant.SEND_DATA_SERVICE_TEST) {
+                peripheral.discoverCharacteristics(nil, for: service)
+            }
+        }
+    }
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+        print("didDiscoverCharacteristicsFor")
+        if (service.uuid.uuidString ==   Constant.RECIEVE_DATA_SERVICE_TEST) {
+            for characteristic in service.characteristics! {
+                if characteristic.uuid.uuidString == Constant.RECIEVE_DATA_CHARACTERISTIC {
+                    peripheral.setNotifyValue(true, for: characteristic)
+                    break
+                }
+            }
+        }
+        else if (service.uuid.uuidString == Constant.SEND_DATA_SERVICE_TEST) {
+            for characteristic in service.characteristics! {
+                if characteristic.uuid.uuidString == Constant.SEND_DATA_CHARACTERISTIC {
+                    peripheral.setNotifyValue(true, for: characteristic)
+                    mainCharacteristic = characteristic
+                    break
+                }
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                print("Constant.CMD_INIT_MODULE")
+                self.sendProtocol(peripheral: peripheral ,type: 0,cmd: Constant.CMD_INIT_MODULE, what: 0)
+            }
+        }
+    }
+    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
+        if(error != nil){
+            let alert = UIAlertController(title:Util.localString(st: "alert"), message: Util.localString(st: "connect_with_sensor_failed"), preferredStyle: .alert)
+            let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
+            }
+            alert.addAction(OKAction)
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        //TODO: 유니티 프로그램이 실행중일때 앱 종료
+        //exit(0)
+        
+    }
+    func timeOutbleResponse(){
+        
+        let alert = UIAlertController(title:Util.localString(st: "alert"), message: Util.localString(st: "connect_with_sensor_failed"), preferredStyle: .alert)
+        let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
+            if self.leftPeripheral != nil{
+                self.manager?.cancelPeripheralConnection(self.leftPeripheral!)
+            }
+            if self.rightPeripheral != nil{
+                self.manager?.cancelPeripheralConnection(self.rightPeripheral!)
+            }
+        }
+        alert.addAction(OKAction)
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    func sendProtocol(peripheral:CBPeripheral,type:UInt8,cmd : UInt8,what :UInt8) -> Void{
+        
+        /*
+         @IBAction func go(_ sender: Any) {
+         let vc2 = VC2()
+         self.navigationController?.pushViewController(vc2, animated: true)
+         }
+         override func viewDidLoad() {
+         super.viewDidLoad()
+         self.view.backgroundColor = .white
+         }
+         override func viewDidAppear(_ animated: Bool) {
+         super.viewDidAppear(animated)
+         }
+         // execute task in 2 seconds
+         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: self.block!)
+         }
+         */
+        var data:[UInt8]=[]
+        switch (cmd){
+        case Constant.CMD_INIT_MODULE:
+            if self.block != nil{
+                self.block!.cancel()
+            }
+            self.block = DispatchWorkItem {
+                self.timeOutbleResponse()
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(15), execute: self.block!)
+            data.append(Constant.STX)
+            data.append(0)
+            data.append(0)
+            data.append(cmd)
+            data.append(Constant.ETX)
+            let writeData =  Data(data)
+            peripheral.writeValue(writeData, for:mainCharacteristic!, type: .withResponse)
+            break
+        case Constant.CMD_SENSOR_TYPE:
+            if self.block != nil{
+                self.block!.cancel()
+            }
+            self.block = DispatchWorkItem {
+                self.timeOutbleResponse()
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(15), execute: self.block!)
+            data = [Constant.STX,0,type,cmd,Constant.ETX]
+            let writeData =  Data(data)
+            peripheral.writeValue(writeData, for:mainCharacteristic!, type: .withResponse)
+            //mMainActivity.setModuleState(MainActivity.CONNECT_STATE_TYPE);
+            //mMainActivity.startWaitingForState();
+            break
+        case Constant.CMD_SEND_MODULE_DIRECTION:
+            data.append(Constant.STX)
+            data.append((what == 1 ? 1: 0))
+            data.append(type)
+            data.append(cmd)
+            data.append(Constant.ETX)
+            let writeData =  Data(data)
+            peripheral.writeValue(writeData, for:mainCharacteristic!, type: .withResponse)
+            break
+        case Constant.CMD_COUNT_START:
+            data = [Constant.STX, 0,0,cmd,Constant.ETX]
+            let writeData =  Data(data)
+            peripheral.writeValue(writeData, for:mainCharacteristic!, type: .withResponse)
+            break
+        case Constant.CMD_COUNT_STOP:
+            data = [Constant.STX, 0,0,cmd,Constant.ETX]
+            let writeData =  Data(data)
+            peripheral.writeValue(writeData, for:mainCharacteristic!, type: .withResponse)
+            break
+        case Constant.CMD_CALIBRATION_GYRO_START:
+            data = [Constant.STX, 0,0,cmd,Constant.ETX]
+            break
+        case Constant.CMD_CALIBRATION_MAGNET_START:
+            data = [Constant.STX, 0,0,cmd,Constant.ETX]
+        case Constant.CMD_MAGNET_NEED_OR_NOT:
+            data = [Constant.STX, 0,0,cmd,Constant.ETX]
+            break
+        case Constant.CMD_SEND_CALIBRATION_GYRO:
+            break
+        case Constant.CMD_SEND_CALIBRATION_MAGNET:
+            break
+        default:
+            break
+        }
+    }
+    func recvDataSplit(values : [UInt8]) -> [UInt8]{
+        var splitValue:[UInt8]=[]
+        for i in (0 ... values.count-1).reversed(){
+            if values[i] == Constant.ETX{
+                splitValue = Array(values[0...i])
+                break
+            }
+        }
+        return splitValue
+    }
+    func getCurrentMillis()->Int64 {
+        return Int64(Date().timeIntervalSince1970 * 1000)
+    }
+    func sendPunch(pr :CBPeripheral){
+        
+//        if pr == self.leftPeripheral {
+//            let calTime = leftPunchsaveTime - Int64(getCurrentMillis())
+//            if leftPunchsaveTime == 0 || abs(calTime) > 300{
+//            self.app!.unityFramework?.sendMessageToGO(withName: "VIASS_Glovers_Blue", functionName:"rcvLeftSensorMove", message:"")
+//            mPunchCount+=1
+//                leftPunchsaveTime = Int64(getCurrentMillis())
+//            }
+//        }
+//        else if pr == self.rightPeripheral {
+//            let calTime = rightPunchsaveTime - Int64(getCurrentMillis())
+//            if rightPunchsaveTime == 0 || abs(calTime) > 300{
+//            self.app!.unityFramework?.sendMessageToGO(withName: "VIASS_Glovers_Red", functionName:"rcvRightSensorMove", message:"")
+//                mPunchCount+=1
+//                rightPunchsaveTime = Int64(getCurrentMillis())
+//            }
+//        }
+    }
+    func musicControl(pr :CBPeripheral){
+//        if pr == self.leftPeripheral {
+//            leftSaveTime = Int64(getCurrentMillis())
+//        }
+//        else if pr == self.rightPeripheral {
+//            rightSaveTime = Int64(getCurrentMillis())
+//        }
+//        let min = leftSaveTime - rightSaveTime
+//
+//        print("time:"+"\(min.magnitude)")
+//        if  min.magnitude < 300{
+//            gameStart=true
+//          self.app!.unityFramework?.sendMessageToGO(withName: "EffectSound", functionName:"playChoiceSound", message:"")
+//          self.app!.unityFramework?.sendMessageToGO(withName: "SceneManager", functionName:"changeScene", message:"GameStart")
+//            gameMode = GameMode.countdown
+//            print("gameStart")
+//        }
+//        else {
+//            let delay : Double = 0.3 //delay time in seconds
+//            let time = DispatchTime.now() + delay
+//            DispatchQueue.main.asyncAfter(deadline:time){
+//                if self.gameStart == false {
+//                    if pr == self.leftPeripheral{
+//                        self.sendMusicCal(mode:Constant.MUSIC_LEFT)
+//                    }else{
+//                        self.sendMusicCal(mode:Constant.MUSIC_RIGHT)
+//                    }
+//                }
+//            }
+//        }
+    }
+    //    func unityFrameworkLoad() -> UnityFramework? {
+    //              let bundlePath = Bundle.main.bundlePath.appending("/Frameworks/UnityFramework.framework")
+    //              if let unityBundle = Bundle.init(path: bundlePath){
+    //                  if let frameworkInstance = unityBundle.principalClass?.getInstance(){
+    //                      return frameworkInstance
+    //                  }
+    //              }
+    //              return nil
+    //    }
+    //
+    //    func initAndShowUnity() -> Void {
+    //              if let framework = self.unityFrameworkLoad(){
+    //                  self.unityFramework = framework
+    //                  self.unityFramework?.setDataBundleId("com.unity3d.framework")
+    //                self.unityFramework?.runEmbedded(withArgc: CommandLine.argc, argv: CommandLine.unsafeArgv, appLaunchOpts:)
+    //                  self.unityViewController = (self.unityFramework.appController()?.rootViewController)!
+    //                  self.view.addSubview(self.unityViewController!.view)
+    //        }
+    //     }
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        let originalValues = Array<UInt8>(characteristic.value!)
+        print(originalValues)
+        let value = recvDataSplit(values: originalValues)
+        if value.count == 0 { return}
+        if error != nil {return}
+        switch (value[value.count-2]) {
+        case Constant.CMD_INIT_MODULE:
+            self.block?.cancel()
+            //유저에게 케리브레이션 할지 안할지 묻는 모듈
+            self.sendProtocol(peripheral:peripheral,type:5,cmd:Constant.CMD_SENSOR_TYPE,what: 0)
+            print("aaaaaa")
+           
+         // try {
+            //                    if(isRightSensor){
+            //                        if (rcvData[rcvData.length - 2 - 1] == ACK) { //Module Init
+            //                            hasInfo1 = false;
+            //                        } else {
+            //                            hasInfo1 = true;
+            //                        }
+            //                    }else{
+            //                        if (rcvData[rcvData.length - 2 - 1] == ACK) { //Module Init
+            //                            hasInfo2 = false;
+            //                        } else {
+            //                            hasInfo2 = true;
+            //                        }
+            //                    }
+            //                    mMainActivity.showDialogMsg("Sending type data...");
+            //                    Thread.sleep(1000);
+            //                    sendProtocol(CMD_SENSOR_TYPE, mAppData.getPairedSensor1Data().getType(), mScanDeviceNum);
+            //            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            //                self.sendProtocol(peripheral:peripheral,type:5,cmd:Constant.CMD_SENSOR_TYPE,what: 0)
+            //            }
+            //                } catch (Exception e) {
+            //                    Log.e("mtome2", "Thread Error!");
+            //                }
+            break
+        case Constant.CMD_SENSOR_TYPE:
+            self.block?.cancel()
+            if value[value.count-2-1] == Constant.ACK {
+                Util.Toast.show(message: "Sending Module Direction...", controller: self)
+                if self.leftPeripheral == peripheral{
+                    sendProtocol(peripheral:peripheral ,type:0,cmd: Constant.CMD_SEND_MODULE_DIRECTION,what: 0)
+                }
+                else{
+                    sendProtocol(peripheral:peripheral ,type:0,cmd: Constant.CMD_SEND_MODULE_DIRECTION,what:1)
+                }
+            }
+            //Type 전송 성공!!
+            //                    if(isRightSensor){
+            //                        Log.e("mtome", "hasInfo1 : "+hasInfo1);
+            //                        if (hasInfo1) {
+            //                            if (mConnectedModule1.getGyorX() != null) {
+            //                                mMainActivity.showDialogMsg("Sending gyro data...");
+            //                                mMainActivity.rcvSuccessTypeSend();
+            //                            } else {
+            //                                try {
+            //                                    Thread.sleep(1000);
+            //                                } catch (InterruptedException e) {
+            //                                    e.printStackTrace();
+            //                                }
+            //                                mMainActivity.showDialogMsg("Request magnet data...");
+            //                                mMainActivity.rcvSuccessGyroCalibration();
+            //                            }
+            //                        } else {  //Type Save Success!!
+            //                            mMainActivity.showDialogMsg("Start gyro calibration...");
+            //                            mMainActivity.showDialogGyroCalibrationQ();
+            //                        }
+            //                    }else{  // Left Sensor
+            //                        Log.e("mtome", "hasInfo2 : "+hasInfo2);
+            //                        if (hasInfo2) {
+            //                            if (mConnectedModule2.getGyorX() != null) {
+            //                                mMainActivity.showDialogMsg("Sending gyro data...");
+            //                                mMainActivity.rcvSuccessTypeSend();
+            //                            } else {
+            //                                try {
+            //                                    Thread.sleep(1000);
+            //                                } catch (InterruptedException e) {
+            //                                    e.printStackTrace();
+            //                                }
+            //                                mMainActivity.showDialogMsg("Request magnet data...");
+            //                                mMainActivity.rcvSuccessGyroCalibration();
+            //                            }
+            //                        } else {  //Type Save Success!!
+            //                            mMainActivity.showDialogMsg("Start gyro calibration...");
+            //                            mMainActivity.showDialogGyroCalibrationQ();
+            //                        }
+            //                    }
+            //                }
+            break
+        case Constant.CMD_COUNT_START:
+            if value[value.count-2-1] == Constant.ACK  {
+                if self.leftPeripheral == peripheral {
+                    leftPeripheral_Connect = true
+                    //app?.initAndShowUnity()
+                }
+             
+            }
+            break
+        case Constant.CMD_COUNT_STOP:
+            //                    Log.e("mtome3", "측정 종료 ack!!");
+            //                    //측정 종료!
+            //                } else {
+            //                    Log.e("mtome3", "Error : " + String.valueOf(rcvData[1]));
+            //                    //측정 종료 Error!
+            //                }
+            break
+        case Constant.CMD_COUNT_RESULT:
+//            if self.gameMode == GameMode.gameLobby{
+//                musicControl(pr:peripheral)
+//            }
+//            else if self.gameMode == GameMode.gameStart{
+//                sendPunch(pr: peripheral)
+//            }
+            break
+        case Constant.CMD_POWER_RESULT:
+            
+            let x = ((value[1] & 0xff) << 8) | (value[2] & 0xff)
+            let y = ((value[3] & 0xff) << 8) | (value[4] & 0xff)
+            let z = ((value[5] & 0xff) << 8) | (value[6] & 0xff)
+            
+            print("result x \(x)")
+            print("result y \(y)")
+            print("result z \(z)")
+//            switch(((value[1] & 0xff) << 8) | (value[2] & 0xff)){
+//            case 1:
+//                mKcal += mWeight * mKcalSoftFactor
+//                sendPower(pr: peripheral, power: "soft")
+//                break
+//            case 2:
+//                mKcal += mWeight * mKcalNormalFactor
+//                sendPower(pr: peripheral, power: "normal")
+//                break
+//            case 3:
+//                mKcal += mWeight * mKcalPowerFactor;
+//                sendPower(pr: peripheral, power: "power")
+//                break
+//            default:
+//                break
+//            }
+            //          Intent intentPower = new Intent();
+            //          intentPower.setAction(isRightSensor ? BluetoothLeService.RECIEVE_POWER_1 : BluetoothLeService.RECIEVE_POWER_2);
+            //          intentPower.putExtra("POWER", power);
+            //          broadcastUpdate(intentPower);
+            //            break;
+            break
+        case Constant.CMD_CALIBRATION_GYRO_START:
+            //                if (rcvData[rcvData.length - 2 - 1] == ACK) {
+            //                    mMainActivity.showDialogMsg("Start gyro calibration...");
+            //                }
+            break
+        case Constant.CMD_CALIBRATION_GYRO_RESULT:
+            //
+            //                mMainActivity.cancelWaitingTimer();
+            //
+            //                int xGyro, yGyro, zGyro;
+            //                xGyro = ((rcvBytes[1] & 0xff) << 8) | (rcvBytes[2] & 0xff);
+            //                yGyro = ((rcvBytes[3] & 0xff) << 8) | (rcvBytes[4] & 0xff);
+            //                zGyro = ((rcvBytes[5] & 0xff) << 8) | (rcvBytes[6] & 0xff);
+            //
+            //                if(isRightSensor){
+            //                    mConnectedModule1.setGyroX(Integer.toString(xGyro));
+            //                    mConnectedModule1.setGyroY(Integer.toString(yGyro));
+            //                    mConnectedModule1.setGyroZ(Integer.toString(zGyro));
+            //
+            //                    //Log.e("mtome3", "CMD_CALIBRATION_GYRO_RESULT > X(" + xGyro + "), Y(" + yGyro + "), Z(" + zGyro + ")");
+            //
+            //                    mMainActivity.showDialogMsg("Saving gyro data...");
+            //                    int result = mMainActivity.updateGyroData(mConnectedModule1.getUUID(), Integer.toString(xGyro), Integer.toString(yGyro), Integer.toString(zGyro));
+            //
+            //                    if (!hasInfo1) {
+            //                        //mMainFragment.showDialogProgressDialog("sending magnet data...");
+            //                        mMainActivity.showDialogMsg("Request magnet data...");
+            //                        mMainActivity.rcvSuccessGyroCalibration();
+            //                    } else {
+            //                        //mMainFragment.showDialogProgressDialog(null);
+            //                        mMainActivity.showDialogMsg(null);
+            //                    }
+            //                }else{
+            //                    mConnectedModule2.setGyroX(Integer.toString(xGyro));
+            //                    mConnectedModule2.setGyroY(Integer.toString(yGyro));
+            //                    mConnectedModule2.setGyroZ(Integer.toString(zGyro));
+            //
+            //                    //Log.e("mtome3", "CMD_CALIBRATION_GYRO_RESULT > X(" + xGyro + "), Y(" + yGyro + "), Z(" + zGyro + ")");
+            //
+            //                    mMainActivity.showDialogMsg("Saving gyro data...");
+            //                    int result = mMainActivity.updateGyroData(mConnectedModule2.getUUID(), Integer.toString(xGyro), Integer.toString(yGyro), Integer.toString(zGyro));
+            //
+            //                    if (!hasInfo2) {
+            //                        //mMainFragment.showDialogProgressDialog("sending magnet data...");
+            //                        mMainActivity.showDialogMsg("Request magnet data...");
+            //                        mMainActivity.rcvSuccessGyroCalibration();
+            //                    } else {
+            //                        //mMainFragment.showDialogProgressDialog(null);
+            //                        mMainActivity.showDialogMsg(null);
+            //                    }
+            //                }
+            break
+        //case CMD_SEND_CALIBRATION_GYRO:
+        case Constant.CMD_SEND_CALIBRATION_SUCCESS:
+            //                if (rcvData[rcvData.length - 2 - 1] == ACK) {
+            //                    //mMainFragment.showDialogProgressDialog("send magnet data...");
+            //                    mMainActivity.showDialogMsg("Request magnet data...");
+            //                    mMainActivity.rcvSuccessGyroSend();
+            //                } else {
+            //                    //전송 실패 > 이유 rcvData[1]
+            //                }
+            break
+        case Constant.CMD_SEND_MODULE_DIRECTION:
+            sendProtocol(peripheral:peripheral ,type:0,cmd: Constant.CMD_COUNT_START,what: 0)
+            break
+        case 0x37:
+            sendProtocol(peripheral:peripheral ,type:0,cmd: Constant.CMD_COUNT_START,what: 0)
+            print("CMD_SEND_MODULE_DIRECTION")
+            //                       case 0x37:
+            //                            try {
+            //                                mMainActivity.showDialogMsg(null);
+            //                                Thread.sleep(1000);
+            //                                sendProtocol(CMD_COUNT_START, 0, mScanDeviceNum);
+            //                            } catch (InterruptedException e) {
+            //                                e.printStackTrace();
+            //                            }
+            break
+        case Constant.CMD_SEND_CALIBRATION_MAGNET:
+            //                mMainActivity.cancelWaitingTimer();
+            //                try {
+            //                    if (rcvData[rcvData.length - 2 - 1] == ACK) {
+            //                        mMainActivity.showDialogMsg("Sending Module Direction...");
+            //                        Thread.sleep(1000);
+            //                        //sendProtocol(CMD_COUNT_START, 0, mScanDeviceNum);
+            //                        sendProtocol(CMD_SEND_MODULE_DIRECTION, 0, mScanDeviceNum);
+            //                    } else {
+            //                        Log.e("mtome", "Magnet data Sending Failed...");
+            //                        //Magnet data Sending Failed...
+            //                    }
+            //                } catch (InterruptedException e) {
+            //                    e.printStackTrace();
+            //                }
+            break
+        case Constant.CMD_MAGNET_NEED_OR_NOT:
+            //                try {
+            //                    if (rcvData[rcvData.length - 2 - 1] == ACK) { //Need Magnet Data
+            //                        mMainActivity.showDialogMsg("Sending magnet data...");
+            //                        Thread.sleep(1000);
+            //                        sendProtocol(CMD_SEND_CALIBRATION_MAGNET, 0, mScanDeviceNum);
+            //                    } else {
+            //                        mMainActivity.showDialogMsg("Sending Module Direction...");
+            //                        Thread.sleep(1000);
+            //                        //sendProtocol(CMD_COUNT_START, 0, mScanDeviceNum);
+            //                        sendProtocol(CMD_SEND_MODULE_DIRECTION, 0, mScanDeviceNum);
+            //                    }
+            //                } catch (Exception e) {
+            //                    Log.e("mtome2", "Send CMD_MAGNET_NEED_OR_NOT e : " + e);
+            //                }
+            break
+        case Constant.CMD_COUNT_CPU_SLEEP:
+            //                int intV = rcvData[rcvData.length - 2 - 1];
+            //                Log.e("mtome2", "슬립 받을때 배터리 : " + intV);
+            //                Intent intent2 = new Intent();
+            //                intent2.putExtra("BATTERY", intV);
+            //                intent2.setAction(isRightSensor ? BluetoothLeService.RECIEVE_SLEEP_1 : BluetoothLeService.RECIEVE_SLEEP_2);
+            //                broadcastUpdate(intent2);
+            break
+        default:
+            break
+        }
+    }
 }
 extension ViewController : LoginControllerDelegate,SideMenuNavigationControllerDelegate,IAxisValueFormatter,UnityInit,NativeCallsProtocol{
     func unityLodingCall(){
@@ -828,67 +1477,6 @@ extension ViewController : LoginControllerDelegate,SideMenuNavigationControllerD
     func didDiscoverPeripheral(_ peripheral: CBPeripheral, advertisementData: [String : Any], RSSI: NSNumber) {
         
     }
-    /**
-     블루투스 상태 모니터
-     - parameter state: 블루투스 상태
-     */
-    func didUpdateState(_ state: CBManagerState) {
-        print("MainController --> didUpdateState:\(state)")
-        switch state {
-        case .resetting:
-            print("MainController --> State : Resetting")
-        case .poweredOn:
-              if let peripheralIdStr = UserDefaults.standard.object(forKey: "BleUUID") as? String,let peripheralId = UUID(uuidString: peripheralIdStr),let previouslyConnected = BluetoothManager.getInstance()._manager!.retrievePeripherals(withIdentifiers: [peripheralId])
-                   .first {
-                    self.peripherals = previouslyConnected
-                    // Next, try for ones that are connected to the system:
-               }
-        break
-        case .poweredOff:
-            print(" MainController -->State : Powered Off")
-            fallthrough
-        case .unauthorized:
-            print("MainController --> State : Unauthorized")
-           
-            fallthrough
-        case .unknown:
-            print("MainController --> State : Unknown")
-           
-        case .unsupported:
-            print("MainController --> State : Unsupported")
-           // bluetoothManager.stopScanPeripheral()
-           // bluetoothManager.disconnectPeripheral()
-        @unknown default:break
-        }
-    }
-    /**
-     The callback function when central manager connected the peripheral successfully.
-     
-     - parameter connectedPeripheral: The peripheral which connected successfully.
-     */
-    func didConnectedPeripheral(_ connectedPeripheral: CBPeripheral) {
-        print("MainController --> didConnectedPeripheral")
-      
-    }
-    /**
-     The peripheral services monitor
-     
-     - parameter services: The service instances which discovered by CoreBluetooth
-     */
-    func didDiscoverServices(_ peripheral: CBPeripheral) {
-        print("MainController --> didDiscoverService:\(peripheral.services?.description ?? "Unknow Service")")
-        
-    }
-    /**
-     The method invoked when interrogated fail.
-     
-     - parameter peripheral: The peripheral which interrogation failed.
-     */
-    func didFailedToInterrogate(_ peripheral: CBPeripheral) {
     
-    }
-    func didDisconnectPeripheral(_ peripheral: CBPeripheral) {
-        
-    }
 }
 

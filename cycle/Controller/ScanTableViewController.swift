@@ -11,7 +11,6 @@ class ScanTableViewController: UIViewController,BluetoothDelegate{
     var manager:CBCentralManager? = nil
     var parentView:ViewController? = nil
     var delegate : ScanTableViewDelegate?
-    let bluetooth = BluetoothManager.getInstance()
     var blueToothTag:Int = 0
     @IBOutlet weak var close: UIButton!
     @IBOutlet weak var tableView: UITableView!
@@ -21,8 +20,7 @@ class ScanTableViewController: UIViewController,BluetoothDelegate{
         searchIndicator.startAnimating()
     }
     override func viewDidAppear(_ animated: Bool) {
-        bluetooth.delegate = self
-        bluetooth.startScanPeripheral()
+        scanBLEDevices()
     }
     // MARK: BLE Scanning
     func scanBLEDevices() {
@@ -39,40 +37,32 @@ class ScanTableViewController: UIViewController,BluetoothDelegate{
            searchIndicator.stopAnimating()
            searchIndicator.removeFromSuperview()
         }
-        bluetooth.stopScanPeripheral()
+        manager?.stopScan()
     }
     @IBAction func closeAction(_ sender: Any) {
-       // self.stopScanForBLEDevices()
-       // delegate?.closePopup()
-       // self.view.removeFromSuperview()
-       stopScanForBLEDevices()
+        self.stopScanForBLEDevices()
+        delegate?.closePopup()
        self.dismiss(animated: true, completion: nil)
     }
 }
 extension ScanTableViewController: CBCentralManagerDelegate,UITableViewDataSource,UITableViewDelegate{
     // MARK: - CBCentralManagerDelegate Methods
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-       
+        if peripheral.name != nil {
+            print("peripheral"+"\(peripheral.identifier.uuidString)"+"\(peripheral.name!)")
+            if !peripherals.contains(peripheral) && peripheral.name!.containsIgnoringCase(find:"M2Me"){
+                peripherals.append(peripheral)
+            }
+        }
+        self.tableView.reloadData()
     }
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         print(central.state)
     }
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
 //pass reference to connected peripheral to parent view
-        if blueToothTag == 0 {
-//            parentView?.leftPeripheral = peripheral
-// peripheral.delegate = parentView
-// peripheral.discoverServices(nil)
-// set the manager's delegate view to parent so it can call relevant disconnect methods
-//            manager?.delegate = parentView
-        }
-        else if blueToothTag == 1 {
-//            parentView?.rightPeripheral = peripheral
-//            // peripheral.delegate = parentView
-//            // peripheral.discoverServices(nil)
-//            // set the manager's delegate view to parent so it can call relevant disconnect methods
-//            manager?.delegate = parentView
-        }
+         parentView?.leftPeripheral = peripheral
+       
     }
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         print(error!)
@@ -90,7 +80,7 @@ extension ScanTableViewController: CBCentralManagerDelegate,UITableViewDataSourc
         let peripheral = peripherals[indexPath.row]
         cell.bleName!.text = peripheral.name
         cell.bleId!.text = Util.getBleName(name: peripheral.identifier.uuidString)
-        if  parentView!.peripherals == peripheral{
+        if  parentView!.leftPeripheral == peripheral{
             cell.connectImageView!.image = UIImage(named:"module_conn_btn")
         }
         return cell
@@ -98,11 +88,20 @@ extension ScanTableViewController: CBCentralManagerDelegate,UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let selectPeripheral =  peripherals[indexPath.row]
-        parentView!.peripherals = selectPeripheral
+       
+        if parentView?.leftPeripheral == nil{
+            parentView!.leftPeripheral = selectPeripheral
+            manager?.delegate = parentView
+            UserDefaults.standard.set(selectPeripheral.identifier.uuidString, forKey:"BleUUID")
+            UserDefaults.standard.synchronize()
+            stopScanForBLEDevices()
+            
+        }else{
+            Util.Toast.show(message: Util.localString(st: "already_module"), controller: self)
+        }
        // BluetoothManager.getInstance().delegate = parentView
-        UserDefaults.standard.set(selectPeripheral.identifier.uuidString, forKey:"BleUUID")
-        UserDefaults.standard.synchronize()
-        stopScanForBLEDevices()
+    
+       
 //      let peripheral = peripherals[indexPath.row]
 //      if blueToothTag == 0 {
 //           if parentView?.leftPeripheral == nil{
@@ -133,15 +132,6 @@ extension ScanTableViewController: CBCentralManagerDelegate,UITableViewDataSourc
 //            }
 //        }
        self.tableView.reloadData()
-    }
-    func didDiscoverPeripheral(_ peripheral: CBPeripheral, advertisementData: [String : Any], RSSI: NSNumber) {
-        if peripheral.name != nil {
-            print("peripheral"+"\(peripheral.identifier.uuidString)"+"\(peripheral.name!)")
-            if !peripherals.contains(peripheral) && peripheral.name!.containsIgnoringCase(find:"M2Me"){
-                peripherals.append(peripheral)
-                self.tableView.reloadData()
-            }
-        }
     }
 }
 extension String {

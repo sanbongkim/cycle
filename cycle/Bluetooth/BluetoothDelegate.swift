@@ -69,7 +69,7 @@ import CoreBluetooth
      
      - parameter service: The service information include characteritics.
      */
-    @objc optional func didDiscoverCharacteritics(_ service: CBService)
+    @objc optional func didDiscoverCharacteritics(_ service: CBService , pripheral :CBPeripheral )
     
     /**
      The callback function when peripheral failed to discover charateritics.

@@ -35,8 +35,8 @@ class DatabaseManager : NSObject{
         var count : Int = 0
         for model in modelInfo{
             count+=1;
-            let success = shareInstance.database?.executeUpdate("INSERT OR REPLACE INTO vodinfo(image,title,aviname,description,cn,pay,vodcheck,down) VALUES (?,?,?,?,?,?,?,(SELECT IFNULL(down,0) FROM vodinfo where title = ?))",
-                                                                withArgumentsIn:[model.image!,model.title!,model.aviname!,model.description!,model.cn!,model.pay!,0,model.title!])
+            let success = shareInstance.database?.executeUpdate("INSERT OR REPLACE INTO vodinfo(image,title,aviname,description,type,cn,pay,vodcheck,down,lowlen,highlen) VALUES (?,?,?,?,?,?,?,?,(SELECT IFNULL(down,0) FROM vodinfo where title = ?),?,?)",
+                                                                withArgumentsIn:[model.image!,model.title!,model.aviname!,model.description!,model.type!,model.cn!,model.pay!,0,model.title!,model.length,model.length_2k])
         
             print(shareInstance.database?.lastErrorMessage() as Any)
             if success == false{
@@ -47,6 +47,40 @@ class DatabaseManager : NSObject{
         shareInstance.database?.close()
         return true
     }
+    func selectVideoData2d()->[InfoData]{
+        var model : [InfoData] = []
+        let queryString = "SELECT *from vodinfo where type = '3' order by title asc"
+         shareInstance.database?.open()
+        let result = shareInstance.database?.executeQuery(queryString, withArgumentsIn: [])
+        if  (result != nil) {
+            while(result!.next()){
+            let data : InfoData = InfoData(image: result!.string(forColumn: "image"), title: result!.string(forColumn: "title"),aviname:result!.string(forColumn: "aviname"),
+                                           description: result!.string(forColumn: "description")
+                                           , length_2k:Int(result!.int(forColumn: "highlen")), length:Int(result!.int(forColumn: "lowlen")), type: result!.string(forColumn: "type"), cn: result!.string(forColumn: "cn")
+                                          ,pay:result!.string(forColumn: "pay"), vodcheck: result!.bool(forColumn: "vodcheck"),download: result!.bool(forColumn: "down"))
+          model.append(data)
+         }
+        }
+        shareInstance.database?.close()
+        return model
+    }
+    func selectVideoData360()->[InfoData]{
+        var model : [InfoData] = []
+        let queryString = "SELECT *from vodinfo where type = '0' order by title asc"
+         shareInstance.database?.open()
+        let result = shareInstance.database?.executeQuery(queryString, withArgumentsIn: [])
+        if  (result != nil) {
+            while(result!.next()){
+            let data : InfoData = InfoData(image: result!.string(forColumn: "image"), title: result!.string(forColumn: "title"),aviname:result!.string(forColumn: "aviname"),
+                                           description: result!.string(forColumn: "description")
+                                           , length_2k:Int(result!.int(forColumn: "highlen")), length:Int(result!.int(forColumn: "lowlen")), type: result!.string(forColumn: "type"), cn: result!.string(forColumn: "cn")
+                                          ,pay:result!.string(forColumn: "pay"), vodcheck: result!.bool(forColumn: "vodcheck"),download: result!.bool(forColumn: "down"))
+          model.append(data)
+         }
+        }
+        shareInstance.database?.close()
+        return model
+    }
     func selectDownLoaded()->[InfoData]{
         var model : [InfoData] = []
         let queryString = "SELECT *from vodinfo where down = 1 order by title asc"
@@ -56,7 +90,7 @@ class DatabaseManager : NSObject{
             while(result!.next()){
             let data : InfoData = InfoData(image: result!.string(forColumn: "image"), title: result!.string(forColumn: "title"),aviname:result!.string(forColumn: "aviname"),
                                            description: result!.string(forColumn: "description")
-                                          ,length_4k: 0, length_2k: 0, length: 0, type: "", cn: result!.string(forColumn: "cn")
+                                           , length_2k: 0, length: 0, type: "", cn: result!.string(forColumn: "cn")
                                           ,pay:result!.string(forColumn: "pay"), vodcheck: result!.bool(forColumn: "vodcheck"),download: result!.bool(forColumn: "down"))
           model.append(data)
          }
@@ -73,7 +107,7 @@ class DatabaseManager : NSObject{
             while(result!.next()){
             let data : InfoData = InfoData(image: result!.string(forColumn: "image"), title: result!.string(forColumn: "title"),aviname:result!.string(forColumn: "aviname"),
                                            description: result!.string(forColumn: "description")
-                                          ,length_4k: 0, length_2k: 0, length: 0, type: "", cn: result!.string(forColumn: "cn")
+                                          , length_2k: 0, length: 0, type: "", cn: result!.string(forColumn: "cn")
                                           ,pay:result!.string(forColumn: "pay"), vodcheck: result!.bool(forColumn: "vodcheck"),download: result!.bool(forColumn: "down"))
           model.append(data)
          }
@@ -81,6 +115,14 @@ class DatabaseManager : NSObject{
         shareInstance.database?.close()
         return model
         
+    }
+    func removeVod(string:String){
+        
+        shareInstance.database?.open()
+         //데이터 수정
+        let sqlUpdate : String = "UPDATE vodinfo SET down = 0 WHERE title = ?"
+        let success = shareInstance.database?.executeUpdate(sqlUpdate,withArgumentsIn:[string])
+       shareInstance.database?.close()
     }
     func saveVodPlayCheck(fileName:String,check:Bool){
         shareInstance.database?.open()

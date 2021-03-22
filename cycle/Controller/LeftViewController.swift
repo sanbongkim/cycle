@@ -21,8 +21,6 @@ class LeftViewController : UIViewController{
         super.viewDidLoad()
         record.setImage(UIImage(named:Util.localString(st: "ham_record")), for: .normal)
         rank.setImage(UIImage(named:Util.localString(st: "ham_rank")), for: .normal)
-        moviedn.setImage(UIImage(named:Util.localString(st: "ham_moviedn")), for: .normal)
-        vrsetting.setImage(UIImage(named:Util.localString(st: "ham_setting")), for: .normal)
         musicSetting.setImage(UIImage(named:Util.localString(st: "ham_music")), for: .normal)
         tutorial.setImage(UIImage(named:Util.localString(st: "ham_tutorial")), for: .normal)
         version.setImage(UIImage(named:Util.localString(st: "ham_version")), for: .normal)

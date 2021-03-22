@@ -32,8 +32,8 @@ class LoginViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         //self.pwd.addBottomBorder()
-        // call the 'keyboardWillHide' function when the view controlelr receive notification that keyboard is going to be hidden
-        // Do any additional setup after loading the view.
+        //call the 'keyboardWillHide' function when the view controlelr receive notification that keyboard is going to be hidden
+        //Do any additional setup after loading the view.
     }
     /*
      * 오토레이 아웃시 프레임 사이즈 레이아웃 표출후
@@ -471,7 +471,6 @@ extension LoginViewController: UITextFieldDelegate{
         if textField.tag == 100{
             print(range.length - range.location)
             if (range.length - range.location) <= 0{
-
                 loginButton.isHidden = false
                 signup.isHidden = true
             }else{
@@ -479,7 +478,6 @@ extension LoginViewController: UITextFieldDelegate{
                 loginButton.isHidden = true
                 signup.isHidden = false
             }
-            
         }
         else if textField.tag == 101{
             

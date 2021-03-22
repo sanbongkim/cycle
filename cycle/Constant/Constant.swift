@@ -32,7 +32,6 @@ import CoreBluetooth
  timezone(숫자)
  
  */
-
 class Constant{
     static let PORT =             ":3000/"
     static let VRFIT_BOXING_MUSIC_URL = "https://www.m2me.co.kr:4000/"
@@ -54,7 +53,7 @@ class Constant{
     static let VRFIT_VERSION_CHECK = VRFIT_BOXING_HTTP_DOMAIN + "api_Version_Check_i_360"
     /////////////////////////String VRFIT_MUSIC_LIST = VRFIT_CYCLE_HTTP_DOMAIN_SETTING + "music_Information"
     static let VRFIT_MUSIC_LIST = "https://www.m2me.co.kr:6443/setting/music_Information"
-    static let VRFIT_VOD_LIST = VRFIT_BOXING_HTTP_DOMAIN + "avi_Information"
+    static let VRFIT_VOD_LIST = VRFIT_BOXING_HTTP_DOMAIN + "avi_Information_360"
     
     
     

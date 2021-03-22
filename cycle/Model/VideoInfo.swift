@@ -19,7 +19,6 @@ struct InfoData:Codable{
     var title : String?
     var aviname : String?
     var description : String?
-    var length_4k : Int
     var length_2k :Int
     var length:Int
     var type : String?

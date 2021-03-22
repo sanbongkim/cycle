@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 class UserVodInfoCell : UITableViewCell {
-    
     @IBOutlet weak var thumbNail: UIImageView!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var palytime: UILabel!
