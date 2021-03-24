@@ -143,7 +143,9 @@ class Util: NSObject{
        let offset = TimeZone.current.secondsFromGMT() / 3600
        return offset
     }
-
+    class func getCurrentMillis()->Int64{
+        return Int64(Date().timeIntervalSince1970 * 1000)
+    }
     class func getBleName(name:String)->String{
         
         let arrayName = name.split(separator: "-")

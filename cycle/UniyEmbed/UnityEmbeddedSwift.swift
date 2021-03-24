@@ -10,8 +10,6 @@ import UIKit
 import UnityFramework
 
 class UnityEmbeddedSwift: UIResponder, UIApplicationDelegate, UnityFrameworkListener  {
-    
-    
     private struct UnityMessage {
         let objectName : String?
         let methodName : String?

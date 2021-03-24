@@ -257,6 +257,8 @@ extension VodListController : UITableViewDelegate,UITableViewDataSource{
             cell.downlow.isHidden = false
             cell.downhigh.isHidden = false
             cell.playView.isHidden = true
+            cell.percent.isHidden = true
+            
         }
         cell.title.text = videoInfo.aviname
         cell.lowqul.text = "Low quality " +  Units(bytes: Int64(Int(videoInfo.length))).getReadableUnit()
@@ -345,6 +347,17 @@ extension VodListController : UITableViewDelegate,UITableViewDataSource{
             }
             if error != nil{
                 self.view.isUserInteractionEnabled = true
+                cell!.progressbar.progress = 0
+                cell!.percent.text = "0%"
+               
+                self.videoInfo.removeAll()
+                if self.vrButton.isSelected == true{
+                    self.videoInfo =  DatabaseManager.getInstance().selectVideoData360()
+                }else {
+                    self.videoInfo =  DatabaseManager.getInstance().selectVideoData2d()
+                }
+                self.view.isUserInteractionEnabled = true
+                self.tableview.reloadData()
             }
           }
         }
@@ -352,7 +365,6 @@ extension VodListController : UITableViewDelegate,UITableViewDataSource{
         print("button" + "\(button.tag)")
     }
     func hideCellList(bool : Bool){
-        
         
     }
     func deleteFile(fileName : String){

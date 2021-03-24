@@ -11,8 +11,6 @@ import Charts
 import UnityFramework
 import CoreBluetooth
 
-
-
 enum GameMode{
     case gameLobby
     case countdown
@@ -88,8 +86,11 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     
     //MARK : ===============================유니티 전달 값======================================
     var sendData : [MusicInfo] = []
+    var timeStop : Bool = false
+    
+    
     override func viewDidLoad() {
-      
+        
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         Util.copyDatabase("box.db")
@@ -116,7 +117,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-
+        
     }
     @objc func gotoPoint(){
         
@@ -152,14 +153,14 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
             vc.modalPresentationStyle = .overFullScreen
             self.present(vc, animated: true, completion: nil)
         }
-      
+        
     }
     
     func showDarkView(){
         if (darkView == nil) {
             darkView = UIView()
             let rect = CGRect.init(x: self.view.bounds.origin.x, y: self.view.bounds.origin.y, width: self.view.bounds.size.width, height:UIApplication.shared.statusBarFrame.size.height +
-                (self.navigationController?.navigationBar.frame.height ?? 0.0))
+                                    (self.navigationController?.navigationBar.frame.height ?? 0.0))
             if let dv = darkView {
                 dv.frame = rect
                 dv.backgroundColor = .black
@@ -188,12 +189,12 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
             print(Util.localString(st: "ok"))
             switch(alt_mode){
             case .BATTERY:
-               self.showDarkView()
+                self.showDarkView()
                 if UserDefaults.standard.bool(forKey:"checkBox") != true{
                     self.performSegue(withIdentifier: "tutorial_segue", sender: 0)
-                 }else{
-                               
-                 }
+                }else{
+                    
+                }
             case .NONMUSIC:
                 print("")
             }
@@ -202,35 +203,42 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
         self.present(alert, animated:true,completion:nil)
     }
     @IBAction func startGameAction(_ sender: Any) {
-       // self.showDarkView()
         
-        
-        let vc = storyboard?.instantiateViewController(withIdentifier: "VodListController") as! VodListController
-        vc.modalPresentationStyle = .overFullScreen
-        self.present(vc, animated: true, completion: nil)
-        
-        /*
         if self.leftPeripheral != nil{
             
             self.connectLeftBle()
             
-//            if(self.sendData.count > 0){
-//                self.connectLeftBle()
-//            }else{
-//                showAlert(style: .alert, text:Util.localString(st: "empty_music_warning"),alt_mode: .NONMUSIC)
-//            }
         }
-        else {
-            Util.Toast.show(message: Util.localString(st: "empty_sensor"), controller: self)}*/
+        
+        // self.showDarkView()
+        
+        
+        //        let vc = storyboard?.instantiateViewController(withIdentifier: "VodListController") as! VodListController
+        //        vc.modalPresentationStyle = .overFullScreen
+        //        self.present(vc, animated: true, completion: nil)
+        
+        /*
+         if self.leftPeripheral != nil{
+         
+         self.connectLeftBle()
+         
+         //            if(self.sendData.count > 0){
+         //                self.connectLeftBle()
+         //            }else{
+         //                showAlert(style: .alert, text:Util.localString(st: "empty_music_warning"),alt_mode: .NONMUSIC)
+         //            }
+         }
+         else {
+         Util.Toast.show(message: Util.localString(st: "empty_sensor"), controller: self)}*/
         //UnityEmbeddedSwift.showUnity(self , self)
     }
     func leveTextReflash(){
         self.countLabelVal.text = getLevel()
-//      그래프 리미터 라인 그리기
-//      let savelevel = UserDefaults.standard.integer(forKey: "level")
-//      let ll = ChartLimitLine(limit: Double(savelevel/60), label: "목표운동시간")
-//      ll.labelPosition = .topLeft
-//      chartView.leftAxis.addLimitLine(ll)
+        //      그래프 리미터 라인 그리기
+        //      let savelevel = UserDefaults.standard.integer(forKey: "level")
+        //      let ll = ChartLimitLine(limit: Double(savelevel/60), label: "목표운동시간")
+        //      ll.labelPosition = .topLeft
+        //      chartView.leftAxis.addLimitLine(ll)
     }
     func updateStar(level:Int){
         star0.image = UIImage(named:"target_percent_star_n")
@@ -875,7 +883,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
         if self.leftPeripheral?.state == .connected{
             return
         }
- 
+        
         Util.Toast.show(message: "Starting...", controller: self)
         self.leftPeripheral?.delegate = self
         self.manager?.connect(self.leftPeripheral!,options: [:])
@@ -914,8 +922,8 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     func centralManagerDidUpdateState(_ central: CBCentralManager){
         if central.state == .poweredOn {
             if let peripheralIdStr = UserDefaults.standard.object(forKey: "BleUUID") as? String,let peripheralId = UUID(uuidString: peripheralIdStr),
-                let previouslyConnected = manager!.retrievePeripherals(withIdentifiers: [peripheralId])
-                    .first {
+               let previouslyConnected = manager!.retrievePeripherals(withIdentifiers: [peripheralId])
+                .first {
                 self.leftPeripheral = previouslyConnected
                 // Next, try for ones that are connected to the system:
             }
@@ -924,10 +932,10 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
         else if central.state == .poweredOff {
             
             let alert = UIAlertController(title:Util.localString(st: "alert"), message: Util.localString(st: "ble_turn_off"), preferredStyle: .alert)
-                       let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
-                       }
-                       alert.addAction(OKAction)
-                       self.present(alert, animated: true, completion: nil)
+            let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
+            }
+            alert.addAction(OKAction)
+            self.present(alert, animated: true, completion: nil)
             
         }
     }
@@ -937,7 +945,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
             if (service.uuid.uuidString == Constant.RECIEVE_DATA_SERVICE_TEST) {
                 peripheral.discoverCharacteristics(nil, for: service)
             }
-                //Bluno Service
+            //Bluno Service
             else if (service.uuid.uuidString == Constant.SEND_DATA_SERVICE_TEST) {
                 peripheral.discoverCharacteristics(nil, for: service)
             }
@@ -1096,53 +1104,53 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     }
     func sendPunch(pr :CBPeripheral){
         
-//        if pr == self.leftPeripheral {
-//            let calTime = leftPunchsaveTime - Int64(getCurrentMillis())
-//            if leftPunchsaveTime == 0 || abs(calTime) > 300{
-//            self.app!.unityFramework?.sendMessageToGO(withName: "VIASS_Glovers_Blue", functionName:"rcvLeftSensorMove", message:"")
-//            mPunchCount+=1
-//                leftPunchsaveTime = Int64(getCurrentMillis())
-//            }
-//        }
-//        else if pr == self.rightPeripheral {
-//            let calTime = rightPunchsaveTime - Int64(getCurrentMillis())
-//            if rightPunchsaveTime == 0 || abs(calTime) > 300{
-//            self.app!.unityFramework?.sendMessageToGO(withName: "VIASS_Glovers_Red", functionName:"rcvRightSensorMove", message:"")
-//                mPunchCount+=1
-//                rightPunchsaveTime = Int64(getCurrentMillis())
-//            }
-//        }
+        //        if pr == self.leftPeripheral {
+        //            let calTime = leftPunchsaveTime - Int64(getCurrentMillis())
+        //            if leftPunchsaveTime == 0 || abs(calTime) > 300{
+        //            self.app!.unityFramework?.sendMessageToGO(withName: "VIASS_Glovers_Blue", functionName:"rcvLeftSensorMove", message:"")
+        //            mPunchCount+=1
+        //                leftPunchsaveTime = Int64(getCurrentMillis())
+        //            }
+        //        }
+        //        else if pr == self.rightPeripheral {
+        //            let calTime = rightPunchsaveTime - Int64(getCurrentMillis())
+        //            if rightPunchsaveTime == 0 || abs(calTime) > 300{
+        //            self.app!.unityFramework?.sendMessageToGO(withName: "VIASS_Glovers_Red", functionName:"rcvRightSensorMove", message:"")
+        //                mPunchCount+=1
+        //                rightPunchsaveTime = Int64(getCurrentMillis())
+        //            }
+        //        }
     }
     func musicControl(pr :CBPeripheral){
-//        if pr == self.leftPeripheral {
-//            leftSaveTime = Int64(getCurrentMillis())
-//        }
-//        else if pr == self.rightPeripheral {
-//            rightSaveTime = Int64(getCurrentMillis())
-//        }
-//        let min = leftSaveTime - rightSaveTime
-//
-//        print("time:"+"\(min.magnitude)")
-//        if  min.magnitude < 300{
-//            gameStart=true
-//          self.app!.unityFramework?.sendMessageToGO(withName: "EffectSound", functionName:"playChoiceSound", message:"")
-//          self.app!.unityFramework?.sendMessageToGO(withName: "SceneManager", functionName:"changeScene", message:"GameStart")
-//            gameMode = GameMode.countdown
-//            print("gameStart")
-//        }
-//        else {
-//            let delay : Double = 0.3 //delay time in seconds
-//            let time = DispatchTime.now() + delay
-//            DispatchQueue.main.asyncAfter(deadline:time){
-//                if self.gameStart == false {
-//                    if pr == self.leftPeripheral{
-//                        self.sendMusicCal(mode:Constant.MUSIC_LEFT)
-//                    }else{
-//                        self.sendMusicCal(mode:Constant.MUSIC_RIGHT)
-//                    }
-//                }
-//            }
-//        }
+        //        if pr == self.leftPeripheral {
+        //            leftSaveTime = Int64(getCurrentMillis())
+        //        }
+        //        else if pr == self.rightPeripheral {
+        //            rightSaveTime = Int64(getCurrentMillis())
+        //        }
+        //        let min = leftSaveTime - rightSaveTime
+        //
+        //        print("time:"+"\(min.magnitude)")
+        //        if  min.magnitude < 300{
+        //            gameStart=true
+        //          self.app!.unityFramework?.sendMessageToGO(withName: "EffectSound", functionName:"playChoiceSound", message:"")
+        //          self.app!.unityFramework?.sendMessageToGO(withName: "SceneManager", functionName:"changeScene", message:"GameStart")
+        //            gameMode = GameMode.countdown
+        //            print("gameStart")
+        //        }
+        //        else {
+        //            let delay : Double = 0.3 //delay time in seconds
+        //            let time = DispatchTime.now() + delay
+        //            DispatchQueue.main.asyncAfter(deadline:time){
+        //                if self.gameStart == false {
+        //                    if pr == self.leftPeripheral{
+        //                        self.sendMusicCal(mode:Constant.MUSIC_LEFT)
+        //                    }else{
+        //                        self.sendMusicCal(mode:Constant.MUSIC_RIGHT)
+        //                    }
+        //                }
+        //            }
+        //        }
     }
     //    func unityFrameworkLoad() -> UnityFramework? {
     //              let bundlePath = Bundle.main.bundlePath.appending("/Frameworks/UnityFramework.framework")
@@ -1173,10 +1181,10 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
         case Constant.CMD_INIT_MODULE:
             self.block?.cancel()
             //유저에게 케리브레이션 할지 안할지 묻는 모듈
-            self.sendProtocol(peripheral:peripheral,type:5,cmd:Constant.CMD_SENSOR_TYPE,what: 0)
+            self.sendProtocol(peripheral:peripheral,type:1,cmd:Constant.CMD_SENSOR_TYPE,what: 0)
             print("aaaaaa")
-           
-         // try {
+            
+            // try {
             //                    if(isRightSensor){
             //                        if (rcvData[rcvData.length - 2 - 1] == ACK) { //Module Init
             //                            hasInfo1 = false;
@@ -1204,12 +1212,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
             self.block?.cancel()
             if value[value.count-2-1] == Constant.ACK {
                 Util.Toast.show(message: "Sending Module Direction...", controller: self)
-                if self.leftPeripheral == peripheral{
-                    sendProtocol(peripheral:peripheral ,type:0,cmd: Constant.CMD_SEND_MODULE_DIRECTION,what: 0)
-                }
-                else{
-                    sendProtocol(peripheral:peripheral ,type:0,cmd: Constant.CMD_SEND_MODULE_DIRECTION,what:1)
-                }
+                sendProtocol(peripheral:peripheral ,type:0,cmd: Constant.CMD_SEND_MODULE_DIRECTION,what: 0)
             }
             //Type 전송 성공!!
             //                    if(isRightSensor){
@@ -1259,7 +1262,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
                     leftPeripheral_Connect = true
                     //app?.initAndShowUnity()
                 }
-             
             }
             break
         case Constant.CMD_COUNT_STOP:
@@ -1271,38 +1273,43 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
             //                }
             break
         case Constant.CMD_COUNT_RESULT:
-//            if self.gameMode == GameMode.gameLobby{
-//                musicControl(pr:peripheral)
-//            }
-//            else if self.gameMode == GameMode.gameStart{
-//                sendPunch(pr: peripheral)
-//            }
-            break
-        case Constant.CMD_POWER_RESULT:
             
+            var va = [Int](repeating: 0, count: 3)
             let x = ((value[1] & 0xff) << 8) | (value[2] & 0xff)
             let y = ((value[3] & 0xff) << 8) | (value[4] & 0xff)
             let z = ((value[5] & 0xff) << 8) | (value[6] & 0xff)
+            va[0] = Int(x)
+            va[1] = Int(y)
+            va[2] = Int(z)
+            print("x=\(x) y=\(y) z=\(z) max=\(value.max() ?? 0)")
             
-            print("result x \(x)")
-            print("result y \(y)")
-            print("result z \(z)")
-//            switch(((value[1] & 0xff) << 8) | (value[2] & 0xff)){
-//            case 1:
-//                mKcal += mWeight * mKcalSoftFactor
-//                sendPower(pr: peripheral, power: "soft")
-//                break
-//            case 2:
-//                mKcal += mWeight * mKcalNormalFactor
-//                sendPower(pr: peripheral, power: "normal")
-//                break
-//            case 3:
-//                mKcal += mWeight * mKcalPowerFactor;
-//                sendPower(pr: peripheral, power: "power")
-//                break
-//            default:
-//                break
-//            }
+            
+            //            if self.gameMode == GameMode.gameLobby{
+            //                musicControl(pr:peripheral)
+            //            }
+            //            else if self.gameMode == GameMode.gameStart{
+            //                sendPunch(pr: peripheral)
+            //            }
+            break
+        case Constant.CMD_POWER_RESULT:
+            
+            
+            //            switch(((value[1] & 0xff) << 8) | (value[2] & 0xff)){
+            //            case 1:
+            //                mKcal += mWeight * mKcalSoftFactor
+            //                sendPower(pr: peripheral, power: "soft")
+            //                break
+            //            case 2:
+            //                mKcal += mWeight * mKcalNormalFactor
+            //                sendPower(pr: peripheral, power: "normal")
+            //                break
+            //            case 3:
+            //                mKcal += mWeight * mKcalPowerFactor;
+            //                sendPower(pr: peripheral, power: "power")
+            //                break
+            //            default:
+            //                break
+            //            }
             //          Intent intentPower = new Intent();
             //          intentPower.setAction(isRightSensor ? BluetoothLeService.RECIEVE_POWER_1 : BluetoothLeService.RECIEVE_POWER_2);
             //          intentPower.putExtra("POWER", power);
@@ -1430,6 +1437,125 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
             break
         }
     }
+    var mSpeedKMH : Float = 0
+    let mReference : Float = 18000
+    var mCount :Int = 0
+    var mPreCount :Int = 0
+    var mKcal :Int = 0
+    var mPreTime : CLong = 0
+    let mShowingCount :Int = 0
+    var mCurTime: CLong = 0
+    var isSensorMove :Bool = false
+    var isFirstMusic :Bool = true
+    func recvCount(x:Int ,y:Int ,z:Int){
+        let total = x + y + z
+        if total == 0{
+            firstStartSpeed()
+        }
+        else if(total > 190000){
+            
+            stopSpeed()
+            
+        }
+        
+    }
+    func firstStartSpeed(){
+        mPreTime = CLong(Util.getCurrentMillis())
+        setSpeed(spd: calSpeed(alpha: 0.65, spd: 25.0))
+        timeStop = true
+        stopSpeed()
+        
+    }
+    private let maxSpeed : Float = 30.0
+    private let maxXSpeed : Float = 2.0
+    func setSpeed(spd :Float){
+        mSpeedKMH = spd / 2
+        // mUnityPlayer.UnitySendMessage("ToggleCycleImage", "changeToggle", ""); 21-3-24
+        var setSpeedValue:Float = 0.0
+        if(mSpeedKMH < (maxSpeed/1.65)){
+            setSpeedValue = mSpeedKMH * (maxXSpeed / (maxSpeed/1.65))
+            
+        }else{
+            setSpeedValue = maxXSpeed
+        }
+        /* 21-3-24
+         mUnityPlayer.UnitySendMessage("Cycle1SetSpeed", "setSpeed", String.format("%.0f", mSpeedKMH * 1.65f));
+         mUnityPlayer.UnitySendMessage("Cycle1SetRPM", "setRPM", spd.equals("0") ? "0" : showingRPM);
+         mUnityPlayer.UnitySendMessage("DistanceTXT", "setDistance", String.format("%.2f", mDistance));
+         
+         */
+    }
+    
+    //스피드 계산
+    private var mean: Float = 0.0
+    private var pre_spd : Float = 0.0
+    private let A : Float = 70 * 2 / 1.65 * 2
+    func calSpeed(alpha:Float,spd:Float)->Float{
+        mean = alpha * mean + (1 - alpha) * spd
+        
+        if(mean > pre_spd){
+            if(mean-pre_spd > 30){
+                mean = pre_spd + 30
+            }
+        }else{
+            if(pre_spd-mean > 30){
+                mean = pre_spd - 30
+            }
+        }
+        if(mean > A){
+            mean = A;
+        }
+        pre_spd = mean;
+        return mean;
+    }
+    var rpms = [Double](repeating:0, count: 5)
+    var isFullTemp :Bool = false
+    var rpmCnt : Int = 0
+    func calRPM(spd:Float)->String{
+        var rpm : String = "0"
+        if(rpmCnt < 5){
+            rpms[rpmCnt] = Double(1.65 * (spd/(50/25*2096*60))*1000000)
+            rpmCnt += 1
+        }
+        if(rpmCnt >= 5){
+            isFullTemp = true
+            rpmCnt = 0;
+        }
+        if(isFullTemp){
+            rpm = String.init(format:"%.0f", (rpms[0] + rpms[1] + rpms[2] + rpms[3] + rpms[4]) / 5)
+        }
+        return rpm
+    }
+    func stopSpeed(){
+        mean = 0;
+        pre_spd = 0
+        setSpeed(spd:0)
+        rpms[0] = 0
+        rpms[1] = 0
+        rpms[2] = 0
+        rpms[3] = 0
+        rpms[4] = 0
+        isFullTemp = false
+        rpmCnt = 0
+    }
+    var musicCnt : Int = 1
+//    func musicFinish(){
+//         if(!isPlayWithoutMusic){
+//               if(musicCnt > mSelectedMusicDatas.size()){
+//                   musicCnt = 1;
+//        }
+//               if(mExecutorsService != null){
+//                   mExecutorsService.shutdown();
+//               }
+//
+//               mBPMTerm = (int)Math.floor(((float)60 / mSelectedMusicDatas.get(musicCnt).getRPM()) / 2 * 1000);
+//               mMusicRPM = mSelectedMusicDatas.get(musicCnt).getRPM();
+//               calcurateSuccessTerm();
+//               Log.e("mtome", "mBPMTerm : "+mBPMTerm + " / mMusicRPM : "+mMusicRPM + " / mTermInt : "+mTermInt + " / music : "+mSelectedMusicDatas.get(musicCnt).getFile().getPath());
+//               mUnityPlayer.UnitySendMessage("BPM_bgm", "test", mSelectedMusicDatas.get(musicCnt).getFile().getPath());
+//               musicCnt++;
+//           }
+//       }
 }
 extension ViewController : LoginControllerDelegate,SideMenuNavigationControllerDelegate,IAxisValueFormatter,UnityInit,NativeCallsProtocol{
     func unityLodingCall(){
@@ -1448,7 +1574,6 @@ extension ViewController : LoginControllerDelegate,SideMenuNavigationControllerD
         //        self.homeController.mWeight = Float(weight)
     }
     func showDarkview() {
-        
     }
     func toogleSideMenu() {
         //        configureMenuController()
