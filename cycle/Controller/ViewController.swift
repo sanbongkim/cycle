@@ -87,7 +87,14 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     //MARK : ===============================유니티 전달 값======================================
     var sendData : [MusicInfo] = []
     var timeStop : Bool = false
-    
+    var mScene : Int = 0
+    var mMoviePath : String = ""
+    var mKPC : Int!
+    var isPlayWithoutMusic : Bool = false
+    var circleRighLleft : Bool = false
+    var footRighLleft : Bool =  false
+    var timer: DispatchSourceTimer!
+    var musciInfo : [MusicInfo] = []
     
     override func viewDidLoad() {
         
@@ -155,7 +162,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
         }
         
     }
-    
     func showDarkView(){
         if (darkView == nil) {
             darkView = UIView()
@@ -205,9 +211,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     @IBAction func startGameAction(_ sender: Any) {
         
         if self.leftPeripheral != nil{
-            
             self.connectLeftBle()
-            
         }
         
         // self.showDarkView()
@@ -569,6 +573,8 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
         currentDay = self.calMounth(direction: 0)
         dayCal(value: currentDay)
         getexerciseMonthlyRecord(month: self.calMounth(direction:0))
+
+        musciInfo = DatabaseManager.getInstance().selectMusic()
         
     }
     func configureHomeController(){
@@ -1183,7 +1189,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
             //유저에게 케리브레이션 할지 안할지 묻는 모듈
             self.sendProtocol(peripheral:peripheral,type:1,cmd:Constant.CMD_SENSOR_TYPE,what: 0)
             print("aaaaaa")
-            
             // try {
             //                    if(isRightSensor){
             //                        if (rcvData[rcvData.length - 2 - 1] == ACK) { //Module Init
@@ -1260,7 +1265,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
             if value[value.count-2-1] == Constant.ACK  {
                 if self.leftPeripheral == peripheral {
                     leftPeripheral_Connect = true
-                    //app?.initAndShowUnity()
+                    print("Seq 1 : UnityEmbeddedSwift.showUnity(self , self")
                 }
             }
             break
@@ -1273,14 +1278,12 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
             //                }
             break
         case Constant.CMD_COUNT_RESULT:
-            
-            var va = [Int](repeating: 0, count: 3)
+        
             let x = ((value[1] & 0xff) << 8) | (value[2] & 0xff)
             let y = ((value[3] & 0xff) << 8) | (value[4] & 0xff)
             let z = ((value[5] & 0xff) << 8) | (value[6] & 0xff)
-            va[0] = Int(x)
-            va[1] = Int(y)
-            va[2] = Int(z)
+        
+            recvCount(x: Int(x), y:  Int(y), z: Int(z))
             print("x=\(x) y=\(y) z=\(z) max=\(value.max() ?? 0)")
             
             
@@ -1443,22 +1446,154 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     var mPreCount :Int = 0
     var mKcal :Int = 0
     var mPreTime : CLong = 0
-    let mShowingCount :Int = 0
+    var mShowingCount :Int = 0
     var mCurTime: CLong = 0
     var isSensorMove :Bool = false
     var isFirstMusic :Bool = true
     func recvCount(x:Int ,y:Int ,z:Int){
+        var va = [Int](repeating: 0, count: 3)
+        va[0] = Int(x)
+        va[1] = Int(y)
+        va[2] = Int(z)
         let total = x + y + z
         if total == 0{
             firstStartSpeed()
         }
         else if(total > 190000){
-            
             stopSpeed()
-            
+        }else{
+            if(timeStop){
+                firstStartSpeed()
+                timeStop = false;
+            }else{
+                mCount = va.max()!
+                mKcal = mShowingCount / mKPC;
+                if(mPreCount != mCount){
+                if(mScene == 1){
+                    UnityEmbeddedSwift.sendUnityMessage("AndroidManagerMovie", methodName: "setSleepIcon", message: "false")
+                }else{
+                    UnityEmbeddedSwift.sendUnityMessage("AndroidManagerMovie2D", methodName: "setSleepIcon", message: "false")
+                }
+                isSensorMove = true
+                if isFirstMusic {
+                  isFirstMusic = false
+                  musicFinish()
+                }
+                speedControll(mode:0)
+                mCurTime = CLong(Util.getCurrentMillis())
+                let term : Int = mCurTime - mPreTime;
+
+                setTime()
+
+                if((mCount % 2) == 1){
+                    mShowingCount += 1
+                }
+                calDistance();
+                setSpeed(spd: calSpeed(alpha: 0.65, spd:(mReference / Float(term))) / 2)
+                if(!isPlayWithoutMusic) {
+                    footConfirm2()
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.speedControll(mode: 1)
+                }
+                broadCastExData(isCounting: true)
+                mPreCount = mCount;
+                mPreTime = mCurTime;
+                }
+            }
         }
-        
     }
+    var mMusicRPM : Int = 0
+    var mFootSwitch : Bool = false
+    var mLeftPreTime : Int = 0
+    var mRightPreTime : Int = 0
+    var PLUS_TERM : Int = 50
+    var mTermInt: Int = 0
+    
+    func calcurateSuccessTerm(){
+        let valuef = String(format:"%.3f", Float(60 / mMusicRPM))
+        let first = String(valuef[valuef.startIndex])
+        let strRange = valuef.index(valuef.startIndex, offsetBy: 2) ... valuef.index(valuef.startIndex, offsetBy: 4)
+        let second = first + valuef[strRange]
+        mTermInt = Int(second)!
+    }
+    var isLeftFootSuccess : Bool!
+    var isRightFootSuccess : Bool!
+    var mShowWarningCnt : Int = 0
+    var passRPMDis : Int = 8
+    
+    func footConfirm2(){
+        let rpm = Int(calRPM(spd: mSpeedKMH))
+        let v = mMusicRPM - rpm!    /// 90 - 100
+
+            if(abs(v) < passRPMDis){    //Success
+                mShowWarningCnt = 0;
+
+                if(circleRighLleft){
+                    isRightFootSuccess = true;
+                    UnityEmbeddedSwift.sendUnityMessage("RightFoot", methodName: "RightFootPrint", message: isRightFootSuccess ? "SUCCESS" : "FAIL")
+                }else{
+                    isLeftFootSuccess = true;
+                    UnityEmbeddedSwift.sendUnityMessage("LeftFoot", methodName: "LeftFootPrint", message: isLeftFootSuccess ? "SUCCESS" : "FAIL")
+                }
+            }else if(v > passRPMDis){                  //Failed(Slow)
+                if(mShowWarningCnt >= 8){
+                    UnityEmbeddedSwift.sendUnityMessage("Warning_Slow", methodName: "tooSlow", message: "");
+                    mShowWarningCnt = 0
+                }
+                mShowWarningCnt += 1
+            }else if(v < -passRPMDis){                  //Failed(fast)
+                if(mShowWarningCnt >= 13){
+                    UnityEmbeddedSwift.sendUnityMessage("Warning_Fast", methodName: "tooFast", message: "");
+                    mShowWarningCnt = 0;
+                }
+                mShowWarningCnt += 1
+
+            }
+            isRightFootSuccess = false;
+            isLeftFootSuccess = false;
+    }
+    var mDistance : Float = 0.0
+    var mWheelDistance : Float = 4.2
+    func calDistance(){
+        mDistance = (Float(mShowingCount) * mWheelDistance) / 1000
+    }
+    var totalTime : Int  = 0
+    var mBeforeTime : Int = 0
+    var hasStopSig : Bool = true
+    func broadCastExData(isCounting:Bool){
+        let currentTime = Int(Util.getCurrentMillis())
+        if(isCounting){
+            if(!hasStopSig){
+                   totalTime += currentTime - mBeforeTime;
+               }
+               hasStopSig = false
+               mBeforeTime = currentTime;
+           }else{
+               if(!hasStopSig){
+                   hasStopSig = true
+                   totalTime += currentTime - mBeforeTime;
+                   mBeforeTime = 0
+               }
+           }
+
+//           Intent intent = new Intent();
+//           intent.setAction("vrcycle.mtome.com.vr_cycle_movie_360.receiver.count");
+//           intent.putExtra("KM", Integer.toString((int) (mDistance * 1000)));
+//           intent.putExtra("KCAL", Integer.toString(mKcal));
+//           intent.putExtra("COUNT", Integer.toString(mShowingCount));
+//           intent.putExtra("TIME", Long.toString(totalTime/1000));
+//           sendBroadcast(intent);
+       }
+    func setTime(){
+          let s = (Int)(totalTime/1000)
+          let sec = (Int)(s % 60)
+          let min = (Int)((s / 60) % 60)
+          let hour = (s / 3600) % 24
+          let value = String(format:"%02d:%02d:%02d", hour, min, sec);
+          UnityEmbeddedSwift.sendUnityMessage("InfoTimeTXT", methodName: "setTime", message: value);
+       }
+    
     func firstStartSpeed(){
         mPreTime = CLong(Util.getCurrentMillis())
         setSpeed(spd: calSpeed(alpha: 0.65, spd: 25.0))
@@ -1470,7 +1605,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     private let maxXSpeed : Float = 2.0
     func setSpeed(spd :Float){
         mSpeedKMH = spd / 2
-        // mUnityPlayer.UnitySendMessage("ToggleCycleImage", "changeToggle", ""); 21-3-24
+        UnityEmbeddedSwift.sendUnityMessage("ToggleCycleImage", methodName: "changeToggle", message: "")
         var setSpeedValue:Float = 0.0
         if(mSpeedKMH < (maxSpeed/1.65)){
             setSpeedValue = mSpeedKMH * (maxXSpeed / (maxSpeed/1.65))
@@ -1478,12 +1613,12 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
         }else{
             setSpeedValue = maxXSpeed
         }
-        /* 21-3-24
-         mUnityPlayer.UnitySendMessage("Cycle1SetSpeed", "setSpeed", String.format("%.0f", mSpeedKMH * 1.65f));
-         mUnityPlayer.UnitySendMessage("Cycle1SetRPM", "setRPM", spd.equals("0") ? "0" : showingRPM);
-         mUnityPlayer.UnitySendMessage("DistanceTXT", "setDistance", String.format("%.2f", mDistance));
+        let kmh = calRPM(spd: mSpeedKMH)
+        UnityEmbeddedSwift.sendUnityMessage("VideoPlayer", methodName: "setSpeed", message: String(setSpeedValue))
+        UnityEmbeddedSwift.sendUnityMessage("Cycle1SetSpeed", methodName: "setSpeed", message: String(format:"%.0f", mSpeedKMH * 1.65))
+        UnityEmbeddedSwift.sendUnityMessage("Cycle1SetRPM", methodName: "setRPM", message: spd == 0 ? "0" : String(kmh))
+        UnityEmbeddedSwift.sendUnityMessage("DistanceTXT", methodName: "setDistance", message: String(format:"%.2f", mDistance))
          
-         */
     }
     
     //스피드 계산
@@ -1538,31 +1673,96 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
         isFullTemp = false
         rpmCnt = 0
     }
+    var mBPMTerm : Double = 0
+    func musicStart(){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.speedControll(mode: 1)
+        }
+    }
     var musicCnt : Int = 1
-//    func musicFinish(){
-//         if(!isPlayWithoutMusic){
-//               if(musicCnt > mSelectedMusicDatas.size()){
-//                   musicCnt = 1;
-//        }
-//               if(mExecutorsService != null){
-//                   mExecutorsService.shutdown();
-//               }
-//
-//               mBPMTerm = (int)Math.floor(((float)60 / mSelectedMusicDatas.get(musicCnt).getRPM()) / 2 * 1000);
-//               mMusicRPM = mSelectedMusicDatas.get(musicCnt).getRPM();
-//               calcurateSuccessTerm();
-//               Log.e("mtome", "mBPMTerm : "+mBPMTerm + " / mMusicRPM : "+mMusicRPM + " / mTermInt : "+mTermInt + " / music : "+mSelectedMusicDatas.get(musicCnt).getFile().getPath());
-//               mUnityPlayer.UnitySendMessage("BPM_bgm", "test", mSelectedMusicDatas.get(musicCnt).getFile().getPath());
-//               musicCnt++;
-//           }
-//       }
+    func musicFinish(){
+         if(!isPlayWithoutMusic){
+            if(musicCnt > musciInfo.count){
+                   musicCnt = 1
+          }
+            if musciInfo.count > 0{
+                self.timer?.cancel()
+                self.timer = nil
+          }
+          mBPMTerm = floor((60.0 / Double(musciInfo[musicCnt].music_bpm!) / 2) * 1000)
+          mMusicRPM =  Int(musciInfo[musicCnt].music_bpm!)
+          calcurateSuccessTerm()
+          let patch = Util.getPath(musciInfo[musicCnt].title! + ".mp3")
+          UnityEmbeddedSwift.sendUnityMessage("BPM_bgm", methodName: "test", message: patch)
+               musicCnt += 1
+           }
+       }
+    func BPMCircleStart(){
+        NSLog("startTimer")
+        let queue = DispatchQueue(label: "com.domain.app.timer", qos: .userInteractive)
+        timer = DispatchSource.makeTimerSource(flags: .strict, queue: queue)
+        timer.schedule(deadline: .now(), repeating:mBPMTerm, leeway: .nanoseconds(0))
+        timer.setEventHandler {
+            if(self.isSensorMove){
+                UnityEmbeddedSwift.sendUnityMessage("BPM_bgm", methodName: "resumeMusic", message: "")
+                UnityEmbeddedSwift.sendUnityMessage("BPM_bgm", methodName: "startSensor", message: "")
+                self.showBPMCircle()
+             }else{
+                UnityEmbeddedSwift.sendUnityMessage("BPM_bgm", methodName: "pauseMusic", message: "")
+            }
+        }
+        timer.resume()
+    }
+    func showBPMCircle(){
+           if(circleRighLleft){
+            UnityEmbeddedSwift.sendUnityMessage("LeftCircle", methodName: "LeftCircleShow", message: "")
+           }else{
+            UnityEmbeddedSwift.sendUnityMessage("RightCircle", methodName: "RightCircleShow", message: "")
+           }
+           circleRighLleft = !circleRighLleft
+       }
+    func speedControll(mode : Int)
+    {
+        switch mode {
+        case 0:
+            timeStop = true
+            stopSpeed()
+            break
+        case 1:
+            //BPMCircleStart()
+            break
+        default:
+            break
+        }
+        
+    }
+    
+    //MARK: 유니티 에서 네이티브 콜 함수
+    
+    func unityStartScene(){
+        UnityEmbeddedSwift.sendUnityMessage("ReadySceneManager", methodName: "TestLoadLevel", message:mScene == 1 ? "1" : "2" )
+    }
+    func unityInit(){
+        UnityEmbeddedSwift.sendUnityMessage("ReadySceneManager", methodName: "TestLoadLevel", message:mScene == 1 ? "1" : "2" )
+        if  mScene == 1{
+            UnityEmbeddedSwift.sendUnityMessage("VideoPlayer", methodName: "setMovieURLList", message: mMoviePath)
+        }else{
+            UnityEmbeddedSwift.sendUnityMessage("VideoPlayer", methodName: "setMovieURLList2D", message: mMoviePath)
+        }
+    }
 }
 extension ViewController : LoginControllerDelegate,SideMenuNavigationControllerDelegate,IAxisValueFormatter,UnityInit,NativeCallsProtocol{
     func unityLodingCall(){
         
     }
     func sendUnity(toIOS msg: String!) {
-        print("recv\(msg!)")
+        if msg.contains("unityStartScene"){
+            unityStartScene()
+        }
+        else if msg.contains("unityInit"){
+            
+            
+        }
     }
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
         return value <= 0.0 ? "" : String(describing: value)

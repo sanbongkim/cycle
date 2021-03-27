@@ -199,6 +199,27 @@ class DatabaseManager : NSObject{
         return model
         
     }
-    
+    func selectMusic()->[MusicInfo]{
+        var model : [MusicInfo] = []
+        let queryString = "SELECT *from boxinfo where down = 1 order by music asc"
+         shareInstance.database?.open()
+        let result = shareInstance.database?.executeQuery(queryString, withArgumentsIn: [])
+        while(result!.next()){
+                let data : MusicInfo = MusicInfo()!
+                data.index = result!.int(forColumn: "idx")
+                data.title = result!.string(forColumn: "title")
+                data.singer = result!.string(forColumn: "singer")
+                data.music_note = result!.int(forColumn: "note")
+                data.playtime = result!.string(forColumn: "playtime")
+                data.difficulty = result!.string(forColumn: "difficulty")
+                data.music_bpm = result!.int(forColumn: "bpm")
+                data.music_bit = result!.string(forColumn: "bit")
+                data.isDownload = result!.bool(forColumn: "down")
+                data.musicCheck = result!.int(forColumn: "musicCheck")
+                model.append(data)
+        }
+        shareInstance.database?.close()
+        return model
+    }
 }
 
