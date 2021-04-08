@@ -17,6 +17,8 @@ class VodListController:UIViewController{
     @IBOutlet weak var info: UIButton!
     @IBOutlet weak var checkLabel: UILabel!
     @IBOutlet weak var noVrCheck: UIButton!
+    
+    var delegate : SceneControllDelegate?
     var videoInfo = [InfoData]()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,11 +35,13 @@ class VodListController:UIViewController{
     @IBAction func closeAction(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    @IBAction func nonVrcheckAction(_ sender: Any) {
-        let button = sender as! UIButton
-        noVrCheck.isSelected = !button.isSelected
-        
-    }
+//    @IBAction func nonVrcheckAction(_ sender: Any) {
+//        let button = sender as! UIButton
+//        self.delegate?.selectSceneMode(mode:!button.isSelected)
+//        noVrCheck.isSelected = !button.isSelected
+//
+//
+//    }
     @IBAction func infoAction(_ sender: Any) {
         let board = UIStoryboard(name: "Main", bundle: nil)
         let vc = board.instantiateViewController(withIdentifier: "AletViewVodHelpVC") as! AletViewVodHelpVC
@@ -59,10 +63,9 @@ class VodListController:UIViewController{
         nonVrBtton.isSelected = !click.isSelected
         vrButton.isSelected = false
         checkButton.isHidden = true
-        noVrCheck.isHidden = false
+        checkLabel.isHidden = true
         self.videoInfo.removeAll()
         self.videoInfo =  DatabaseManager.getInstance().selectVideoData2d()
-        checkLabel.text = "vr 아니아니"
         tableview.reloadData()
     }
     @IBAction func vrButtonAction(_ sender: Any) {
@@ -72,6 +75,7 @@ class VodListController:UIViewController{
         nonVrBtton.isSelected = false
         noVrCheck.isHidden = true
         checkButton.isHidden = false
+        checkLabel.isHidden = false
         checkLabel.text = "Users 360VRFit Goggle"
         self.videoInfo.removeAll()
         self.videoInfo =  DatabaseManager.getInstance().selectVideoData360()
@@ -105,7 +109,6 @@ class VodListController:UIViewController{
                             self.videoInfo.sort {
                                 $0.title!.localizedCaseInsensitiveCompare($1.title!) == ComparisonResult.orderedAscending
                             }
-                           
                             _ = DatabaseManager.getInstance().saveVodInfo(modelInfo:videoInfo)
                             self.videoInfo.removeAll()
                             videoInfo = DatabaseManager.getInstance().selectVideoData360()
@@ -270,6 +273,7 @@ extension VodListController : UITableViewDelegate,UITableViewDataSource{
         cell.removeVideo.addTarget(self, action: #selector(removeVideoActon), for: .touchUpInside)
         cell.removeVideo.tag = indexPath.row
         cell.playGame.addTarget(self, action: #selector(playGame), for: .touchUpInside)
+        cell.playGame.tag = indexPath.row
         
         var time:String?
         if let play = videoInfo.pay {
@@ -291,9 +295,19 @@ extension VodListController : UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
       
     }
-    @objc func playGame(){
+    @objc func playGame(snder:UIButton){
         
-        print("playGame")
+        let button = snder as UIButton
+             let v = videoInfo[button.tag]
+        
+        let pleDict: [String: Any] = [
+            "patch" : Util.getPath("\(v.title!)"+".mp4"),         // type: String
+            "google" : checkButton.isSelected ? "360" : "2D",             // type: Bool
+            "mLanguage" : Util.getlan() == "ko" ? "1" : "2",             // type: Int
+            "scene" : vrButton.isSelected ? 1 : 0
+            ]
+        
+        self.delegate?.playGame(dic: pleDict)
         
     }
     @objc func removeVideoActon(snder:UIButton){

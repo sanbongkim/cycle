@@ -22,6 +22,8 @@ enum AltMode{
     case NONMUSIC
 }
 class ViewController: UIViewController, UINavigationControllerDelegate,ChartViewDelegate,CBCentralManagerDelegate,CBPeripheralDelegate{
+   
+    
     var logo : UIView!
     var menu:SideMenuNavigationController?
     var loginViewConroller : LoginViewController!
@@ -43,6 +45,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     @IBOutlet weak var startGame: UIButton!
     @IBOutlet weak var todayPerCent: UILabel!
     
+    @IBOutlet weak var currentDayLabel: UILabel!
     //하단정보
     @IBOutlet weak var todayHealthTime: UILabel!
     @IBOutlet weak var todayHealthTimeVal: UILabel!
@@ -82,19 +85,26 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     var mainCharacteristic:CBCharacteristic? = nil
     var connectBlock: DispatchWorkItem?
     var block: DispatchWorkItem?
+    var footBlock : DispatchWorkItem?
+    var activityIndicator : ActivityIndicator?
     var app : AppDelegate?
     
     //MARK : ===============================유니티 전달 값======================================
     var sendData : [MusicInfo] = []
     var timeStop : Bool = false
     var mScene : Int = 0
+    
     var mMoviePath : String = ""
-    var mKPC : Int!
+    var mKPC : Int = 6
+    var mUseGoggle : String = ""
+    var mLanguage : String = ""
+   
     var isPlayWithoutMusic : Bool = false
     var circleRighLleft : Bool = false
     var footRighLleft : Bool =  false
     var timer: DispatchSourceTimer!
     var musciInfo : [MusicInfo] = []
+    
     
     override func viewDidLoad() {
         
@@ -115,10 +125,15 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
         pointVal.addGestureRecognizer(tapGestureRecognizerPoint)
         countLabelVal.addGestureRecognizer(tapGestureRecognizerLevel)
         self.chartInit()
+        
         checkVersion()
+        activityIndicator = ActivityIndicator(view: chartView, navigationController: self.navigationController, tabBarController: nil)
     }
     override func viewWillAppear(_ animated: Bool) {
-        UserDefaults.standard.string(forKey: "BleUUID")
+        let val = UserDefaults.standard.string(forKey: "BleUUID")
+        if val!.count > 0{
+            addSensor.setImage(UIImage(named: "addcenser"), for: .normal)
+        }
         super.viewWillAppear(true)
         //bluetoothManager.delegate = self
     }
@@ -146,8 +161,21 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     }
     @IBAction func addSensorAction(_ sender: Any) {
         let board = UIStoryboard(name: "Main", bundle: nil)
-        if self.leftPeripheral != nil{
+        
+        if  manager?.state == .poweredOff {
             
+            let alert = UIAlertController(title:Util.localString(st: "alert"), message: Util.localString(st: "ble_turn_off"), preferredStyle: .alert)
+            let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
+                
+                return
+            }
+            alert.addAction(OKAction)
+            self.present(alert, animated: true, completion: nil)
+            
+        }
+        
+        if self.leftPeripheral != nil{
+             
             let vc = board.instantiateViewController(withIdentifier: "AlertCalorieSetVC") as! AlertCalorieSetVC
             vc.modalPresentationStyle = .overFullScreen
             self.present(vc, animated: true, completion: nil)
@@ -210,31 +238,19 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     }
     @IBAction func startGameAction(_ sender: Any) {
         
-        if self.leftPeripheral != nil{
-            self.connectLeftBle()
-        }
+      //  if self.leftPeripheral != nil{
+      //
+      //  }
         
         // self.showDarkView()
         
         
-        //        let vc = storyboard?.instantiateViewController(withIdentifier: "VodListController") as! VodListController
-        //        vc.modalPresentationStyle = .overFullScreen
-        //        self.present(vc, animated: true, completion: nil)
+        let vc = storyboard?.instantiateViewController(withIdentifier: "VodListController") as! VodListController
+        vc.modalPresentationStyle = .overFullScreen
+        vc.delegate = self
+        self.present(vc, animated: true, completion: nil)
         
-        /*
-         if self.leftPeripheral != nil{
-         
-         self.connectLeftBle()
-         
-         //            if(self.sendData.count > 0){
-         //                self.connectLeftBle()
-         //            }else{
-         //                showAlert(style: .alert, text:Util.localString(st: "empty_music_warning"),alt_mode: .NONMUSIC)
-         //            }
-         }
-         else {
-         Util.Toast.show(message: Util.localString(st: "empty_sensor"), controller: self)}*/
-        //UnityEmbeddedSwift.showUnity(self , self)
+       
     }
     func leveTextReflash(){
         self.countLabelVal.text = getLevel()
@@ -571,10 +587,14 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
         self.useridVal.text = UserDefaults.standard.string(forKey: "userid")
         getTodayExerciseRecord()
         currentDay = self.calMounth(direction: 0)
+        self.currentDayLabel.text = currentDay
         dayCal(value: currentDay)
-        getexerciseMonthlyRecord(month: self.calMounth(direction:0))
+        getexerciseMonthlyRecord(month: self.calMounth(direction:0), completionHandler: { success in
+            
+        })
 
         musciInfo = DatabaseManager.getInstance().selectMusic()
+    
         
     }
     func configureHomeController(){
@@ -662,25 +682,36 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     }
     @IBAction func arrowLeftAction(_ sender: Any) {
         DispatchQueue.main.async{
+            
+            self.activityIndicator?.showActivityIndicator(text: "")
             let val = self.calMounth(direction: -1)
+            self.currentDayLabel.text = val
             self.monthRecord.removeAll()
             self.dayCal(value : val)
-            self.monthRecord.removeAll()
-            self.getexerciseMonthlyRecord(month: val)
+            self.getexerciseMonthlyRecord(month: val, completionHandler: {success in
+                self.activityIndicator?.stopActivityIndicator()
+                self.updateChartData()
+            })
         }
     }
     @IBAction func arrowRightAction(_ sender: Any) {
         let nextMonth = self.calMounth(direction: 1)
         if currentDay <  nextMonth {
-            _ = self.calMounth(direction: -1)
+            let val = self.calMounth(direction: -1)
+            self.currentDayLabel.text = val
             Util.Toast.show(message: Util.localString(st:"graph_recent_warning"), controller:self)
             return
         }
         DispatchQueue.main.async{
+            self.activityIndicator?.showActivityIndicator(text: "")
+            self.currentDayLabel.text = nextMonth
             self.monthRecord.removeAll()
-            self.dayCal(value : nextMonth)
+            self.dayCal(value : self.currentDayLabel.text!)
             self.monthRecord.removeAll()
-            self.getexerciseMonthlyRecord(month:nextMonth)
+            self.getexerciseMonthlyRecord(month:nextMonth,completionHandler: { [self] success in
+            self.updateChartData()
+            self.activityIndicator?.stopActivityIndicator()
+            })
         }
     }
     // MARK: Chart
@@ -803,7 +834,8 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
         set.drawValuesEnabled = true
         return BubbleChartData(dataSet: set)
     }
-    func getexerciseMonthlyRecord(month:String){
+    func getexerciseMonthlyRecord(month:String,completionHandler:@escaping (Bool?) -> Void) {
+        
         var parameters: [String: Any] = [:]
         parameters["id"] = UserDefaults.standard.string(forKey: "userid")
         parameters["month"]  = month
@@ -834,10 +866,11 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
                                             }
                                             self.monthRecord[element.key] = valueList
                                         }
-                                        self.updateChartData()
+                                        completionHandler(true)
                                     }
                                 }
                                 else{
+                                    completionHandler(false)
                                 }
                             }
                         }catch{
@@ -846,7 +879,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
                     }
                 case.failure(let error):
                     if let error = error as? AFError {
-                        
+                        completionHandler(false)
                         switch error {
                         case .invalidURL(let url):
                             print("Invalid URL: \(url) - \(error.localizedDescription)")
@@ -874,6 +907,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
                             print("Failure Reason: \(reason)")
                         }
                     } else if error is URLError {
+                        completionHandler(false)
                         let alert = UIAlertController(title: Util.localString(st: "alert"), message: Util.localString(st:"wifi_fail"), preferredStyle: .alert)
                         let OKAction = UIAlertAction(title: Util.localString(st: "ok"), style: .default) {(action:UIAlertAction!) in
                         }
@@ -1108,6 +1142,13 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     func getCurrentMillis()->Int64 {
         return Int64(Date().timeIntervalSince1970 * 1000)
     }
+    func setLotationLandscape(){
+           if let delegate = UIApplication.shared.delegate as? AppDelegate {
+            delegate.orientationLock = UIInterfaceOrientationMask.landscapeLeft
+              let value = UIInterfaceOrientation.landscapeLeft.rawValue
+               UIDevice.current.setValue(value, forKey: "orientation")
+         }
+    }
     func sendPunch(pr :CBPeripheral){
         
         //        if pr == self.leftPeripheral {
@@ -1179,7 +1220,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     //     }
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         let originalValues = Array<UInt8>(characteristic.value!)
-        print(originalValues)
+       // print(originalValues)
         let value = recvDataSplit(values: originalValues)
         if value.count == 0 { return}
         if error != nil {return}
@@ -1188,7 +1229,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
             self.block?.cancel()
             //유저에게 케리브레이션 할지 안할지 묻는 모듈
             self.sendProtocol(peripheral:peripheral,type:1,cmd:Constant.CMD_SENSOR_TYPE,what: 0)
-            print("aaaaaa")
+           // print("aaaaaa")
             // try {
             //                    if(isRightSensor){
             //                        if (rcvData[rcvData.length - 2 - 1] == ACK) { //Module Init
@@ -1265,7 +1306,8 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
             if value[value.count-2-1] == Constant.ACK  {
                 if self.leftPeripheral == peripheral {
                     leftPeripheral_Connect = true
-                    print("Seq 1 : UnityEmbeddedSwift.showUnity(self , self")
+                    setLotationLandscape()
+                    UnityEmbeddedSwift.showUnity(self , self)
                 }
             }
             break
@@ -1278,13 +1320,13 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
             //                }
             break
         case Constant.CMD_COUNT_RESULT:
-        
             let x = ((value[1] & 0xff) << 8) | (value[2] & 0xff)
             let y = ((value[3] & 0xff) << 8) | (value[4] & 0xff)
             let z = ((value[5] & 0xff) << 8) | (value[6] & 0xff)
-        
-            recvCount(x: Int(x), y:  Int(y), z: Int(z))
+           
+            self.recvCount(x: Int(x), y:  Int(y), z: Int(z))
             print("x=\(x) y=\(y) z=\(z) max=\(value.max() ?? 0)")
+                    
             
             
             //            if self.gameMode == GameMode.gameLobby{
@@ -1429,17 +1471,25 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
             //                }
             break
         case Constant.CMD_COUNT_CPU_SLEEP:
-            //                int intV = rcvData[rcvData.length - 2 - 1];
-            //                Log.e("mtome2", "슬립 받을때 배터리 : " + intV);
-            //                Intent intent2 = new Intent();
-            //                intent2.putExtra("BATTERY", intV);
-            //                intent2.setAction(isRightSensor ? BluetoothLeService.RECIEVE_SLEEP_1 : BluetoothLeService.RECIEVE_SLEEP_2);
-            //                broadcastUpdate(intent2);
+            showSleepIcon()
+//            if value[value.count-2-1] != nil{
+//
+//
+//            }
+          
             break
         default:
             break
         }
     }
+    
+    func showSleepIcon(){
+       if(mScene == 1){
+        UnityEmbeddedSwift.sendUnityMessage("AndroidManagerMovie", methodName: "setSleepIcon", message: "true");
+       }else{
+        UnityEmbeddedSwift.sendUnityMessage("AndroidManagerMovie2D", methodName: "setSleepIcon", message: "true");
+       }
+       }
     var mSpeedKMH : Float = 0
     let mReference : Float = 18000
     var mCount :Int = 0
@@ -1461,13 +1511,18 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
         }
         else if(total > 190000){
             stopSpeed()
+            isSensorMove = false
+            UnityEmbeddedSwift.sendUnityMessage("BPM_bgm", methodName: "stopSensor", message: "")
+            broadCastExData(isCounting: false)
+            
         }else{
             if(timeStop){
                 firstStartSpeed()
-                timeStop = false;
+                timeStop = false
             }else{
+                mCount = va[0]
                 mCount = va.max()!
-                mKcal = mShowingCount / mKPC;
+                mKcal = mShowingCount / mKPC
                 if(mPreCount != mCount){
                 if(mScene == 1){
                     UnityEmbeddedSwift.sendUnityMessage("AndroidManagerMovie", methodName: "setSleepIcon", message: "false")
@@ -1479,7 +1534,11 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
                   isFirstMusic = false
                   musicFinish()
                 }
-                speedControll(mode:0)
+//                if self.footBlock != nil{
+//                   self.footBlock?.cancel()
+//                   self.footBlock = nil
+//                }
+              
                 mCurTime = CLong(Util.getCurrentMillis())
                 let term : Int = mCurTime - mPreTime;
 
@@ -1488,14 +1547,17 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
                 if((mCount % 2) == 1){
                     mShowingCount += 1
                 }
-                calDistance();
+                calDistance()
                 setSpeed(spd: calSpeed(alpha: 0.65, spd:(mReference / Float(term))) / 2)
                 if(!isPlayWithoutMusic) {
                     footConfirm2()
+                    print("============footConfirm2========")
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.speedControll(mode: 1)
-                }
+//                self.footBlock = DispatchWorkItem(block:{
+//                            self.speedControll(mode:0)
+//                } )
+//                DispatchQueue.global().asyncAfter(deadline: .now() + 3.0, execute: self.footBlock!)
+                
                 broadCastExData(isCounting: true)
                 mPreCount = mCount;
                 mPreTime = mCurTime;
@@ -1511,7 +1573,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     var mTermInt: Int = 0
     
     func calcurateSuccessTerm(){
-        let valuef = String(format:"%.3f", Float(60 / mMusicRPM))
+        let valuef = String(format:"%.3f", Float(60.0 / Float(mMusicRPM)))
         let first = String(valuef[valuef.startIndex])
         let strRange = valuef.index(valuef.startIndex, offsetBy: 2) ... valuef.index(valuef.startIndex, offsetBy: 4)
         let second = first + valuef[strRange]
@@ -1524,19 +1586,23 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     
     func footConfirm2(){
         let rpm = Int(calRPM(spd: mSpeedKMH))
-        let v = mMusicRPM - rpm!    /// 90 - 100
-
-            if(abs(v) < passRPMDis){    //Success
-                mShowWarningCnt = 0;
+        let v = mMusicRPM - rpm!    /// 90 - 10
+        print("footConfirm \(v) rpm \(rpm ?? 0)")
+        if(abs(v) < passRPMDis) {  //Success
+                
+                mShowWarningCnt = 0
 
                 if(circleRighLleft){
-                    isRightFootSuccess = true;
+                    isRightFootSuccess = true
                     UnityEmbeddedSwift.sendUnityMessage("RightFoot", methodName: "RightFootPrint", message: isRightFootSuccess ? "SUCCESS" : "FAIL")
+                    print( isRightFootSuccess ? "SUCCESS" : "FAIL")
                 }else{
-                    isLeftFootSuccess = true;
+                    isLeftFootSuccess = true
                     UnityEmbeddedSwift.sendUnityMessage("LeftFoot", methodName: "LeftFootPrint", message: isLeftFootSuccess ? "SUCCESS" : "FAIL")
+                    print(isLeftFootSuccess ? "SUCCESS" : "FAIL")
                 }
-            }else if(v > passRPMDis){                  //Failed(Slow)
+            }
+            else if(v > passRPMDis){                  //Failed(Slow)
                 if(mShowWarningCnt >= 8){
                     UnityEmbeddedSwift.sendUnityMessage("Warning_Slow", methodName: "tooSlow", message: "");
                     mShowWarningCnt = 0
@@ -1550,8 +1616,8 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
                 mShowWarningCnt += 1
 
             }
-            isRightFootSuccess = false;
-            isLeftFootSuccess = false;
+            isRightFootSuccess = false
+            isLeftFootSuccess = false
     }
     var mDistance : Float = 0.0
     var mWheelDistance : Float = 4.2
@@ -1597,30 +1663,36 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
     func firstStartSpeed(){
         mPreTime = CLong(Util.getCurrentMillis())
         setSpeed(spd: calSpeed(alpha: 0.65, spd: 25.0))
-        timeStop = true
-        stopSpeed()
-        
+//        self.footBlock = DispatchWorkItem(block: {
+//            self.speedControll(mode:0)
+//        } )
+//        DispatchQueue.global().asyncAfter(deadline: .now() + 3.0, execute: self.footBlock!)
     }
     private let maxSpeed : Float = 30.0
     private let maxXSpeed : Float = 2.0
     func setSpeed(spd :Float){
+        print("spd=\(spd)")
         mSpeedKMH = spd / 2
         UnityEmbeddedSwift.sendUnityMessage("ToggleCycleImage", methodName: "changeToggle", message: "")
         var setSpeedValue:Float = 0.0
         if(mSpeedKMH < (maxSpeed/1.65)){
             setSpeedValue = mSpeedKMH * (maxXSpeed / (maxSpeed/1.65))
-            
+            print(" VideoPlayer mSpeedKMH\(String(setSpeedValue))")
         }else{
             setSpeedValue = maxXSpeed
+            print(" VideoPlayer maxXSpeed\(String(setSpeedValue))")
         }
         let kmh = calRPM(spd: mSpeedKMH)
-        UnityEmbeddedSwift.sendUnityMessage("VideoPlayer", methodName: "setSpeed", message: String(setSpeedValue))
+        UnityEmbeddedSwift.sendUnityMessage("VideoPlayer", methodName: "setSpeed", message: String(format: "%.1f",setSpeedValue))
+        
         UnityEmbeddedSwift.sendUnityMessage("Cycle1SetSpeed", methodName: "setSpeed", message: String(format:"%.0f", mSpeedKMH * 1.65))
+       // print("Cycle1SetSpeed setSpeed\(String(format:"%.0f", mSpeedKMH * 1.65))")
         UnityEmbeddedSwift.sendUnityMessage("Cycle1SetRPM", methodName: "setRPM", message: spd == 0 ? "0" : String(kmh))
+       // print("Cycle1SetRPM speed \(spd == 0 ? "0" : String(kmh))")
         UnityEmbeddedSwift.sendUnityMessage("DistanceTXT", methodName: "setDistance", message: String(format:"%.2f", mDistance))
-         
+       // print("DistanceTXT\(String(format:"%.2f", mDistance))")
     }
-    
+
     //스피드 계산
     private var mean: Float = 0.0
     private var pre_spd : Float = 0.0
@@ -1680,12 +1752,14 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
         }
     }
     var musicCnt : Int = 1
+    
     func musicFinish(){
          if(!isPlayWithoutMusic){
-            if(musicCnt > musciInfo.count){
-                   musicCnt = 1
-          }
-            if musciInfo.count > 0{
+            if(musicCnt >=
+                musciInfo.count){
+                   musicCnt = 0
+           }
+            if self.timer != nil {
                 self.timer?.cancel()
                 self.timer = nil
           }
@@ -1701,8 +1775,10 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
         NSLog("startTimer")
         let queue = DispatchQueue(label: "com.domain.app.timer", qos: .userInteractive)
         timer = DispatchSource.makeTimerSource(flags: .strict, queue: queue)
-        timer.schedule(deadline: .now(), repeating:mBPMTerm, leeway: .nanoseconds(0))
+        timer.schedule(deadline: .now(), repeating:(mBPMTerm / 1000), leeway: .nanoseconds(0))
         timer.setEventHandler {
+            
+            print("timer call")
             if(self.isSensorMove){
                 UnityEmbeddedSwift.sendUnityMessage("BPM_bgm", methodName: "resumeMusic", message: "")
                 UnityEmbeddedSwift.sendUnityMessage("BPM_bgm", methodName: "startSensor", message: "")
@@ -1729,29 +1805,53 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
             stopSpeed()
             break
         case 1:
-            //BPMCircleStart()
+            BPMCircleStart()
             break
         default:
             break
         }
-        
     }
-    
     //MARK: 유니티 에서 네이티브 콜 함수
-    
     func unityStartScene(){
         UnityEmbeddedSwift.sendUnityMessage("ReadySceneManager", methodName: "TestLoadLevel", message:mScene == 1 ? "1" : "2" )
     }
     func unityInit(){
-        UnityEmbeddedSwift.sendUnityMessage("ReadySceneManager", methodName: "TestLoadLevel", message:mScene == 1 ? "1" : "2" )
+        //언어 셋팅
+        UnityEmbeddedSwift.sendUnityMessage("AndroidManagerMovie", methodName: "setLanguageImage",message: "1" )
         if  mScene == 1{
             UnityEmbeddedSwift.sendUnityMessage("VideoPlayer", methodName: "setMovieURLList", message: mMoviePath)
         }else{
             UnityEmbeddedSwift.sendUnityMessage("VideoPlayer", methodName: "setMovieURLList2D", message: mMoviePath)
         }
     }
+    func getScreenMode(){
+        UnityEmbeddedSwift.sendUnityMessage("Main Camera", methodName: "setScreenMode", message: mUseGoggle)
+    }
 }
-extension ViewController : LoginControllerDelegate,SideMenuNavigationControllerDelegate,IAxisValueFormatter,UnityInit,NativeCallsProtocol{
+extension ViewController : LoginControllerDelegate,SideMenuNavigationControllerDelegate,IAxisValueFormatter,UnityInit,
+                           NativeCallsProtocol,SceneControllDelegate{
+    func playGame(dic:[String:Any]) {
+        
+        if let patch = dic["patch"]{ self.mMoviePath = patch as! String}
+        if let google = dic["google"]{ self.mUseGoggle = google as! String}
+        if let language = dic["mLanguage"]{ self.mLanguage = language as! String}
+        if let scene = dic["scene"]{ self.mScene = scene as! Int}
+         if self.leftPeripheral != nil{
+            
+         self.connectLeftBle()
+         
+         if(self.sendData.count > 0){
+            self.connectLeftBle()
+         }else{
+                    showAlert(style: .alert, text:Util.localString(st: "empty_music_warning"),alt_mode: .NONMUSIC)
+            }
+         }
+         else {Util.Toast.show(message: Util.localString(st: "empty_sensor"), controller: self)}
+    }
+    
+    func selectSceneMode(mode: Bool) {
+        
+    }
     func unityLodingCall(){
         
     }
@@ -1760,8 +1860,17 @@ extension ViewController : LoginControllerDelegate,SideMenuNavigationControllerD
             unityStartScene()
         }
         else if msg.contains("unityInit"){
+            unityInit()
+        }
+        else if msg.contains("getScreenMode"){
             
-            
+            getScreenMode()
+        }
+        else if msg.contains("musicStarted"){
+            musicStart()
+        }
+        else if msg.contains("musicFinish"){
+            musicFinish()
         }
     }
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {

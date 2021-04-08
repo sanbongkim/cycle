@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:../IOSPlugin/Unity-iPhone.xcodeproj">
+      location = "group:../../EmbedUnity/Cycle360/Unity-iPhone.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:cycle.xcodeproj">

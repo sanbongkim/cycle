@@ -31,3 +31,8 @@ protocol TutorialPageViewDelegate{
 protocol TutorialControllerDelegate{
      func closeTutorial()
 }
+protocol SceneControllDelegate{
+    
+    func selectSceneMode(mode: Bool)
+    func playGame(dic:[String:Any])
+}

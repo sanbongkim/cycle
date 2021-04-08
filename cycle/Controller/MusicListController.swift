@@ -37,6 +37,9 @@ class MusicListController : UIViewController{
     var musicSetInfo = [MusicInfo]()
     var musicInfos = [MusicInfo]()
     var checkMaxcnt:Int32 = 0
+    
+    var  longPressGesture : UILongPressGestureRecognizer?
+    var  singlePressGesture : UITapGestureRecognizer?
     override func viewDidLoad() {
         tableview.register( UINib(nibName: "LiveInfoCell", bundle: nil), forCellReuseIdentifier: "LiveInfoCell")
         tableview.tag = downmode
@@ -47,8 +50,11 @@ class MusicListController : UIViewController{
         musicSetTb.isHidden = true
         self.getMusicList()
         musicDownload.isSelected = true
+        setupLongPress()
+       // setupTapPress()
     }
     override func viewDidDisappear(_ animated: Bool) {
+      
         super.viewDidDisappear(true)
     }
     @IBAction func musicDownloadAction(_ sender: Any) {
@@ -512,4 +518,72 @@ extension MusicListController:UITableViewDelegate,UITableViewDataSource{
         }
         self.tableview .reloadData()
      }
+}
+extension MusicListController:UIGestureRecognizerDelegate {
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+
+    func setupLongPress() {
+
+        longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPress))
+        longPressGesture!.minimumPressDuration = 1.0 // 1 second press
+        longPressGesture!.delegate = self
+        longPressGesture!.cancelsTouchesInView = false
+        self.musicSetTb.addGestureRecognizer(longPressGesture!)
+    }
+    func setupTapPress() {
+
+        singlePressGesture = UITapGestureRecognizer(target: self, action: #selector(tapPress))
+        singlePressGesture!.delegate = self
+        singlePressGesture!.cancelsTouchesInView = false
+        self.musicSetTb.addGestureRecognizer(singlePressGesture!)
+    }
+    @objc func tapPress(gesture: UIGestureRecognizer) {
+
+        if gesture.state == .ended {
+            let touchPoint = gesture.location(in: self.tableview)
+            if let indexPath = tableview.indexPathForRow(at: touchPoint) {
+                // do your task on single tap
+            }
+        }
+    }
+
+    @objc func longPress(longPressGestureRecognizer: UILongPressGestureRecognizer) {
+
+        if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
+
+            let touchPoint = longPressGestureRecognizer.location(in: self.musicSetTb)
+            if let indexPath = musicSetTb.indexPathForRow(at: touchPoint) {
+                print(indexPath.row)
+                let mInfo:MusicInfo = musicSetInfo [indexPath.row]
+                    let alert = UIAlertController.init(title: Util.localString(st: "alert"), message: Util.localString(st: "music_remove") + "[\(mInfo.title ?? "")]", preferredStyle: .alert)
+                    let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+                        DispatchQueue.main.async() {
+                            self.deleteFile(fileName: mInfo.title!+".mp3")
+                            mInfo.isDownload=false
+                            _ = DatabaseManager.getInstance().saveData(model:mInfo)
+                            mInfo.musicCheck = 0
+                            self.checkMaxcnt = 0
+                            DatabaseManager.getInstance().musicCheckReSetUpdate()
+
+                            self.musicSetInfo.removeAll()
+                            self.musicSetInfo = DatabaseManager.getInstance().selectQuery(query: "")
+                            self.musicSetTb.reloadData()
+                            Util.Toast.show(message: Util.localString(st: "remove_music_success"), controller: self)
+                            
+                        }
+                    })
+                    let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
+                        
+                    })
+                    alert.addAction(ok)
+                    alert.addAction(cancel)
+                    self.present(alert, animated: true, completion: nil)
+                
+            }
+        }
+    }
+    
 }

@@ -201,7 +201,7 @@ class DatabaseManager : NSObject{
     }
     func selectMusic()->[MusicInfo]{
         var model : [MusicInfo] = []
-        let queryString = "SELECT *from boxinfo where down = 1 order by music asc"
+        let queryString = "SELECT *from boxinfo where down = 1 order by musicCheck asc"
          shareInstance.database?.open()
         let result = shareInstance.database?.executeQuery(queryString, withArgumentsIn: [])
         while(result!.next()){
