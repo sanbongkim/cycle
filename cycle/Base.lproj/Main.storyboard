@@ -1077,6 +1077,7 @@
                                         <state key="normal" image="sensor_setting_page_btn"/>
                                         <connections>
                                             <action selector="sensorSetAction:" destination="Aos-mh-oeA" eventType="touchUpInside" id="vif-Ed-L0x"/>
+                                            <segue destination="Qib-a4-DLd" kind="presentation" modalPresentationStyle="currentContext" id="8C8-Fm-Fh7"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1X0-0C-UO1">
@@ -1123,7 +1124,6 @@
                     <connections>
                         <outlet property="calorieSet" destination="1X0-0C-UO1" id="cHg-dw-IUb"/>
                         <outlet property="sensorDel" destination="O9i-jr-B9N" id="jdu-sJ-sKQ"/>
-                        <outlet property="sensorSet" destination="V3k-yg-hRH" id="rlG-kF-wPb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OXb-v0-iLl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2994,7 +2994,7 @@
                                 </constraints>
                                 <state key="normal" image="btn_back"/>
                                 <connections>
-                                    <action selector="backButtonAction:" destination="Qib-a4-DLd" eventType="touchUpInside" id="rDc-8M-sup"/>
+                                    <action selector="backAction:" destination="Qib-a4-DLd" eventType="touchUpInside" id="k4G-X2-wYf"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="MXU-7h-8jh">
@@ -3018,6 +3018,9 @@
                                                         <state key="normal" title="Calibration Start">
                                                             <color key="titleColor" red="0.46425569059999999" green="0.52716547250000001" blue="0.63138657809999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="cabStartAction:" destination="Qib-a4-DLd" eventType="touchUpInside" id="hEo-XR-fBz"/>
+                                                        </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1. attt" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nDm-p9-Wi3">
                                                         <rect key="frame" x="10" y="5" width="374" height="95.5"/>
@@ -3054,30 +3057,49 @@
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LL9-eY-Baw">
                                                                 <rect key="frame" x="0.0" y="0.0" width="84.5" height="30"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" title="Type1">
                                                                     <color key="titleColor" red="0.46425569059999999" green="0.52716547250000001" blue="0.63138657809999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 </state>
+                                                                <state key="selected">
+                                                                    <color key="titleShadowColor" systemColor="systemYellowColor"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="type1Action:" destination="Qib-a4-DLd" eventType="touchUpInside" id="pYX-I2-rju"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="te8-DI-jAL">
                                                                 <rect key="frame" x="92.5" y="0.0" width="84.5" height="30"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" title="Type2">
                                                                     <color key="titleColor" red="0.44492053990000002" green="0.51500505210000003" blue="0.63530993459999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 </state>
+                                                                <connections>
+                                                                    <action selector="type2:" destination="Qib-a4-DLd" eventType="touchUpInside" id="O8d-9j-vVD"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VJX-BJ-NAX">
                                                                 <rect key="frame" x="185" y="0.0" width="84.5" height="30"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" title="Type3">
                                                                     <color key="titleColor" red="0.44492053990000002" green="0.51500505210000003" blue="0.63530993459999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 </state>
+                                                                <connections>
+                                                                    <action selector="type3:" destination="Qib-a4-DLd" eventType="touchUpInside" id="SEh-UG-jic"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RHr-Y9-Pit">
                                                                 <rect key="frame" x="277.5" y="0.0" width="84.5" height="30"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" title="Type4">
                                                                     <color key="titleColor" red="0.44492053990000002" green="0.51500505210000003" blue="0.63530993459999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 </state>
+                                                                <connections>
+                                                                    <action selector="type4:" destination="Qib-a4-DLd" eventType="touchUpInside" id="81R-Ge-X7a"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
@@ -3112,7 +3134,10 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ubo-ik-rwD">
-                                                        <rect key="frame" x="8" y="78" width="52" height="66.5"/>
+                                                        <rect key="frame" x="8" y="81" width="52" height="66"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="ubo-ik-rwD" secondAttribute="height" multiplier="26:33" id="DOd-tf-lCu"/>
+                                                        </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -3121,31 +3146,42 @@
                                                         <rect key="frame" x="255" y="96" width="123" height="36"/>
                                                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                                         <state key="normal" title="Start"/>
+                                                        <connections>
+                                                            <action selector="startButton:" destination="Qib-a4-DLd" eventType="touchUpInside" id="mo3-eD-VH7"/>
+                                                        </connections>
                                                     </button>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0QY-0m-giq">
+                                                        <rect key="frame" x="68" y="104" width="179" height="20"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="20" id="YPm-sj-BLM"/>
+                                                        </constraints>
+                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemTealColor"/>
                                                 <constraints>
                                                     <constraint firstItem="cO2-rM-Tf3" firstAttribute="top" secondItem="AFn-di-WyJ" secondAttribute="top" constant="8" id="1Vo-U2-lWo"/>
                                                     <constraint firstAttribute="trailing" secondItem="eRO-mF-ubA" secondAttribute="trailing" id="1k2-nU-gFt"/>
-                                                    <constraint firstItem="ubo-ik-rwD" firstAttribute="width" secondItem="hLA-yk-3mr" secondAttribute="width" multiplier="0.13198" id="3bU-A0-ySe"/>
                                                     <constraint firstAttribute="trailing" secondItem="hLA-yk-3mr" secondAttribute="trailing" id="4Sf-TK-BD3"/>
                                                     <constraint firstItem="eRO-mF-ubA" firstAttribute="height" secondItem="hLA-yk-3mr" secondAttribute="height" multiplier="0.21" id="7Y2-rN-x4g"/>
                                                     <constraint firstAttribute="bottom" secondItem="hLA-yk-3mr" secondAttribute="bottom" id="9iK-al-wJ3"/>
                                                     <constraint firstAttribute="trailing" secondItem="cO2-rM-Tf3" secondAttribute="trailing" constant="8" id="ALs-a6-0pc"/>
+                                                    <constraint firstItem="0QY-0m-giq" firstAttribute="centerY" secondItem="HQE-UI-sU8" secondAttribute="centerY" id="Ahp-m7-7aY"/>
                                                     <constraint firstItem="eRO-mF-ubA" firstAttribute="top" secondItem="cO2-rM-Tf3" secondAttribute="bottom" constant="4" id="LJs-w7-XSR"/>
                                                     <constraint firstAttribute="trailing" secondItem="HQE-UI-sU8" secondAttribute="trailing" constant="16" id="M0V-9G-lj2"/>
                                                     <constraint firstAttribute="bottom" secondItem="HQE-UI-sU8" secondAttribute="bottom" constant="20" id="M2c-8y-QyQ"/>
-                                                    <constraint firstItem="ubo-ik-rwD" firstAttribute="top" secondItem="eRO-mF-ubA" secondAttribute="bottom" constant="2" id="M5G-Yv-F6R"/>
+                                                    <constraint firstItem="HQE-UI-sU8" firstAttribute="leading" secondItem="0QY-0m-giq" secondAttribute="trailing" constant="8" symbolic="YES" id="M8H-XH-3bf"/>
                                                     <constraint firstItem="cO2-rM-Tf3" firstAttribute="leading" secondItem="AFn-di-WyJ" secondAttribute="leading" constant="8" id="Mdk-Kv-YnA"/>
-                                                    <constraint firstItem="ubo-ik-rwD" firstAttribute="height" secondItem="hLA-yk-3mr" secondAttribute="height" multiplier="0.436404" id="Oj8-g7-g2b"/>
                                                     <constraint firstItem="hLA-yk-3mr" firstAttribute="top" secondItem="AFn-di-WyJ" secondAttribute="top" id="OwA-w4-nex"/>
-                                                    <constraint firstItem="ubo-ik-rwD" firstAttribute="leading" secondItem="AFn-di-WyJ" secondAttribute="leading" constant="8" id="VNJ-GS-n9C"/>
+                                                    <constraint firstItem="ubo-ik-rwD" firstAttribute="centerY" secondItem="0QY-0m-giq" secondAttribute="centerY" id="Xlm-xC-mxj"/>
                                                     <constraint firstItem="HQE-UI-sU8" firstAttribute="width" secondItem="hLA-yk-3mr" secondAttribute="width" multiplier="0.312183" id="fB3-kG-HNo"/>
-                                                    <constraint firstItem="hLA-yk-3mr" firstAttribute="leading" secondItem="ubo-ik-rwD" secondAttribute="trailing" constant="-60" id="fDD-m8-jji"/>
                                                     <constraint firstItem="eRO-mF-ubA" firstAttribute="leading" secondItem="AFn-di-WyJ" secondAttribute="leading" constant="8" id="gzN-2H-hYd"/>
+                                                    <constraint firstItem="ubo-ik-rwD" firstAttribute="width" secondItem="hLA-yk-3mr" secondAttribute="width" multiplier="0.13198" id="kOp-Iv-Y1Z"/>
+                                                    <constraint firstItem="0QY-0m-giq" firstAttribute="leading" secondItem="ubo-ik-rwD" secondAttribute="trailing" constant="8" symbolic="YES" id="oOg-Nd-T3I"/>
                                                     <constraint firstItem="HQE-UI-sU8" firstAttribute="height" secondItem="hLA-yk-3mr" secondAttribute="height" multiplier="0.236842" id="qiO-EV-Vmc"/>
                                                     <constraint firstItem="cO2-rM-Tf3" firstAttribute="height" secondItem="hLA-yk-3mr" secondAttribute="height" multiplier="0.21" id="sJJ-r5-5Gi"/>
                                                     <constraint firstItem="hLA-yk-3mr" firstAttribute="leading" secondItem="AFn-di-WyJ" secondAttribute="leading" id="vgK-O5-4lU"/>
+                                                    <constraint firstItem="ubo-ik-rwD" firstAttribute="leading" secondItem="AFn-di-WyJ" secondAttribute="leading" constant="8" id="yGh-QM-IMm"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -3185,12 +3221,18 @@
                     </view>
                     <navigationItem key="navigationItem" id="dnd-xc-muU"/>
                     <connections>
-                        <outlet property="backButton" destination="j8L-5E-oGP" id="5Hv-dF-pns"/>
+                        <outlet property="backButton" destination="j8L-5E-oGP" id="xbT-d4-Rwg"/>
+                        <outlet property="cabStartButton" destination="yrk-hy-TcW" id="6tC-3M-rVi"/>
+                        <outlet property="countLabel" destination="ubo-ik-rwD" id="VM0-ob-toK"/>
+                        <outlet property="typeButton1" destination="LL9-eY-Baw" id="FC1-5p-UFf"/>
+                        <outlet property="typeButton2" destination="te8-DI-jAL" id="bBG-d9-0lk"/>
+                        <outlet property="typeButton3" destination="VJX-BJ-NAX" id="pMy-Wv-v8R"/>
+                        <outlet property="typeButton4" destination="RHr-Y9-Pit" id="Mn7-3g-p9J"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UNl-KY-lhm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1840.5797101449277" y="-23.4375"/>
+            <point key="canvasLocation" x="-675.36231884057975" y="727.90178571428567"/>
         </scene>
         <!--Vod List Controller-->
         <scene sceneID="nCM-pG-s3I">
@@ -3393,6 +3435,9 @@
         </systemColor>
         <systemColor name="systemTealColor">
             <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

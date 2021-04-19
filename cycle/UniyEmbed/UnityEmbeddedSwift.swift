@@ -80,8 +80,7 @@ class UnityEmbeddedSwift: UIResponder, UIApplicationDelegate, UnityFrameworkList
         }
     }
     
-    // MARK - Callback from UnityFrameworkListener
-    
+
     func unityDidUnload(_ notification: Notification!) {
         ufw.unregisterFrameworkListener(self)
         ufw = nil

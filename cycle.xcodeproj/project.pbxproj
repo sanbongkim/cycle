@@ -670,11 +670,11 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mtome.cycle.cycle;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mtome.cycle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = $PROJECT_DIR/NativeCall/NativeCallProxy.h;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -692,11 +692,11 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mtome.cycle.cycle;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mtome.cycle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = $PROJECT_DIR/NativeCall/NativeCallProxy.h;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

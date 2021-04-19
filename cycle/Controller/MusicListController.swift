@@ -549,7 +549,6 @@ extension MusicListController:UIGestureRecognizerDelegate {
             }
         }
     }
-
     @objc func longPress(longPressGestureRecognizer: UILongPressGestureRecognizer) {
 
         if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
@@ -567,16 +566,13 @@ extension MusicListController:UIGestureRecognizerDelegate {
                             mInfo.musicCheck = 0
                             self.checkMaxcnt = 0
                             DatabaseManager.getInstance().musicCheckReSetUpdate()
-
                             self.musicSetInfo.removeAll()
                             self.musicSetInfo = DatabaseManager.getInstance().selectQuery(query: "")
                             self.musicSetTb.reloadData()
                             Util.Toast.show(message: Util.localString(st: "remove_music_success"), controller: self)
-                            
                         }
                     })
                     let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
-                        
                     })
                     alert.addAction(ok)
                     alert.addAction(cancel)

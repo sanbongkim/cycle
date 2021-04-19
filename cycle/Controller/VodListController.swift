@@ -281,9 +281,10 @@ extension VodListController : UITableViewDelegate,UITableViewDataSource{
                 let minutes = Util.getStringFrom(seconds: minutes)
                 let seconds = Util.getStringFrom(seconds: seconds)
                 time = minutes+":"+seconds
+                cell.playTime.text = time
             }
         }
-        cell.playTime.text = time
+      
         if  let image = videoInfo.image{
             cell.thumNail.image = Util.convertBase64StringToImage(imageBase64String:image)
         }
@@ -306,8 +307,12 @@ extension VodListController : UITableViewDelegate,UITableViewDataSource{
             "mLanguage" : Util.getlan() == "ko" ? "1" : "2",             // type: Int
             "scene" : vrButton.isSelected ? 1 : 0
             ]
-        
-        self.delegate?.playGame(dic: pleDict)
+        self.dismiss(animated: false, completion:{
+            
+            self.delegate?.playGame(dic: pleDict)
+        })
+      
+       
         
     }
     @objc func removeVideoActon(snder:UIButton){

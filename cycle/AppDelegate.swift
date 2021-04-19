@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import UnityFramework
 @available(iOS 13.0, *)
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = UIColor(red: 255.0/255.0, green: 193/255.0, blue: 186.0/255.0, alpha: 1.0)
         // UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         UINavigationBar.appearance().isTranslucent = false
+        UnityEmbeddedSwift.setHostMainWindow(window)
         return true
     }
     func applicationWillResignActive(_ application: UIApplication) {
