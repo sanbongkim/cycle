@@ -21,16 +21,16 @@ class SensorSettingHelpViewController: UIViewController{
     
     
     override func viewDidLoad() {
-        NotificationCenter.default.post(name:NSNotification.Name(rawValue: "locationNoti"),object:"",userInfo: ["notivalue" : 1000])
+        //NotificationCenter.default.post(name:NSNotification.Name(rawValue: "locationNoti"),object:"",userInfo: ["notivalue" : 1000])
         super.viewDidLoad()
     }
     @IBAction func backAction(_ sender: Any) {
         NotificationCenter.default.post(name:NSNotification.Name(rawValue: "locationNoti"),object:"",userInfo: ["notivalue" : 2000])
         self.dismiss(animated: false, completion: {
+            
         })
     }
     @IBAction func cabStartAction(_ sender: Any) {
-        
         NotificationCenter.default.post(name:NSNotification.Name(rawValue: "locationNoti"),object:"",userInfo: ["notivalue" : 100])
     }
     @IBAction func type1Action(_ sender: Any) {
@@ -44,8 +44,6 @@ class SensorSettingHelpViewController: UIViewController{
         typeButton3.backgroundColor = .white
         typeButton4.isSelected = false
         typeButton4.backgroundColor = .white
-        
-        
         NotificationCenter.default.post(name:NSNotification.Name(rawValue: "locationNoti"),object:"",userInfo: ["notivalue" : 101])
     }
     @IBAction func type2(_ sender: Any) {

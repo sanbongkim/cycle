@@ -37,9 +37,8 @@ class MusicListController : UIViewController{
     var musicSetInfo = [MusicInfo]()
     var musicInfos = [MusicInfo]()
     var checkMaxcnt:Int32 = 0
-    
-    var  longPressGesture : UILongPressGestureRecognizer?
-    var  singlePressGesture : UITapGestureRecognizer?
+    var longPressGesture : UILongPressGestureRecognizer?
+    var singlePressGesture : UITapGestureRecognizer?
     override func viewDidLoad() {
         tableview.register( UINib(nibName: "LiveInfoCell", bundle: nil), forCellReuseIdentifier: "LiveInfoCell")
         tableview.tag = downmode

@@ -145,7 +145,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
             if self.leftPeripheral?.state == .connected{
                 Util.Toast.show(message: "try Calibration...", controller: topMostController()!)
                 self.sendProtocol(peripheral:leftPeripheral!,type:0,cmd:Constant.CMD_CALIBRATION_GYRO_START,what: 0)
-                
             }
             break
         case 101:
@@ -220,7 +219,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate,ChartView
             self.present(alert, animated: true, completion: nil)
             
         }
-        
         if self.leftPeripheral != nil{
              
             let vc = board.instantiateViewController(withIdentifier: "AlertCalorieSetVC") as! AlertCalorieSetVC
